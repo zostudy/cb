@@ -1,0 +1,9 @@
+server:
+  port: 19007
+  context-path: /demo
+
+logging:
+  level:
+    ROOT: debug
+  file: logs/demo.log
+

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysWfRoleDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysWfRoleRepository" >
+        <id column="WF_ROLE_ID" property="wfRoleId" jdbcType="INTEGER" />
+        <result column="WF_ID" property="wfId" jdbcType="INTEGER" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+        <result column="LINK_ID" property="linkId" jdbcType="INTEGER" />
+        <result column="OP_ID" property="opId" jdbcType="INTEGER" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <result column="STATE" property="state" jdbcType="INTEGER" />
+        <result column="PROCESS_KEY" property="processKey" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_WF_ROLE$SEQ.nextval</sql>
+
+    <insert id="saveSysWfRole" parameterType="com.asiainfo.rms.system.domain.SysWfRoleRepository" >
+        <selectKey keyProperty="wfRoleId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_WF_ROLE$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_WF_ROLE
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                WF_ROLE_ID,
+            <if test="wfId != null" >
+                WF_ID,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="code != null" >
+                CODE,
+            </if>
+            <if test="notes != null" >
+                NOTES,
+            </if>
+            <if test="linkId != null" >
+                LINK_ID,
+            </if>
+            <if test="opId != null" >
+                OP_ID,
+            </if>
+            <if test="createDate != null" >
+                CREATE_DATE,
+            </if>
+            <if test="state != null" >
+                STATE,
+            </if>
+            <if test="processKey != null" >
+                PROCESS_KEY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+           #{wfRoleId,jdbcType=INTEGER},
+            <if test="wfId != null" >
+                #{wfId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="linkId != null" >
+                #{linkId,jdbcType=INTEGER},
+            </if>
+            <if test="opId != null" >
+                #{opId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=DATE},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="processKey != null" >
+                #{processKey,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSysWfRole" parameterType="com.asiainfo.rms.system.domain.SysWfRoleRepository" >
+        update SYS_WF_ROLE
+        <set >
+            <if test="wfId != null" >
+                WF_ID = #{wfId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                NOTES = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="linkId != null" >
+                LINK_ID = #{linkId,jdbcType=INTEGER},
+            </if>
+            <if test="opId != null" >
+                OP_ID = #{opId,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null" >
+                CREATE_DATE = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="state != null" >
+                STATE = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="processKey != null" >
+                PROCESS_KEY = #{processKey,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where WF_ROLE_ID = #{wfRoleId,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteSysWfRoleById" parameterType="com.asiainfo.rms.system.domain.SysWfRoleRepository" >
+        update SYS_WF_ROLE
+        set state = 0
+        where WF_ROLE_ID = #{wfRoleId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getSysWfRoleCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.* from SYS_WF_ROLE T
+        where 1=1
+        and state =1
+        <if test="keyword !=null">and (code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or name like CONCAT(CONCAT('%',#{keyword}),'%'))</if>
+        <if test="processKey != null">
+            and PROCESS_KEY = #{processKey,jdbcType=VARCHAR}
+        </if>
+        <if test="selectedStationId !=null">
+            and t.wf_role_id not in(SELECT t1.wf_role_id FROM sys_station_wf_role t1 WHERE t1.station_id=#{selectedStationId,jdbcType=INTEGER})
+        </if>
+        )
+    </select>
+
+    <select id="selectSysWfRole" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.* from SYS_WF_ROLE T
+        where 1=1
+        and state =1
+        <if test="keyword !=null">and (code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or name like CONCAT(CONCAT('%',#{keyword}),'%'))</if>
+        <if test="processKey != null">
+            and PROCESS_KEY = #{processKey,jdbcType=VARCHAR}
+        </if>
+        <if test="selectedStationId !=null">
+            and t.wf_role_id not in(SELECT t1.wf_role_id FROM sys_station_wf_role t1 WHERE t1.station_id=#{selectedStationId,jdbcType=INTEGER})
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="selectAllCode" resultMap="BaseResultMap" resultType="java.lang.Integer">
+        select code from SYS_WF_ROLE
+        where WF_ROLE_ID = (select max(WF_ROLE_ID)from SYS_WF_ROLE)
+    </select>
+
+    <select id="getCountRemoveId" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.* from SYS_WF_ROLE T
+        where 1=1
+        and state =1
+        <if test="keyword != null">
+            and code = #{keyword}
+        </if>
+        <if test="wfRoleId !=null">
+            and wf_role_id != #{wfRoleId}
+        </if>
+        )
+    </select>
+
+</mapper>

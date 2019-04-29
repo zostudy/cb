@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpSgExtendDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpSgExtendRepository">
+        <id column="AAS_ID" property="aasId" jdbcType="INTEGER"/>
+        <result column="ART_TYPE" property="artType" jdbcType="INTEGER"/>
+        <result column="GIVE_POINT" property="givePoint" jdbcType="INTEGER"/>
+        <result column="GIVE_TIME_TYPE1" property="giveTimeType1" jdbcType="INTEGER"/>
+        <result column="GIVE_TIMETYPE_CONT1" property="giveTimetypeCont1" jdbcType="VARCHAR"/>
+        <result column="GIVE_TIME_AMOUNT1" property="giveTimeAmount1" jdbcType="INTEGER"/>
+        <result column="GIVE_TIME_CONTRACT1" property="giveTimeContract1" jdbcType="INTEGER"/>
+        <result column="MONTH_TIME_BACK1" property="monthTimeBack1" jdbcType="INTEGER"/>
+        <result column="GIVE_TIME_TYPE2" property="giveTimeType2" jdbcType="INTEGER"/>
+        <result column="GIVE_TIMETYPE_CONT2" property="giveTimetypeCont2" jdbcType="VARCHAR"/>
+        <result column="GIVE_TIME_AMOUNT2" property="giveTimeAmount2" jdbcType="INTEGER"/>
+        <result column="GIVE_TIME_CONTRACT2" property="giveTimeContract2" jdbcType="INTEGER"/>
+        <result column="MONTH_TIME_BACK2" property="monthTimeBack2" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFFIC_TYPE1" property="giveTrafficType1" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFCTYPE_CONT1" property="giveTrafctypeCont1" jdbcType="VARCHAR"/>
+        <result column="GIVE_TRAFFIC_AMOUNT1" property="giveTrafficAmount1" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFFIC_CONTRACT1" property="giveTrafficContract1" jdbcType="INTEGER"/>
+        <result column="MONTH_TRAFFIC_BACK1" property="monthTrafficBack1" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFFIC_TYPE2" property="giveTrafficType2" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFCTYPE_CONT2" property="giveTrafctypeCont2" jdbcType="VARCHAR"/>
+        <result column="GIVE_TRAFFIC_AMOUNT2" property="giveTrafficAmount2" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFFIC_CONTRACT2" property="giveTrafficContract2" jdbcType="INTEGER"/>
+        <result column="MONTH_TRAFFIC_BACK2" property="monthTrafficBack2" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFFIC_TYPE3" property="giveTrafficType3" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFCTYPE_CONT3" property="giveTrafctypeCont3" jdbcType="VARCHAR"/>
+        <result column="GIVE_TRAFFIC_AMOUNT3" property="giveTrafficAmount3" jdbcType="INTEGER"/>
+        <result column="GIVE_TRAFFIC_CONTRACT3" property="giveTrafficContract3" jdbcType="INTEGER"/>
+        <result column="MONTH_TRAFFIC_BACK3" property="monthTrafficBack3" jdbcType="INTEGER"/>
+        <result column="GIVE_BILL" property="giveBill" jdbcType="INTEGER"/>
+        <result column="GIVE_BILL_CONTRACT" property="giveBillContract" jdbcType="INTEGER"/>
+        <result column="GIVE_BILL_AMOUNT" property="giveBillAmount" jdbcType="INTEGER"/>
+        <result column="GIVE_BILL_PASSBOOK" property="giveBillPassbook" jdbcType="INTEGER"/>
+        <result column="GIVE_BILLPB_CONT" property="giveBillpbCont" jdbcType="VARCHAR"/>
+        <result column="GIVE_ELECOUP_NUM" property="giveElecoupNum" jdbcType="VARCHAR"/>
+        <result column="GIVE_ELECOUP" property="giveElecoup" jdbcType="INTEGER"/>
+        <result column="GIVE_POINT_PRICE" property="givePointPrice" jdbcType="INTEGER"/>
+        <result column="AAT_ID" property="aatId" jdbcType="INTEGER"/>
+        <result column="ONLINE_STATE" property="onlineState" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    AAS_ID, ART_TYPE, GIVE_POINT, GIVE_TIME_TYPE1, GIVE_TIMETYPE_CONT1, GIVE_TIME_AMOUNT1, 
+    GIVE_TIME_CONTRACT1, MONTH_TIME_BACK1, GIVE_TIME_TYPE2, GIVE_TIMETYPE_CONT2, GIVE_TIME_AMOUNT2, 
+    GIVE_TIME_CONTRACT2, MONTH_TIME_BACK2, GIVE_TRAFFIC_TYPE1, GIVE_TRAFCTYPE_CONT1, 
+    GIVE_TRAFFIC_AMOUNT1, GIVE_TRAFFIC_CONTRACT1, MONTH_TRAFFIC_BACK1, GIVE_TRAFFIC_TYPE2, 
+    GIVE_TRAFCTYPE_CONT2, GIVE_TRAFFIC_AMOUNT2, GIVE_TRAFFIC_CONTRACT2, MONTH_TRAFFIC_BACK2, 
+    GIVE_TRAFFIC_TYPE3, GIVE_TRAFCTYPE_CONT3, GIVE_TRAFFIC_AMOUNT3, GIVE_TRAFFIC_CONTRACT3, 
+    MONTH_TRAFFIC_BACK3, GIVE_BILL, GIVE_BILL_CONTRACT, GIVE_BILL_AMOUNT, GIVE_BILL_PASSBOOK, 
+    GIVE_BILLPB_CONT, GIVE_ELECOUP_NUM, GIVE_ELECOUP, GIVE_POINT_PRICE, AAT_ID, ONLINE_STATE
+  </sql>
+
+    <!--<sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_SG_EXTEND$SEQ.nextval</sql>-->
+
+    <select id="selectAlmAsnltmpSgExtend" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ALM_ASNLTMP_SG_EXTEND
+        where AAS_ID = #{aasId,jdbcType=INTEGER}
+    </select>
+
+    <!--<delete id="deleteAlmAsnltmpSgExtend" parameterType="java.lang.Integer">-->
+    <!--delete from ALM_ASNLTMP_SG_EXTEND-->
+    <!--where AAS_ID = #{aasId,jdbcType=INTEGER}-->
+  <!--</delete>-->
+
+    <insert id="saveAlmAsnltmpSgExtend"
+            parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpSgExtendRepository">
+        <!--<selectKey keyProperty="aasId" resultType="java.lang.Integer" order="BEFORE">-->
+        <!--select ALM_ASNLTMP_SG_EXTEND$SEQ.nextval from dual-->
+        <!--</selectKey>-->
+
+        insert into ALM_ASNLTMP_SG_EXTEND
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            AAS_ID,
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="givePoint != null">
+                GIVE_POINT,
+            </if>
+            <if test="giveTimeType1 != null">
+                GIVE_TIME_TYPE1,
+            </if>
+            <if test="giveTimetypeCont1 != null">
+                GIVE_TIMETYPE_CONT1,
+            </if>
+            <if test="giveTimeAmount1 != null">
+                GIVE_TIME_AMOUNT1,
+            </if>
+            <if test="giveTimeContract1 != null">
+                GIVE_TIME_CONTRACT1,
+            </if>
+            <if test="monthTimeBack1 != null">
+                MONTH_TIME_BACK1,
+            </if>
+            <if test="giveTimeType2 != null">
+                GIVE_TIME_TYPE2,
+            </if>
+            <if test="giveTimetypeCont2 != null">
+                GIVE_TIMETYPE_CONT2,
+            </if>
+            <if test="giveTimeAmount2 != null">
+                GIVE_TIME_AMOUNT2,
+            </if>
+            <if test="giveTimeContract2 != null">
+                GIVE_TIME_CONTRACT2,
+            </if>
+            <if test="monthTimeBack2 != null">
+                MONTH_TIME_BACK2,
+            </if>
+            <if test="giveTrafficType1 != null">
+                GIVE_TRAFFIC_TYPE1,
+            </if>
+            <if test="giveTrafctypeCont1 != null">
+                GIVE_TRAFCTYPE_CONT1,
+            </if>
+            <if test="giveTrafficAmount1 != null">
+                GIVE_TRAFFIC_AMOUNT1,
+            </if>
+            <if test="giveTrafficContract1 != null">
+                GIVE_TRAFFIC_CONTRACT1,
+            </if>
+            <if test="monthTrafficBack1 != null">
+                MONTH_TRAFFIC_BACK1,
+            </if>
+            <if test="giveTrafficType2 != null">
+                GIVE_TRAFFIC_TYPE2,
+            </if>
+            <if test="giveTrafctypeCont2 != null">
+                GIVE_TRAFCTYPE_CONT2,
+            </if>
+            <if test="giveTrafficAmount2 != null">
+                GIVE_TRAFFIC_AMOUNT2,
+            </if>
+            <if test="giveTrafficContract2 != null">
+                GIVE_TRAFFIC_CONTRACT2,
+            </if>
+            <if test="monthTrafficBack2 != null">
+                MONTH_TRAFFIC_BACK2,
+            </if>
+            <if test="giveTrafficType3 != null">
+                GIVE_TRAFFIC_TYPE3,
+            </if>
+            <if test="giveTrafctypeCont3 != null">
+                GIVE_TRAFCTYPE_CONT3,
+            </if>
+            <if test="giveTrafficAmount3 != null">
+                GIVE_TRAFFIC_AMOUNT3,
+            </if>
+            <if test="giveTrafficContract3 != null">
+                GIVE_TRAFFIC_CONTRACT3,
+            </if>
+            <if test="monthTrafficBack3 != null">
+                MONTH_TRAFFIC_BACK3,
+            </if>
+            <if test="giveBill != null">
+                GIVE_BILL,
+            </if>
+            <if test="giveBillContract != null">
+                GIVE_BILL_CONTRACT,
+            </if>
+            <if test="giveBillAmount != null">
+                GIVE_BILL_AMOUNT,
+            </if>
+            <if test="giveBillPassbook != null">
+                GIVE_BILL_PASSBOOK,
+            </if>
+            <if test="giveBillpbCont != null">
+                GIVE_BILLPB_CONT,
+            </if>
+            <if test="giveElecoupNum != null">
+                GIVE_ELECOUP_NUM,
+            </if>
+            <if test="giveElecoup != null">
+                GIVE_ELECOUP,
+            </if>
+            <if test="givePointPrice != null">
+                GIVE_POINT_PRICE,
+            </if>
+            <if test="aatId != null">
+                AAT_ID,
+            </if>
+            <if test="onlineState != null">
+                ONLINE_STATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{aasId,jdbcType=INTEGER},
+            <if test="artType != null">
+                #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="givePoint != null">
+                #{givePoint,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeType1 != null">
+                #{giveTimeType1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimetypeCont1 != null">
+                #{giveTimetypeCont1,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTimeAmount1 != null">
+                #{giveTimeAmount1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeContract1 != null">
+                #{giveTimeContract1,jdbcType=INTEGER},
+            </if>
+            <if test="monthTimeBack1 != null">
+                #{monthTimeBack1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeType2 != null">
+                #{giveTimeType2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimetypeCont2 != null">
+                #{giveTimetypeCont2,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTimeAmount2 != null">
+                #{giveTimeAmount2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeContract2 != null">
+                #{giveTimeContract2,jdbcType=INTEGER},
+            </if>
+            <if test="monthTimeBack2 != null">
+                #{monthTimeBack2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficType1 != null">
+                #{giveTrafficType1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafctypeCont1 != null">
+                #{giveTrafctypeCont1,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTrafficAmount1 != null">
+                #{giveTrafficAmount1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficContract1 != null">
+                #{giveTrafficContract1,jdbcType=INTEGER},
+            </if>
+            <if test="monthTrafficBack1 != null">
+                #{monthTrafficBack1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficType2 != null">
+                #{giveTrafficType2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafctypeCont2 != null">
+                #{giveTrafctypeCont2,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTrafficAmount2 != null">
+                #{giveTrafficAmount2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficContract2 != null">
+                #{giveTrafficContract2,jdbcType=INTEGER},
+            </if>
+            <if test="monthTrafficBack2 != null">
+                #{monthTrafficBack2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficType3 != null">
+                #{giveTrafficType3,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafctypeCont3 != null">
+                #{giveTrafctypeCont3,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTrafficAmount3 != null">
+                #{giveTrafficAmount3,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficContract3 != null">
+                #{giveTrafficContract3,jdbcType=INTEGER},
+            </if>
+            <if test="monthTrafficBack3 != null">
+                #{monthTrafficBack3,jdbcType=INTEGER},
+            </if>
+            <if test="giveBill != null">
+                #{giveBill,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillContract != null">
+                #{giveBillContract,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillAmount != null">
+                #{giveBillAmount,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillPassbook != null">
+                #{giveBillPassbook,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillpbCont != null">
+                #{giveBillpbCont,jdbcType=VARCHAR},
+            </if>
+            <if test="giveElecoupNum != null">
+                #{giveElecoupNum,jdbcType=VARCHAR},
+            </if>
+            <if test="giveElecoup != null">
+                #{giveElecoup,jdbcType=INTEGER},
+            </if>
+            <if test="givePointPrice != null">
+                #{givePointPrice,jdbcType=INTEGER},
+            </if>
+            <if test="aatId != null">
+                #{aatId,jdbcType=INTEGER},
+            </if>
+            <if test="onlineState != null">
+                #{onlineState,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmAsnltmpSgExtend"
+            parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpSgExtendRepository">
+        update ALM_ASNLTMP_SG_EXTEND
+        <set>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="givePoint != null">
+                GIVE_POINT = #{givePoint,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeType1 != null">
+                GIVE_TIME_TYPE1 = #{giveTimeType1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimetypeCont1 != null">
+                GIVE_TIMETYPE_CONT1 = #{giveTimetypeCont1,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTimeAmount1 != null">
+                GIVE_TIME_AMOUNT1 = #{giveTimeAmount1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeContract1 != null">
+                GIVE_TIME_CONTRACT1 = #{giveTimeContract1,jdbcType=INTEGER},
+            </if>
+            <if test="monthTimeBack1 != null">
+                MONTH_TIME_BACK1 = #{monthTimeBack1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeType2 != null">
+                GIVE_TIME_TYPE2 = #{giveTimeType2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimetypeCont2 != null">
+                GIVE_TIMETYPE_CONT2 = #{giveTimetypeCont2,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTimeAmount2 != null">
+                GIVE_TIME_AMOUNT2 = #{giveTimeAmount2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTimeContract2 != null">
+                GIVE_TIME_CONTRACT2 = #{giveTimeContract2,jdbcType=INTEGER},
+            </if>
+            <if test="monthTimeBack2 != null">
+                MONTH_TIME_BACK2 = #{monthTimeBack2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficType1 != null">
+                GIVE_TRAFFIC_TYPE1 = #{giveTrafficType1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafctypeCont1 != null">
+                GIVE_TRAFCTYPE_CONT1 = #{giveTrafctypeCont1,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTrafficAmount1 != null">
+                GIVE_TRAFFIC_AMOUNT1 = #{giveTrafficAmount1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficContract1 != null">
+                GIVE_TRAFFIC_CONTRACT1 = #{giveTrafficContract1,jdbcType=INTEGER},
+            </if>
+            <if test="monthTrafficBack1 != null">
+                MONTH_TRAFFIC_BACK1 = #{monthTrafficBack1,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficType2 != null">
+                GIVE_TRAFFIC_TYPE2 = #{giveTrafficType2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafctypeCont2 != null">
+                GIVE_TRAFCTYPE_CONT2 = #{giveTrafctypeCont2,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTrafficAmount2 != null">
+                GIVE_TRAFFIC_AMOUNT2 = #{giveTrafficAmount2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficContract2 != null">
+                GIVE_TRAFFIC_CONTRACT2 = #{giveTrafficContract2,jdbcType=INTEGER},
+            </if>
+            <if test="monthTrafficBack2 != null">
+                MONTH_TRAFFIC_BACK2 = #{monthTrafficBack2,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficType3 != null">
+                GIVE_TRAFFIC_TYPE3 = #{giveTrafficType3,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafctypeCont3 != null">
+                GIVE_TRAFCTYPE_CONT3 = #{giveTrafctypeCont3,jdbcType=VARCHAR},
+            </if>
+            <if test="giveTrafficAmount3 != null">
+                GIVE_TRAFFIC_AMOUNT3 = #{giveTrafficAmount3,jdbcType=INTEGER},
+            </if>
+            <if test="giveTrafficContract3 != null">
+                GIVE_TRAFFIC_CONTRACT3 = #{giveTrafficContract3,jdbcType=INTEGER},
+            </if>
+            <if test="monthTrafficBack3 != null">
+                MONTH_TRAFFIC_BACK3 = #{monthTrafficBack3,jdbcType=INTEGER},
+            </if>
+            <if test="giveBill != null">
+                GIVE_BILL = #{giveBill,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillContract != null">
+                GIVE_BILL_CONTRACT = #{giveBillContract,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillAmount != null">
+                GIVE_BILL_AMOUNT = #{giveBillAmount,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillPassbook != null">
+                GIVE_BILL_PASSBOOK = #{giveBillPassbook,jdbcType=INTEGER},
+            </if>
+            <if test="giveBillpbCont != null">
+                GIVE_BILLPB_CONT = #{giveBillpbCont,jdbcType=VARCHAR},
+            </if>
+            <if test="giveElecoupNum != null">
+                GIVE_ELECOUP_NUM = #{giveElecoupNum,jdbcType=VARCHAR},
+            </if>
+            <if test="giveElecoup != null">
+                GIVE_ELECOUP = #{giveElecoup,jdbcType=INTEGER},
+            </if>
+            <if test="givePointPrice != null">
+                GIVE_POINT_PRICE = #{givePointPrice,jdbcType=INTEGER},
+            </if>
+            <if test="aatId != null">
+                AAT_ID = #{aatId,jdbcType=INTEGER},
+            </if>
+            <if test="onlineState != null">
+                ONLINE_STATE = #{onlineState,jdbcType=INTEGER},
+            </if>
+        </set>
+        where AAS_ID = #{aasId,jdbcType=INTEGER}
+    </update>
+
+    <!--<select id="selectAllAlmAsnltmpSgExtend" resultMap="BaseResultMap">-->
+        <!--select * from (-->
+        <!--SELECT ROWNUM AS ROWNO, T.*-->
+        <!--FROM ALM_ASNLTMP_STOREGIVE T-->
+        <!--LEFT JOIN ALM_ASNLTMP_SG_EXTEND A-->
+        <!--ON T.AAT_ID = A.AAT_ID-->
+        <!--AND T.ART_TYPE = A.ART_TYPE-->
+        <!--where 1=1-->
+        <!--<if test="aatId !=null">and t.AAT_ID = #{aatId,jdbcType=INTEGER}-->
+        <!--</if>-->
+        <!--and ROWNUM &lt;= (#{offset} * #{size}) )a-->
+        <!--where a.ROWNO >=(#{offset}-1) * #{size}+1-->
+    <!--</select>-->
+
+    <!--<select id="getAllAlmAsnltmpSgExtend" resultType="java.lang.Integer">-->
+        <!--select count(*) from (-->
+        <!--SELECT ROWNUM AS ROWNO, T.*-->
+        <!--FROM ALM_ASNLTMP_STOREGIVE T-->
+        <!--LEFT JOIN ALM_ASNLTMP_SG_EXTEND A-->
+        <!--ON T.AAT_ID = A.AAT_ID-->
+        <!--AND T.ART_TYPE = A.ART_TYPE-->
+        <!--where 1=1-->
+        <!--<if test="aatId !=null">and t.AAT_ID = #{aatId,jdbcType=INTEGER}-->
+        <!--</if>)-->
+    <!--</select>-->
+
+    <select id="selectSgExtendInfo" resultMap="BaseResultMap">
+    select * from ALM_ASNLTMP_SG_EXTEND
+    WHERE AAT_ID = #{aatId,jdbcType=INTEGER}
+  </select>
+</mapper>

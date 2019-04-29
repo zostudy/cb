@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStaffDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStaffRepository">
+        <result column="staff_id" property="staffId" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="RECENT_PASSWORD" property="recentPassword" jdbcType="VARCHAR"/>
+        <result column="RECENT_time" property="recentTime" jdbcType="DATE"/>
+        <result column="employee_name" property="employeeName" jdbcType="VARCHAR"/>
+        <result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="religion" property="religion" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="lock_flag" property="lockFlag" jdbcType="INTEGER"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="ext1" property="ext1" jdbcType="VARCHAR"/>
+        <result column="ext2" property="ext2" jdbcType="VARCHAR"/>
+        <result column="ext3" property="ext3" jdbcType="VARCHAR"/>
+
+        <result column="organize_id" property="organizeId" jdbcType="INTEGER"/>
+        <result column="organize_name" property="organizeName" jdbcType="VARCHAR"/>
+        
+        <result column="account_4a" property="account4A" jdbcType="VARCHAR"/>
+        <result column="account_crm" property="accountCrm" jdbcType="VARCHAR"/>
+        <result column="account_boss" property="accountBoss" jdbcType="VARCHAR"/>
+        
+        
+    </resultMap>
+
+    <sql id='TABLE_NAME'>SYS_STAFF</sql>
+    <sql id='TABLE_SEQUENCE'>SYS_STAFF$SEQ.nextval</sql>
+
+    <!--新增员工信息-->
+    <insert id="saveStaff" parameterType="com.asiainfo.rms.system.domain.SysStaffRepository">
+        <selectKey keyProperty="staffId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_STAFF$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_STAFF
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            staff_id,
+            <if test="code != null">
+                code,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="recentPassword != null">
+                RECENT_PASSWORD,
+            </if>
+            <if test="recentTime != null">
+                RECENT_time,
+            </if>
+            <if test="employeeName != null">
+                employee_name,
+            </if>
+            <if test="billId != null">
+                bill_id,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="religion != null">
+                religion,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="lockFlag != null">
+                lock_flag,
+            </if>
+            <if test="notes != null">
+                notes,
+            </if>
+            <if test="ext1 != null">
+                ext1,
+            </if>
+            <if test="ext2 != null">
+                ext2,
+            </if>
+            <if test="ext3 != null">
+                ext3,
+            </if>
+            <if test="account4A != null">
+                account_4a,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{staffId,jdbcType=INTEGER},
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="recentPassword != null">
+                #{recentPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="recentTime != null">
+                #{recentTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="employeeName != null">
+                #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="billId != null">
+                #{billId,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="religion != null">
+                #{religion,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="lockFlag != null">
+                #{lockFlag,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="ext1 != null">
+                #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                #{ext3,jdbcType=VARCHAR},
+            </if>
+            <if test="account4A != null">
+                #{account4A,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStaff" parameterType="com.asiainfo.rms.system.domain.SysStaffRepository">
+        UPDATE SYS_STAFF
+        <trim prefix="set" suffixOverrides=",">
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="recentPassword !=null">
+                RECENT_PASSWORD = #{recentPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="recentTime !=null">
+                RECENT_time = #{recentTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="employeeName !=null">
+                employee_name = #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="billId !=null">
+                bill_id = #{billId,jdbcType=VARCHAR},
+            </if>
+            <if test="email !=null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="religion !=null">
+                religion = #{religion,jdbcType=VARCHAR},
+            </if>
+            <if test="state !=null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="lockFlag !=null">
+                lock_flag = #{lockFlag,jdbcType=INTEGER},
+            </if>
+            <if test="notes !=null">
+                notes = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="ext1 !=null">
+                ext1 = #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 !=null">
+                ext2 = #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 !=null">
+                ext3 = #{ext3,jdbcType=VARCHAR},
+            </if>
+            <if test="account4A !=null">
+                account_4a = #{account4A,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </update>
+    <update id="updateStaffPassWord" parameterType="com.asiainfo.rms.system.domain.SysStaffRepository">
+        UPDATE SYS_STAFF
+        SET
+            password = #{password,jdbcType=VARCHAR},
+            RECENT_PASSWORD = #{recentPassword,jdbcType=VARCHAR},
+            RECENT_time = #{recentTime,jdbcType=DATE}
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </update>
+    <!--根据staffId查询员工信息-->
+    <select id="selectByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        T.*, B.ORGANIZE_ID,        B.ORGANIZE_NAME
+        from SYS_STAFF T,SYS_STAFF_ORG_RELAT A, SYS_ORGANIZE B
+        where T.state =1
+        AND T.STAFF_ID = A.STAFF_ID
+        AND A.ORGANIZE_ID = B.ORGANIZE_ID
+        and T.staff_id = #{staffId,jdbcType=INTEGER}
+
+    </select>
+    <select id="getStaffCount" resultType="java.lang.Integer">
+        select count(*) from
+        (
+        select ROWNUM AS ROWNO,
+        T.STAFF_ID,
+        T.CODE,
+        T.EMPLOYEE_NAME,
+        T.BILL_ID,T.EMAIL,
+        T.RELIGION,T.STATE,
+        T.LOCK_FLAG,
+        T.NOTES,
+        B.ORGANIZE_ID,
+        B.ORGANIZE_NAME
+        from SYS_STAFF T,SYS_STAFF_ORG_RELAT A, SYS_ORGANIZE B
+        where 1=1
+        and t.state =1
+        AND T.STAFF_ID = A.STAFF_ID
+        AND A.ORGANIZE_ID = B.ORGANIZE_ID
+        <if test="keyword !=null">and (upper(t.code) like CONCAT(CONCAT('%',upper(#{keyword})),'%')
+            or t.employee_name like CONCAT(CONCAT('%',#{keyword}),'%'))</if>
+        <if test="email !=null">and t.email like CONCAT(CONCAT('%',#{email}),'%')</if>
+        <if test="billId !=null">and t.bill_id like CONCAT(CONCAT('%',#{billId}),'%')</if>
+        <if test="organizeId !=null">and t.staff_id in(select c.staff_id from sys_staff_org_relat c where c.organize_id =#{organizeId,jdbcType=INTEGER} AND t.state = 1)
+            and a.ORGANIZE_ID = #{organizeId,jdbcType=INTEGER}
+        </if>
+        ) T1
+    </select>
+    <select id="selectAllStaffs" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.STAFF_ID,
+        T.CODE,
+        T.EMPLOYEE_NAME,
+        T.BILL_ID,T.EMAIL,
+        T.RELIGION,T.STATE,
+        T.LOCK_FLAG,
+        T.NOTES,
+        B.ORGANIZE_ID,
+        B.ORGANIZE_NAME
+        from SYS_STAFF T,SYS_STAFF_ORG_RELAT A, SYS_ORGANIZE B
+        where 1=1
+        and t.state =1
+        AND T.STAFF_ID = A.STAFF_ID
+        AND A.ORGANIZE_ID = B.ORGANIZE_ID
+        <if test="keyword !=null">and (upper(t.code) like CONCAT(CONCAT('%',upper(#{keyword})),'%')
+            or t.employee_name like CONCAT(CONCAT('%',#{keyword}),'%'))</if>
+        <if test="email !=null">and t.email like CONCAT(CONCAT('%',#{email}),'%')</if>
+        <if test="billId !=null">and t.bill_id like CONCAT(CONCAT('%',#{billId}),'%')</if>
+        <if test="organizeId !=null">and t.staff_id in(select c.staff_id from sys_staff_org_relat c where c.organize_id =#{organizeId,jdbcType=INTEGER} AND t.state = 1)
+            and A.ORGANIZE_ID = #{organizeId,jdbcType=INTEGER}
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+    <select id="selectByCode" resultMap="BaseResultMap">
+        select * from SYS_STAFF
+        where state = 1
+        and upper(code) = upper(#{code,jdbcType=VARCHAR})
+    </select>
+
+    <update id="deleteStaffById" parameterType="com.asiainfo.rms.system.domain.SysStaffRepository">
+        UPDATE SYS_STAFF
+        SET state = 0
+        where STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStaffLock"  parameterType="com.asiainfo.rms.system.domain.SysStaffRepository">
+        UPDATE SYS_STAFF
+        SET lock_flag = 1
+        where STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </update>
+</mapper>

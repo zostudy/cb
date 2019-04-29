@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: auth-server
+  cloud:
+    config:
+      uri:  http://localhost:8888
+#authServer 服务，默认端口为8888，如需要修改，则添加端口即可。
+#  cloud:
+#    config:
+#      url: http://localhost:8888

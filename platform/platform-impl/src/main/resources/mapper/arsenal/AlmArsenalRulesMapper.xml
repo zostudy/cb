@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmArsenalRulesDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmArsenalRulesRepository" >
+    <id column="AR_ID" property="arId" jdbcType="INTEGER" />
+    <result column="RULE_TAG" property="ruleTag" jdbcType="VARCHAR" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="ENUM_MARK" property="enumMark" jdbcType="VARCHAR" />
+    <result column="RULE_TYPE" property="ruleType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AR_ID, RULE_TAG, RULE_NAME, ENUM_MARK, RULE_TYPE
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ARSENAL_RULES$SEQ.nextval</sql>
+
+  <insert id="saveAlmArsenalRules" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmArsenalRulesRepository" >
+    <selectKey keyProperty="arId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ARSENAL_RULES$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ARSENAL_RULES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AR_ID,
+      <if test="ruleTag != null" >
+        RULE_TAG,
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME,
+      </if>
+      <if test="enumMark != null" >
+        ENUM_MARK,
+      </if>
+      <if test="ruleType != null" >
+        RULE_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{arId,jdbcType=INTEGER},
+      <if test="ruleTag != null" >
+        #{ruleTag,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="enumMark != null" >
+        #{enumMark,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null" >
+        #{ruleType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectArsenalRulesById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ARSENAL_RULES
+    where AR_ID = #{arId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmArsenalRules" parameterType="java.lang.Integer" >
+    delete from ALM_ARSENAL_RULES
+    where AR_ID = #{arId,jdbcType=INTEGER}
+  </delete>
+
+  <update id="updateAlmArsenalRules" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmArsenalRulesRepository" >
+    update ALM_ARSENAL_RULES
+    <set >
+      <if test="ruleTag != null" >
+        RULE_TAG = #{ruleTag,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="enumMark != null" >
+        ENUM_MARK = #{enumMark,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null" >
+        RULE_TYPE = #{ruleType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AR_ID = #{arId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getAllArsenalRules" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ARSENAL_RULES T
+    where 1=1
+    <if test="keyword !=null">and (RULE_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or RULE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if> )
+  </select>
+
+  <select id="selectAllArsenalRules" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ARSENAL_RULES T
+    where 1=1
+    <if test="keyword !=null">and (RULE_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or RULE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+  <select id="getRuleTagCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM ALM_ARSENAL_RULES t WHERE t.rule_tag=#{ruleTag,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

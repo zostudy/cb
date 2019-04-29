@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpRewardDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpRewardRepository" >
+    <id column="ARR_ID" property="arrId" jdbcType="DECIMAL" />
+    <result column="REQ_REWARD_TYPE" property="reqRewardType" jdbcType="VARCHAR" />
+    <result column="REQ_TYPE_DSCR" property="reqTypeDscr" jdbcType="VARCHAR" />
+    <result column="ART_TYPE" property="artType" jdbcType="DECIMAL" />
+    <result column="ART_ID" property="artId" jdbcType="DECIMAL" />
+    <result column="REQ_REWARD_TYPE_CONT" property="reqRewardTypeCont" jdbcType="VARCHAR" />
+    <result column="REISSUE" property="reissue" jdbcType="CLOB" />
+    <result column="GARNISHMENT" property="garnishment" jdbcType="CLOB" />
+    <result column="ADJUST" property="adjust" jdbcType="CLOB" />
+    <result column="IMPORT" property="imports" jdbcType="CLOB" />
+    <result column="EXPORT" property="export" jdbcType="CLOB" />
+    <result column="OTHER_CONTENT" property="otherContent" jdbcType="CLOB" />
+
+    <result column="ART_TAG" property="artTag" jdbcType="VARCHAR" />
+    <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id='TABLE_SEQUENCE'>ALM_REQTMP_REWARD$SEQ.nextval</sql>
+
+  <select id="selectAlmReqtmpReward" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_REWARD
+    where ARR_ID = #{arrId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="selectAlmReqtmpRewardByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_REWARD
+    where ART_ID = #{artId,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteAlmReqtmpReward" parameterType="java.lang.Integer" >
+    delete from ALM_REQTMP_REWARD
+    where ARR_ID = #{arrId,jdbcType=DECIMAL}
+  </delete>
+
+  <insert id="saveAlmReqtmpReward" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpRewardRepository" >
+    <selectKey keyProperty="arrId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_REQTMP_REWARD$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_REQTMP_REWARD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ARR_ID,
+      <if test="reqRewardType != null" >
+        REQ_REWARD_TYPE,
+      </if>
+      <if test="reqTypeDscr != null" >
+        REQ_TYPE_DSCR,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="artId != null" >
+        ART_ID,
+      </if>
+      <if test="reqRewardTypeCont != null" >
+        REQ_REWARD_TYPE_CONT,
+      </if>
+      <if test="reissue != null" >
+        REISSUE,
+      </if>
+      <if test="garnishment != null" >
+        GARNISHMENT,
+      </if>
+      <if test="adjust != null" >
+        ADJUST,
+      </if>
+      <if test="imports != null" >
+        IMPORT,
+      </if>
+      <if test="export != null" >
+        EXPORT,
+      </if>
+      <if test="otherContent != null" >
+        OTHER_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{arrId,jdbcType=DECIMAL},
+      <if test="reqRewardType != null" >
+        #{reqRewardType,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTypeDscr != null" >
+        #{reqTypeDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=DECIMAL},
+      </if>
+      <if test="artId != null" >
+        #{artId,jdbcType=DECIMAL},
+      </if>
+      <if test="reqRewardTypeCont != null" >
+        #{reqRewardTypeCont,jdbcType=VARCHAR},
+      </if>
+      <if test="reissue != null" >
+        #{reissue,jdbcType=CLOB},
+      </if>
+      <if test="garnishment != null" >
+        #{garnishment,jdbcType=CLOB},
+      </if>
+      <if test="adjust != null" >
+        #{adjust,jdbcType=CLOB},
+      </if>
+      <if test="imports != null" >
+        #{imports,jdbcType=CLOB},
+      </if>
+      <if test="export != null" >
+        #{export,jdbcType=CLOB},
+      </if>
+      <if test="otherContent != null" >
+        #{otherContent,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateAlmReqtmpReward" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpRewardRepository" >
+    update ALM_REQTMP_REWARD
+    <set >
+      <if test="reqRewardType != null" >
+        REQ_REWARD_TYPE = #{reqRewardType,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTypeDscr != null" >
+        REQ_TYPE_DSCR = #{reqTypeDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=DECIMAL},
+      </if>
+      <if test="artId != null" >
+        ART_ID = #{artId,jdbcType=DECIMAL},
+      </if>
+      <if test="reqRewardTypeCont != null" >
+        REQ_REWARD_TYPE_CONT = #{reqRewardTypeCont,jdbcType=VARCHAR},
+      </if>
+      <if test="reissue != null" >
+        REISSUE = #{reissue,jdbcType=CLOB},
+      </if>
+      <if test="garnishment != null" >
+        GARNISHMENT = #{garnishment,jdbcType=CLOB},
+      </if>
+      <if test="adjust != null" >
+        ADJUST = #{adjust,jdbcType=CLOB},
+      </if>
+      <if test="imports != null" >
+        IMPORT = #{imports,jdbcType=CLOB},
+      </if>
+      <if test="export != null" >
+        EXPORT = #{export,jdbcType=CLOB},
+      </if>
+      <if test="otherContent != null" >
+        OTHER_CONTENT = #{otherContent,jdbcType=CLOB},
+      </if>
+    </set>
+    where ARR_ID = #{arrId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="getAllAlmReqtmpRewardCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_REWARD T,ALM_REQTMP_TOPIC A
+    where 1=1
+    and T.ART_ID = A.ART_ID
+    <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+      and A.ART_REGION = #{artRegion,jdbcType=INTEGER}
+    </if>
+    <if test="urgentLevel != null">
+      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if> 
+    <if test="submitStaffName != null">
+      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>)
+  </select>
+  
+  <select id="selectAllAlmReqtmpReward" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_REWARD T,ALM_REQTMP_TOPIC A
+    where 1=1
+    and T.ART_ID = A.ART_ID
+    <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+	      and A.ART_REGION = #{artRegion,jdbcType=INTEGER}
+	    </if>
+    <if test="urgentLevel != null">
+      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if>
+    <if test="submitStaffName != null">
+      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+</mapper>

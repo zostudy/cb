@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpStoreGiveDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpStoreGiveRepository" >
+    <id column="AAS_ID" property="aasId" jdbcType="INTEGER" />
+    <result column="MARKET_PRDCT_NAME" property="marketPrdctName" jdbcType="INTEGER" />
+    <result column="CITY_NUM" property="cityNum" jdbcType="INTEGER" />
+    <result column="MARKET_PRDCT_DSCR" property="marketPrdctDscr" jdbcType="INTEGER" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+    <result column="END_TIME" property="endTime" jdbcType="DATE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="MARKET_PACK_NAME" property="marketPackName" jdbcType="INTEGER" />
+    <result column="MARKET_PACK_DSCR" property="marketPackDscr" jdbcType="INTEGER" />
+    <result column="CONTRACT_PERIOD" property="contractPeriod" jdbcType="INTEGER" />
+    <result column="EFFEC_WAY" property="effecWay" jdbcType="INTEGER" />
+    <result column="PRE_BILL" property="preBill" jdbcType="INTEGER" />
+    <result column="MONTH_BILL" property="monthBill" jdbcType="INTEGER" />
+    <result column="MONTH_PASSBOOK" property="monthPassbook" jdbcType="INTEGER" />
+    <result column="FREE_BILL" property="freeBill" jdbcType="INTEGER" />
+    <result column="FREE_PASSBOOK" property="freePassbook" jdbcType="INTEGER" />
+    <result column="MONTH_ARRIV" property="monthArriv" jdbcType="INTEGER" />
+    <result column="BASE_CONSUMP" property="baseConsump" jdbcType="INTEGER" />
+    <result column="BASE_CONSP_COUNT" property="baseConspCount" jdbcType="INTEGER" />
+    <result column="PRIO_LEVEL" property="prioLevel" jdbcType="INTEGER" />
+    <result column="BENIFIT_EFFORT" property="benifitEffort" jdbcType="INTEGER" />
+    <result column="EFFEC_WAY_CONT" property="effecWayCont" jdbcType="INTEGER" />
+    <result column="MONTH_PASSBOOK_CONT" property="monthPassbookCont" jdbcType="INTEGER" />
+    <result column="FREE_PASSBOOK_CONT" property="freePassbookCont" jdbcType="INTEGER" />
+    <result column="BASE_CONSP_COUNT_CONT" property="baseConspCountCont" jdbcType="INTEGER" />
+    <result column="PRIO_LEVEL_CONT" property="prioLevelCont" jdbcType="INTEGER" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="AAT_ID" property="aatId" jdbcType="INTEGER" />
+    <result column="CITY_NUM_CONT" property="cityNumCont" jdbcType="INTEGER" />
+    <result column="ONLINE_STATE" property="onlineState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AAS_ID, MARKET_PRDCT_NAME, CITY_NUM, MARKET_PRDCT_DSCR, START_TIME, END_TIME, CREATE_TIME, 
+    MARKET_PACK_NAME, MARKET_PACK_DSCR, CONTRACT_PERIOD, EFFEC_WAY, PRE_BILL, MONTH_BILL, 
+    MONTH_PASSBOOK, FREE_BILL, FREE_PASSBOOK, MONTH_ARRIV, BASE_CONSUMP, BASE_CONSP_COUNT, 
+    PRIO_LEVEL, BENIFIT_EFFORT, EFFEC_WAY_CONT, MONTH_PASSBOOK_CONT, FREE_PASSBOOK_CONT, 
+    BASE_CONSP_COUNT_CONT, PRIO_LEVEL_CONT, ART_TYPE, AAT_ID, CITY_NUM_CONT, ONLINE_STATE
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_STOREGIVE$SEQ.nextval</sql>
+
+  <select id="selectAlmAsnltmpStoreGive" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ASNLTMP_STOREGIVE
+    where AAS_ID = #{aasId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmAsnltmpStoreGive" parameterType="java.lang.Integer" >
+    delete from ALM_ASNLTMP_STOREGIVE
+    where AAS_ID = #{aasId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmAsnltmpStoreGive" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpStoreGiveRepository" >
+    <selectKey keyProperty="aasId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_STOREGIVE$SEQ.nextval from dual
+    </selectKey>
+
+    insert into ALM_ASNLTMP_STOREGIVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aasId != null" >
+        AAS_ID,
+      </if>
+      <if test="marketPrdctName != null" >
+        MARKET_PRDCT_NAME,
+      </if>
+      <if test="cityNum != null" >
+        CITY_NUM,
+      </if>
+      <if test="marketPrdctDscr != null" >
+        MARKET_PRDCT_DSCR,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="marketPackName != null" >
+        MARKET_PACK_NAME,
+      </if>
+      <if test="marketPackDscr != null" >
+        MARKET_PACK_DSCR,
+      </if>
+      <if test="contractPeriod != null" >
+        CONTRACT_PERIOD,
+      </if>
+      <if test="effecWay != null" >
+        EFFEC_WAY,
+      </if>
+      <if test="preBill != null" >
+        PRE_BILL,
+      </if>
+      <if test="monthBill != null" >
+        MONTH_BILL,
+      </if>
+      <if test="monthPassbook != null" >
+        MONTH_PASSBOOK,
+      </if>
+      <if test="freeBill != null" >
+        FREE_BILL,
+      </if>
+      <if test="freePassbook != null" >
+        FREE_PASSBOOK,
+      </if>
+      <if test="monthArriv != null" >
+        MONTH_ARRIV,
+      </if>
+      <if test="baseConsump != null" >
+        BASE_CONSUMP,
+      </if>
+      <if test="baseConspCount != null" >
+        BASE_CONSP_COUNT,
+      </if>
+      <if test="prioLevel != null" >
+        PRIO_LEVEL,
+      </if>
+      <if test="benifitEffort != null" >
+        BENIFIT_EFFORT,
+      </if>
+      <if test="effecWayCont != null" >
+        EFFEC_WAY_CONT,
+      </if>
+      <if test="monthPassbookCont != null" >
+        MONTH_PASSBOOK_CONT,
+      </if>
+      <if test="freePassbookCont != null" >
+        FREE_PASSBOOK_CONT,
+      </if>
+      <if test="baseConspCountCont != null" >
+        BASE_CONSP_COUNT_CONT,
+      </if>
+      <if test="prioLevelCont != null" >
+        PRIO_LEVEL_CONT,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="aatId != null" >
+        AAT_ID,
+      </if>
+      <if test="cityNumCont != null" >
+        CITY_NUM_CONT,
+      </if>
+      <if test="onlineState != null" >
+        ONLINE_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aasId != null" >
+        #{aasId,jdbcType=INTEGER},
+      </if>
+      <if test="marketPrdctName != null" >
+        #{marketPrdctName,jdbcType=INTEGER},
+      </if>
+      <if test="cityNum != null" >
+        #{cityNum,jdbcType=INTEGER},
+      </if>
+      <if test="marketPrdctDscr != null" >
+        #{marketPrdctDscr,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="marketPackName != null" >
+        #{marketPackName,jdbcType=INTEGER},
+      </if>
+      <if test="marketPackDscr != null" >
+        #{marketPackDscr,jdbcType=INTEGER},
+      </if>
+      <if test="contractPeriod != null" >
+        #{contractPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="effecWay != null" >
+        #{effecWay,jdbcType=INTEGER},
+      </if>
+      <if test="preBill != null" >
+        #{preBill,jdbcType=INTEGER},
+      </if>
+      <if test="monthBill != null" >
+        #{monthBill,jdbcType=INTEGER},
+      </if>
+      <if test="monthPassbook != null" >
+        #{monthPassbook,jdbcType=INTEGER},
+      </if>
+      <if test="freeBill != null" >
+        #{freeBill,jdbcType=INTEGER},
+      </if>
+      <if test="freePassbook != null" >
+        #{freePassbook,jdbcType=INTEGER},
+      </if>
+      <if test="monthArriv != null" >
+        #{monthArriv,jdbcType=INTEGER},
+      </if>
+      <if test="baseConsump != null" >
+        #{baseConsump,jdbcType=INTEGER},
+      </if>
+      <if test="baseConspCount != null" >
+        #{baseConspCount,jdbcType=INTEGER},
+      </if>
+      <if test="prioLevel != null" >
+        #{prioLevel,jdbcType=INTEGER},
+      </if>
+      <if test="benifitEffort != null" >
+        #{benifitEffort,jdbcType=INTEGER},
+      </if>
+      <if test="effecWayCont != null" >
+        #{effecWayCont,jdbcType=INTEGER},
+      </if>
+      <if test="monthPassbookCont != null" >
+        #{monthPassbookCont,jdbcType=INTEGER},
+      </if>
+      <if test="freePassbookCont != null" >
+        #{freePassbookCont,jdbcType=INTEGER},
+      </if>
+      <if test="baseConspCountCont != null" >
+        #{baseConspCountCont,jdbcType=INTEGER},
+      </if>
+      <if test="prioLevelCont != null" >
+        #{prioLevelCont,jdbcType=INTEGER},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatId != null" >
+        #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="cityNumCont != null" >
+        #{cityNumCont,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null" >
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpStoreGive" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpStoreGiveRepository" >
+    update ALM_ASNLTMP_STOREGIVE
+    <set >
+      <if test="marketPrdctName != null" >
+        MARKET_PRDCT_NAME = #{marketPrdctName,jdbcType=INTEGER},
+      </if>
+      <if test="cityNum != null" >
+        CITY_NUM = #{cityNum,jdbcType=INTEGER},
+      </if>
+      <if test="marketPrdctDscr != null" >
+        MARKET_PRDCT_DSCR = #{marketPrdctDscr,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="marketPackName != null" >
+        MARKET_PACK_NAME = #{marketPackName,jdbcType=INTEGER},
+      </if>
+      <if test="marketPackDscr != null" >
+        MARKET_PACK_DSCR = #{marketPackDscr,jdbcType=INTEGER},
+      </if>
+      <if test="contractPeriod != null" >
+        CONTRACT_PERIOD = #{contractPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="effecWay != null" >
+        EFFEC_WAY = #{effecWay,jdbcType=INTEGER},
+      </if>
+      <if test="preBill != null" >
+        PRE_BILL = #{preBill,jdbcType=INTEGER},
+      </if>
+      <if test="monthBill != null" >
+        MONTH_BILL = #{monthBill,jdbcType=INTEGER},
+      </if>
+      <if test="monthPassbook != null" >
+        MONTH_PASSBOOK = #{monthPassbook,jdbcType=INTEGER},
+      </if>
+      <if test="freeBill != null" >
+        FREE_BILL = #{freeBill,jdbcType=INTEGER},
+      </if>
+      <if test="freePassbook != null" >
+        FREE_PASSBOOK = #{freePassbook,jdbcType=INTEGER},
+      </if>
+      <if test="monthArriv != null" >
+        MONTH_ARRIV = #{monthArriv,jdbcType=INTEGER},
+      </if>
+      <if test="baseConsump != null" >
+        BASE_CONSUMP = #{baseConsump,jdbcType=INTEGER},
+      </if>
+      <if test="baseConspCount != null" >
+        BASE_CONSP_COUNT = #{baseConspCount,jdbcType=INTEGER},
+      </if>
+      <if test="prioLevel != null" >
+        PRIO_LEVEL = #{prioLevel,jdbcType=INTEGER},
+      </if>
+      <if test="benifitEffort != null" >
+        BENIFIT_EFFORT = #{benifitEffort,jdbcType=INTEGER},
+      </if>
+      <if test="effecWayCont != null" >
+        EFFEC_WAY_CONT = #{effecWayCont,jdbcType=INTEGER},
+      </if>
+      <if test="monthPassbookCont != null" >
+        MONTH_PASSBOOK_CONT = #{monthPassbookCont,jdbcType=INTEGER},
+      </if>
+      <if test="freePassbookCont != null" >
+        FREE_PASSBOOK_CONT = #{freePassbookCont,jdbcType=INTEGER},
+      </if>
+      <if test="baseConspCountCont != null" >
+        BASE_CONSP_COUNT_CONT = #{baseConspCountCont,jdbcType=INTEGER},
+      </if>
+      <if test="prioLevelCont != null" >
+        PRIO_LEVEL_CONT = #{prioLevelCont,jdbcType=INTEGER},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatId != null" >
+        AAT_ID = #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="cityNumCont != null" >
+        CITY_NUM_CONT = #{cityNumCont,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null" >
+        ONLINE_STATE = #{onlineState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AAS_ID = #{aasId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllAlmAsnltmpStoreGive" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_STOREGIVE T
+    where 1=1
+    <if test="aatId !=null">and AAT_ID = #{aatId,jdbcType=INTEGER}
+    </if>)
+  </select>
+
+  <select id="selectAllAlmAsnltmpStoreGive" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_STOREGIVE T
+    where 1=1
+    <if test="aatId !=null">and AAT_ID = #{aatId,jdbcType=INTEGER}
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+  <select id="selectStoreGiveInfo" resultMap="BaseResultMap">
+    select * from ALM_ASNLTMP_STOREGIVE
+    where AAT_ID = #{aatId,jdbcType=INTEGER}
+  </select>
+
+</mapper>

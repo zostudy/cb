@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysLoginLogDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysLoginLogRepository" >
+        <result column="log_id" property="logId" jdbcType="INTEGER" />
+        <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+        <result column="staff_code" property="staffCode" jdbcType="VARCHAR" />
+        <result column="ip" property="ip" jdbcType="VARCHAR" />
+        <result column="mac" property="mac" jdbcType="VARCHAR" />
+        <result column="login_date" property="loginDate" jdbcType="DATE" />
+        <result column="logout_date" property="logoutDate" jdbcType="DATE" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_LOGIN_LOG$SEQ.nextval</sql>
+
+    <insert id="saveLoginLog" parameterType="com.asiainfo.rms.system.domain.SysLoginLogRepository">
+        <selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Integer"  >
+            SELECT SYS_LOGIN_LOG$SEQ.Nextval as logId from DUAL
+        </selectKey>
+        insert into SYS_LOGIN_LOG
+        (
+                log_id,
+                session_id,
+                staff_code,
+                ip,
+                mac,
+                login_date,
+                state
+        )values
+        (
+                #{logId,jdbcType=INTEGER},
+                #{sessionId,jdbcType=VARCHAR},
+                #{staffCode,jdbcType=VARCHAR},
+                #{ip,jdbcType=VARCHAR},
+                #{mac,jdbcType=VARCHAR},
+                #{loginDate,jdbcType=DATE},
+                #{state,jdbcType=INTEGER}
+        )
+    </insert>
+    <update id="updateLoginLog">
+        UPDATE SYS_LOGIN_LOG
+        SET
+        LOGOUT_DATE =  #{logoutDate,jdbcType=DATE},
+        state = #{state,jdbcType=INTEGER}
+        where log_id = #{logId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectLogIdByUser" resultMap="BaseResultMap">
+        SELECT *
+          FROM SYS_LOGIN_LOG
+         WHERE (LOG_ID =
+       (SELECT MAX(LOG_ID) FROM SYS_LOGIN_LOG WHERE UPPER(STAFF_CODE) = UPPER(#{staffCode,jdbcType=VARCHAR})))
+    </select>
+</mapper>

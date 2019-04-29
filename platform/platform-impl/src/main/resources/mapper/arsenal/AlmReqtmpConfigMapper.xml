@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmReqtmpConfigDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmReqtmpConfigRepository" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+    <result column="ART_URL" property="artUrl" jdbcType="VARCHAR" />
+    <result column="RESULT_WAY" property="resultWay" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ART_TYPE, ART_NAME, ART_URL, RESULT_WAY
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_REQTMP_CONFIG$SEQ.nextval</sql>
+
+  <select id="selectAlmReqtmpConfig" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_REQTMP_CONFIG
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmReqtmpConfig" parameterType="java.lang.Integer" >
+    delete from ALM_REQTMP_CONFIG
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmReqtmpConfig" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmReqtmpConfigRepository" >
+    <selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_REQTMP_CONFIG$SEQ.nextval from dual
+    </selectKey>
+
+    insert into ALM_REQTMP_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ID,
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="artName != null" >
+        ART_NAME,
+      </if>
+      <if test="artUrl != null" >
+        ART_URL,
+      </if>
+      <if test="resultWay != null" >
+        RESULT_WAY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{id,jdbcType=INTEGER},
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="artName != null" >
+        #{artName,jdbcType=VARCHAR},
+      </if>
+      <if test="artUrl != null" >
+        #{artUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resultWay != null" >
+        #{resultWay,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmReqtmpConfig" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmReqtmpConfigRepository" >
+    update ALM_REQTMP_CONFIG
+    <set >
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="artName != null" >
+        ART_NAME = #{artName,jdbcType=VARCHAR},
+      </if>
+      <if test="artUrl != null" >
+        ART_URL = #{artUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resultWay != null" >
+        RESULT_WAY = #{resultWay,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAllAlmReqtmpConfigCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_REQTMP_CONFIG T
+    where 1=1
+    <if test="keyword !=null">and (ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>)
+  </select>
+  
+  <select id="selectAllAlmReqtmpConfig" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_REQTMP_CONFIG T
+    where 1=1
+    <if test="keyword !=null">and (ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+</mapper>

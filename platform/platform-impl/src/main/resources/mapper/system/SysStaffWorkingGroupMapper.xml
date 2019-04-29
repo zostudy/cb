@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStaffWorkingGroupDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStaffWorkingGroupRepository">
+        <id column="REL_ID" property="relId" jdbcType="INTEGER"/>
+        <id column="WORK_GROUP_ID" property="workGroupId" jdbcType="INTEGER"/>
+        <id column="STAFF_ID" property="staffId" jdbcType="INTEGER"/>
+        <id column="WORK_GROUP_CODE" property="WorkGroupCode" jdbcType="VARCHAR"/>
+        <id column="WORK_GROUP_NAME" property="WorkGroupName" jdbcType="VARCHAR"/>
+
+        <id column="EMPLOYEE_CODE" property="employeeCode" jdbcType="VARCHAR"/>
+        <result column="employee_name" property="employeeName" jdbcType="VARCHAR"/>
+        <result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+
+        <result column="organize_name" property="organizeName" jdbcType="VARCHAR" />
+        <result column="organize_code" property="organizeCode" jdbcType="VARCHAR" />
+
+
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_WORKING_GROUP$SEQ.nextval</sql>
+    <insert id="saveStaffWorkingGroup" parameterType="com.asiainfo.rms.system.domain.SysStaffWorkingGroupRepository">
+        <selectKey keyProperty="relId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_WORKING_GROUP$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_STAFF_WORKING_GROUP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            REL_ID,
+            <if test="workGroupId != null">
+                WORK_GROUP_ID,
+            </if>
+            <if test="staffId != null">
+                STAFF_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{relId,jdbcType=INTEGER},
+            <if test="workGroupId != null">
+                #{workGroupId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                #{staffId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteStaffWorkingGroup" parameterType="com.asiainfo.rms.system.domain.SysStaffWorkingGroupRepository">
+        DELETE from SYS_STAFF_WORKING_GROUP
+        where REL_ID =#{relId,jdbcType=INTEGER}
+    </delete>
+
+    <select id="getStaffWorkingGroupCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,A.*,B.code WORK_GROUP_CODE,B.WORK_GROUP_NAME,
+        C.CODE EMPLOYEE_CODE,
+        C.EMPLOYEE_NAME
+        from Sys_Staff_Working_Group A, sys_working_group B,SYS_STAFF C
+        WHERE A.Work_Group_Id = B.Work_Group_Id
+        AND B.state = 1
+        AND A.STAFF_ID = C.STAFF_ID
+        AND C.STATE = 1
+        <if test="keyword !=null ">and( B.code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or B.work_group_name like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>)
+    </select>
+
+    <select id="selectStaffWorkingGroup" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,A.*,B.code WORK_GROUP_CODE,B.WORK_GROUP_NAME,
+        C.CODE EMPLOYEE_CODE,
+        C.EMPLOYEE_NAME
+        from Sys_Staff_Working_Group A, sys_working_group B,SYS_STAFF C
+        WHERE A.Work_Group_Id = B.Work_Group_Id
+        AND B.state = 1
+        AND A.STAFF_ID = C.STAFF_ID
+        AND C.STATE = 1
+        <if test="keyword !=null ">and( B.code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or B.work_group_name like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="selectStaffByWorkGroupId" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,A.*, B.CODE ORGANIZE_CODE, B.ORGANIZE_NAME from SYS_STAFF A, SYS_ORGANIZE B
+        WHERE A.STAFF_ID IN
+        (SELECT STAFF_ID FROM SYS_STAFF_WORKING_GROUP WHERE WORK_GROUP_ID = #{workGroupId,jdbcType=INTEGER})
+        AND A.STATE = 1
+        AND B.ORGANIZE_ID IN (SELECT ORGANIZE_ID
+        FROM SYS_STAFF_ORG_RELAT
+        WHERE STAFF_ID = A.STAFF_ID)
+        <if test="keyword !=null ">and( A.code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or A.EMPLOYEE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        and ROWNUM &lt;=(#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getStaffByWorkGroupIdCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,A.*, B.CODE ORGANIZE_CODE, B.ORGANIZE_NAME from SYS_STAFF A, SYS_ORGANIZE B
+        WHERE A.STAFF_ID IN
+        (SELECT STAFF_ID FROM SYS_STAFF_WORKING_GROUP WHERE WORK_GROUP_ID = #{workGroupId,jdbcType=INTEGER})
+        AND A.STATE = 1
+        AND B.ORGANIZE_ID IN (SELECT ORGANIZE_ID
+        FROM SYS_STAFF_ORG_RELAT
+        WHERE STAFF_ID = A.STAFF_ID)
+        <if test="keyword !=null ">and( A.code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or A.EMPLOYEE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>)
+    </select>
+
+    <select id="getWorkGroupById" resultType="java.lang.Integer">
+        select count(*) from Sys_Staff_Working_Group
+        where STAFF_ID = #{staffId,jdbcType=INTEGER}
+        and WORK_GROUP_ID = #{workGroupId,jdbcType=INTEGER}
+    </select>
+</mapper>

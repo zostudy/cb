@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpRuleValueDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpRuleValueRepository" >
+    <id column="AARV_ID" property="aarvId" jdbcType="DECIMAL" />
+    <result column="AAT_ID" property="aatId" jdbcType="DECIMAL" />
+    <result column="ART_TYPE" property="artType" jdbcType="DECIMAL" />
+    <result column="AR_ID" property="arId" jdbcType="DECIMAL" />
+    <result column="AR_SEQ" property="arSeq" jdbcType="DECIMAL" />
+    <result column="AR_VALUE" property="arValue" jdbcType="VARCHAR" />
+    <result column="AAT_TAG" property="aatTag" jdbcType="VARCHAR" />
+    <result column="OBJ_ID" property="objId" jdbcType="DECIMAL" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="RULE_VALUE" property="ruleValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AARV_ID, AAT_ID, ART_TYPE, AR_ID, AR_SEQ, AR_VALUE, AAT_TAG, OBJ_ID, RULE_NAME, RULE_VALUE
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_RULE_VALUE$SEQ.nextval</sql>
+
+  <!--<select id="selectAlmAsnltmpRuleValue" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from ALM_ASNLTMP_RULE_VALUE-->
+    <!--where AARV_ID = #{aarvId,jdbcType=DECIMAL}-->
+  <!--</select>-->
+
+  <delete id="deleteAlmAsnltmpRuleValue" parameterType="java.lang.Integer" >
+    delete from ALM_ASNLTMP_RULE_VALUE
+    where AARV_ID = #{aarvId,jdbcType=DECIMAL}
+  </delete>
+
+  <insert id="saveAlmAsnltmpRuleValue" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpRuleValueRepository" >
+    <selectKey keyProperty="aarvId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_RULE_VALUE$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ASNLTMP_RULE_VALUE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AARV_ID,
+      <if test="aatId != null" >
+        AAT_ID,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="arId != null" >
+        AR_ID,
+      </if>
+      <if test="arSeq != null" >
+        AR_SEQ,
+      </if>
+      <if test="arValue != null" >
+        AR_VALUE,
+      </if>
+      <if test="aatTag != null" >
+        AAT_TAG,
+      </if>
+      <if test="objId != null" >
+        OBJ_ID,
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME,
+      </if>
+      <if test="ruleValue != null" >
+        RULE_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{aarvId,jdbcType=DECIMAL},
+      <if test="aatId != null" >
+        #{aatId,jdbcType=DECIMAL},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=DECIMAL},
+      </if>
+      <if test="arId != null" >
+        #{arId,jdbcType=DECIMAL},
+      </if>
+      <if test="arSeq != null" >
+        #{arSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="arValue != null" >
+        #{arValue,jdbcType=VARCHAR},
+      </if>
+      <if test="aatTag != null" >
+        #{aatTag,jdbcType=VARCHAR},
+      </if>
+      <if test="objId != null" >
+        #{objId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleValue != null" >
+        #{ruleValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpRuleValue" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpRuleValueRepository" >
+    update ALM_ASNLTMP_RULE_VALUE
+    <set >
+      <if test="aatId != null" >
+        AAT_ID = #{aatId,jdbcType=DECIMAL},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=DECIMAL},
+      </if>
+      <if test="arId != null" >
+        AR_ID = #{arId,jdbcType=DECIMAL},
+      </if>
+      <if test="arSeq != null" >
+        AR_SEQ = #{arSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="arValue != null" >
+        AR_VALUE = #{arValue,jdbcType=VARCHAR},
+      </if>
+      <if test="aatTag != null" >
+        AAT_TAG = #{aatTag,jdbcType=VARCHAR},
+      </if>
+      <if test="objId != null" >
+        OBJ_ID = #{objId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleValue != null" >
+        RULE_VALUE = #{ruleValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AARV_ID = #{aarvId,jdbcType=DECIMAL}
+  </update>
+
+</mapper>

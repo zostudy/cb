@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStaffDao">
+    <resultMap id="BaseResultMap3" type="com.asiainfo.rms.system.domain.SysLoginUserInfoRepository">
+        <result column="staff_id" property="staffId" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="employee_name" property="employeeName" jdbcType="VARCHAR"/>
+        <result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="religion" property="religion" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="organize_id" property="organizeId" jdbcType="INTEGER"/>
+        <result column="organize_name" property="organizeName" jdbcType="VARCHAR"/>
+        
+        <result column="account_4a" property="account4A" jdbcType="VARCHAR"/>
+        <result column="account_crm" property="accountCrm" jdbcType="VARCHAR"/>
+        <result column="account_boss" property="accountBoss" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectLoginUserInfo" resultMap="BaseResultMap3">
+        SELECT A.*, C.ORGANIZE_ID, C.ORGANIZE_NAME
+        FROM SYS_STAFF A, SYS_STAFF_ORG_RELAT B, SYS_ORGANIZE C
+        WHERE A.STAFF_ID = B.STAFF_ID
+        AND B.ORGANIZE_ID = C.ORGANIZE_ID
+        AND C.STATE = 1
+        AND B.STATE = 1
+        AND A.LOCK_FLAG = 0
+        AND A.STATE = 1
+        AND A.STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

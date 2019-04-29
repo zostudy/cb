@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpRuleRelatDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpRuleRelatRepository">
+        <id column="ATRR_ID" property="atrrId" jdbcType="DECIMAL"/>
+        <result column="ART_TYPE" property="artType" jdbcType="DECIMAL"/>
+        <result column="AR_ID" property="arId" jdbcType="DECIMAL"/>
+        <result column="AR_SEQ" property="arSeq" jdbcType="DECIMAL"/>
+        <result column="AR_VALUE" property="arValue" jdbcType="VARCHAR"/>
+
+        <result column="ART_NAME" property="artName" jdbcType="VARCHAR"/>
+
+        <result column="AARV_ID" property="aarvId" jdbcType="INTEGER"/>
+        <result column="RULE_TAG" property="ruleTag" jdbcType="VARCHAR"/>
+        <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR"/>
+        <result column="RULE_TYPE" property="ruleType" jdbcType="INTEGER"/>
+        <result column="RULE_VALUE" property="ruleValue" jdbcType="VARCHAR"/>
+        <result column="ENUM_MARK" property="enumMark" jdbcType="VARCHAR"/>
+
+        <result column="AAT_ID" property="aatId" jdbcType="DECIMAL"/>
+        <result column="AAT_TAG" property="aatTag" jdbcType="VARCHAR"/>
+        <result column="OBJ_ID" property="objId" jdbcType="DECIMAL"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    ATRR_ID, ART_TYPE, AR_ID, AR_SEQ
+  </sql>
+
+    <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_RULE_RELAT$SEQ.nextval</sql>
+
+    <select id="selectAlmAsnltmpRuleRela" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ALM_ASNLTMP_RULE_RELAT
+        where ATRR_ID = #{atrrId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteAlmAsnltmpRuleRelat" parameterType="java.lang.Integer">
+    delete from ALM_ASNLTMP_RULE_RELAT
+    where ATRR_ID = #{atrrId,jdbcType=DECIMAL}
+  </delete>
+
+    <insert id="saveAlmAsnltmpRuleRelat"
+            parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpRuleRelatRepository">
+        <selectKey keyProperty="atrrId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_ASNLTMP_RULE_RELAT$SEQ.nextval from dual
+        </selectKey>
+
+        insert into ALM_ASNLTMP_RULE_RELAT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ATRR_ID,
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="arId != null">
+                AR_ID,
+            </if>
+            <if test="arSeq != null">
+                AR_SEQ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{atrrId,jdbcType=DECIMAL},
+            <if test="artType != null">
+                #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="arId != null">
+                #{arId,jdbcType=DECIMAL},
+            </if>
+            <if test="arSeq != null">
+                #{arSeq,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmAsnltmpRuleRelat"
+            parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpRuleRelatRepository">
+        update ALM_ASNLTMP_RULE_RELAT
+        <set>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="arId != null">
+                AR_ID = #{arId,jdbcType=DECIMAL},
+            </if>
+            <if test="arSeq != null">
+                AR_SEQ = #{arSeq,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where ATRR_ID = #{atrrId,jdbcType=DECIMAL}
+    </update>
+
+    <select id="getAllAlmAsnltmpRuleRelaCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*, B.RULE_TAG, B.RULE_NAME
+        from ALM_ASNLTMP_RULE_RELAT T, ALM_ARSENAL_RULES B
+        where 1=1
+        AND t.ar_id = b.ar_id
+        <if test="artType !=null">and t.art_type = #{artType,jdbcType=DECIMAL}
+        </if>)
+    </select>
+
+    <select id="selectAllAlmAsnltmpRuleRela" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*,  B.RULE_TAG, B.RULE_NAME
+        from ALM_ASNLTMP_RULE_RELAT T, ALM_ARSENAL_RULES B
+        where 1=1
+        AND t.ar_id = b.ar_id
+        <if test="artType !=null">and t.art_type = #{artType,jdbcType=DECIMAL}
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getRuleRelaByTypeAndId" resultType="java.lang.Integer">
+    select count(*) from ALM_ASNLTMP_RULE_RELAT
+    where ART_TYPE = #{artType,jdbcType=DECIMAL}
+    and ar_id = #{arId,jdbcType=DECIMAL}
+  </select>
+
+    <select id="selectAlmAsnltmpServiceRelatByArtType" resultMap="BaseResultMap">
+        SELECT T.*,
+        A.AARV_ID,
+        A.AAT_ID,
+        A.AAT_TAG,
+        A.OBJ_ID,
+        A.RULE_VALUE,
+        A.AR_VALUE,
+        B.RULE_TAG,
+        B.RULE_NAME,
+        B.RULE_TYPE,
+        B.ENUM_MARK
+        FROM ALM_ASNLTMP_RULE_RELAT T
+        LEFT JOIN (SELECT *
+        FROM ALM_ASNLTMP_RULE_VALUE
+        WHERE 1=1
+        <if test="aatId != null">
+            and AAT_ID = #{aatId,jdbcType=INTEGER}
+        </if>
+        <if test="objId !=null">
+            AND OBJ_ID = #{objId,jdbcType=INTEGER}
+        </if>) A
+        ON A.ART_TYPE = T.ART_TYPE
+        AND A.AR_ID = T.AR_ID
+        LEFT JOIN ALM_ARSENAL_RULES B
+        ON B.AR_ID = T.AR_ID
+        WHERE T.ART_TYPE = #{artType,jdbcType=DECIMAL}
+    </select>
+</mapper>

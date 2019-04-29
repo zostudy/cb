@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpBusiayaDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpBusiayaRepository">
+        <id column="ARBA_ID" property="arbaId" jdbcType="DECIMAL"/>
+        <result column="DATA_SHARE" property="dataShare" jdbcType="DECIMAL"/>
+        <result column="DISPLAY_MODE" property="displayMode" jdbcType="DECIMAL"/>
+        <result column="REPORT_NAME" property="reportName" jdbcType="VARCHAR"/>
+        <result column="REPORT_PURPOSE" property="reportPurpose" jdbcType="VARCHAR"/>
+        <result column="REPORT_USERS" property="reportUsers" jdbcType="VARCHAR"/>
+        <result column="INVOVLE_SYSTEM" property="invovleSystem" jdbcType="VARCHAR"/>
+        <result column="BUSI_REQ" property="busiReq" jdbcType="VARCHAR"/>
+        <result column="COMMUNICATE" property="communicate" jdbcType="VARCHAR"/>
+        <result column="REPORT_PATH" property="reportPath" jdbcType="VARCHAR"/>
+        <result column="TIMESCALE_REQ" property="timescaleReq" jdbcType="VARCHAR"/>
+        <result column="RUN_TIME" property="runTime" jdbcType="VARCHAR"/>
+        <result column="DATA_AREA" property="dataArea" jdbcType="VARCHAR"/>
+        <result column="DATA_HIS_UPDATE" property="dataHisUpdate" jdbcType="VARCHAR"/>
+        <result column="SAVE_PERIOD" property="savePeriod" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME_START" property="applyTimeStart" jdbcType="DATE"/>
+        <result column="ART_TYPE" property="artType" jdbcType="DECIMAL"/>
+        <result column="ART_ID" property="artId" jdbcType="DECIMAL"/>
+        <result column="APPLY_TIME_END" property="applyTimeEnd" jdbcType="DATE"/>
+        <result column="DATA_SHARE_CONT" property="dataShareCont" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_MODE_CONT" property="displayModeCont" jdbcType="VARCHAR"/>
+        <result column="SEARCH_CONDITION" property="searchCondition" jdbcType="CLOB"/>
+        <result column="REMOVAL" property="removal" jdbcType="CLOB"/>
+        <result column="GRAPH_INTERFACE" property="graphInterface" jdbcType="CLOB"/>
+        <result column="EXPORT_DEMOND" property="exportDemond" jdbcType="CLOB"/>
+        <result column="PERM_DEMOND" property="permDemond" jdbcType="CLOB"/>
+        <result column="USE_DEMOND" property="useDemond" jdbcType="CLOB"/>
+        <result column="OTHER_CONTENT" property="otherContent" jdbcType="CLOB"/>
+        <result column="GRAPH_CONT" property="graphCont" jdbcType="CLOB"/>
+
+        <result column="ART_TAG" property="artTag" jdbcType="VARCHAR"/>
+        <result column="ART_NAME" property="artName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>ALM_REQTMP_BUSIAYA$SEQ.nextval</sql>
+
+    <select id="selectAlmReqtmpBusiaya" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from ALM_REQTMP_BUSIAYA
+    where ARBA_ID = #{arbaId,jdbcType=DECIMAL}
+  </select>
+
+    <select id="selectAlmReqtmpBusiayaByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from ALM_REQTMP_BUSIAYA
+    where ART_ID = #{artId,jdbcType=DECIMAL}
+  </select>
+
+    <delete id="deleteAlmReqtmpBusiaya" parameterType="java.lang.Integer">
+    delete from ALM_REQTMP_BUSIAYA
+    where ARBA_ID = #{arbaId,jdbcType=DECIMAL}
+  </delete>
+
+    <insert id="saveAlmReqtmpBusiaya" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpBusiayaRepository">
+        <selectKey keyProperty="arbaId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_REQTMP_BUSIAYA$SEQ.nextval from dual
+        </selectKey>
+        insert into ALM_REQTMP_BUSIAYA
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ARBA_ID,
+            <if test="dataShare != null">
+                DATA_SHARE,
+            </if>
+            <if test="displayMode != null">
+                DISPLAY_MODE,
+            </if>
+            <if test="reportName != null">
+                REPORT_NAME,
+            </if>
+            <if test="reportPurpose != null">
+                REPORT_PURPOSE,
+            </if>
+            <if test="reportUsers != null">
+                REPORT_USERS,
+            </if>
+            <if test="invovleSystem != null">
+                INVOVLE_SYSTEM,
+            </if>
+            <if test="busiReq != null">
+                BUSI_REQ,
+            </if>
+            <if test="communicate != null">
+                COMMUNICATE,
+            </if>
+            <if test="reportPath != null">
+                REPORT_PATH,
+            </if>
+            <if test="timescaleReq != null">
+                TIMESCALE_REQ,
+            </if>
+            <if test="runTime != null">
+                RUN_TIME,
+            </if>
+            <if test="dataArea != null">
+                DATA_AREA,
+            </if>
+            <if test="dataHisUpdate != null">
+                DATA_HIS_UPDATE,
+            </if>
+            <if test="savePeriod != null">
+                SAVE_PERIOD,
+            </if>
+            <if test="applyTimeStart != null">
+                APPLY_TIME_START,
+            </if>
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="artId != null">
+                ART_ID,
+            </if>
+            <if test="applyTimeEnd != null">
+                APPLY_TIME_END,
+            </if>
+            <if test="dataShareCont != null">
+                DATA_SHARE_CONT,
+            </if>
+            <if test="displayModeCont != null">
+                DISPLAY_MODE_CONT,
+            </if>
+            <if test="searchCondition != null">
+                SEARCH_CONDITION,
+            </if>
+            <if test="removal != null">
+                REMOVAL,
+            </if>
+            <if test="graphInterface != null">
+                GRAPH_INTERFACE,
+            </if>
+            <if test="exportDemond != null">
+                EXPORT_DEMOND,
+            </if>
+            <if test="permDemond != null">
+                PERM_DEMOND,
+            </if>
+            <if test="useDemond != null">
+                USE_DEMOND,
+            </if>
+            <if test="otherContent != null">
+                OTHER_CONTENT,
+            </if>
+            <if test="graphCont != null">
+                GRAPH_CONT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{arbaId,jdbcType=DECIMAL},
+            <if test="dataShare != null">
+                #{dataShare,jdbcType=DECIMAL},
+            </if>
+            <if test="displayMode != null">
+                #{displayMode,jdbcType=DECIMAL},
+            </if>
+            <if test="reportName != null">
+                #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportPurpose != null">
+                #{reportPurpose,jdbcType=VARCHAR},
+            </if>
+            <if test="reportUsers != null">
+                #{reportUsers,jdbcType=VARCHAR},
+            </if>
+            <if test="invovleSystem != null">
+                #{invovleSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="busiReq != null">
+                #{busiReq,jdbcType=VARCHAR},
+            </if>
+            <if test="communicate != null">
+                #{communicate,jdbcType=VARCHAR},
+            </if>
+            <if test="reportPath != null">
+                #{reportPath,jdbcType=VARCHAR},
+            </if>
+            <if test="timescaleReq != null">
+                #{timescaleReq,jdbcType=VARCHAR},
+            </if>
+            <if test="runTime != null">
+                #{runTime,jdbcType=VARCHAR},
+            </if>
+            <if test="dataArea != null">
+                #{dataArea,jdbcType=VARCHAR},
+            </if>
+            <if test="dataHisUpdate != null">
+                #{dataHisUpdate,jdbcType=VARCHAR},
+            </if>
+            <if test="savePeriod != null">
+                #{savePeriod,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTimeStart != null">
+                #{applyTimeStart,jdbcType=DATE},
+            </if>
+            <if test="artType != null">
+                #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="artId != null">
+                #{artId,jdbcType=DECIMAL},
+            </if>
+            <if test="applyTimeEnd != null">
+                #{applyTimeEnd,jdbcType=DATE},
+            </if>
+            <if test="dataShareCont != null">
+                #{dataShareCont,jdbcType=VARCHAR},
+            </if>
+            <if test="displayModeCont != null">
+                #{displayModeCont,jdbcType=VARCHAR},
+            </if>
+            <if test="searchCondition != null">
+                #{searchCondition,jdbcType=CLOB},
+            </if>
+            <if test="removal != null">
+                #{removal,jdbcType=CLOB},
+            </if>
+            <if test="graphInterface != null">
+                #{graphInterface,jdbcType=CLOB},
+            </if>
+            <if test="exportDemond != null">
+                #{exportDemond,jdbcType=CLOB},
+            </if>
+            <if test="permDemond != null">
+                #{permDemond,jdbcType=CLOB},
+            </if>
+            <if test="useDemond != null">
+                #{useDemond,jdbcType=CLOB},
+            </if>
+            <if test="otherContent != null">
+                #{otherContent,jdbcType=CLOB},
+            </if>
+            <if test="graphCont != null">
+                #{graphCont,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAlmReqtmpBusiaya" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpBusiayaRepository">
+        update ALM_REQTMP_BUSIAYA
+        <set>
+            <if test="dataShare != null">
+                DATA_SHARE = #{dataShare,jdbcType=DECIMAL},
+            </if>
+            <if test="displayMode != null">
+                DISPLAY_MODE = #{displayMode,jdbcType=DECIMAL},
+            </if>
+            <if test="reportName != null">
+                REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportPurpose != null">
+                REPORT_PURPOSE = #{reportPurpose,jdbcType=VARCHAR},
+            </if>
+            <if test="reportUsers != null">
+                REPORT_USERS = #{reportUsers,jdbcType=VARCHAR},
+            </if>
+            <if test="invovleSystem != null">
+                INVOVLE_SYSTEM = #{invovleSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="busiReq != null">
+                BUSI_REQ = #{busiReq,jdbcType=VARCHAR},
+            </if>
+            <if test="communicate != null">
+                COMMUNICATE = #{communicate,jdbcType=VARCHAR},
+            </if>
+            <if test="reportPath != null">
+                REPORT_PATH = #{reportPath,jdbcType=VARCHAR},
+            </if>
+            <if test="timescaleReq != null">
+                TIMESCALE_REQ = #{timescaleReq,jdbcType=VARCHAR},
+            </if>
+            <if test="runTime != null">
+                RUN_TIME = #{runTime,jdbcType=VARCHAR},
+            </if>
+            <if test="dataArea != null">
+                DATA_AREA = #{dataArea,jdbcType=VARCHAR},
+            </if>
+            <if test="dataHisUpdate != null">
+                DATA_HIS_UPDATE = #{dataHisUpdate,jdbcType=VARCHAR},
+            </if>
+            <if test="savePeriod != null">
+                SAVE_PERIOD = #{savePeriod,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTimeStart != null">
+                APPLY_TIME_START = #{applyTimeStart,jdbcType=DATE},
+            </if>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="artId != null">
+                ART_ID = #{artId,jdbcType=DECIMAL},
+            </if>
+            <if test="applyTimeEnd != null">
+                APPLY_TIME_END = #{applyTimeEnd,jdbcType=DATE},
+            </if>
+            <if test="dataShareCont != null">
+                DATA_SHARE_CONT = #{dataShareCont,jdbcType=VARCHAR},
+            </if>
+            <if test="displayModeCont != null">
+                DISPLAY_MODE_CONT = #{displayModeCont,jdbcType=VARCHAR},
+            </if>
+            <if test="searchCondition != null">
+                SEARCH_CONDITION = #{searchCondition,jdbcType=CLOB},
+            </if>
+            <if test="removal != null">
+                REMOVAL = #{removal,jdbcType=CLOB},
+            </if>
+            <if test="graphInterface != null">
+                GRAPH_INTERFACE = #{graphInterface,jdbcType=CLOB},
+            </if>
+            <if test="exportDemond != null">
+                EXPORT_DEMOND = #{exportDemond,jdbcType=CLOB},
+            </if>
+            <if test="permDemond != null">
+                PERM_DEMOND = #{permDemond,jdbcType=CLOB},
+            </if>
+            <if test="useDemond != null">
+                USE_DEMOND = #{useDemond,jdbcType=CLOB},
+            </if>
+            <if test="otherContent != null">
+                OTHER_CONTENT = #{otherContent,jdbcType=CLOB},
+            </if>
+            <if test="graphCont != null">
+                GRAPH_CONT = #{graphCont,jdbcType=CLOB},
+            </if>
+        </set>
+        where ARBA_ID = #{arbaId,jdbcType=DECIMAL}
+    </update>
+
+    <select id="selectAllAlmReqtmpBusiaya" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_BUSIAYA T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and T.ART_ID = A.ART_ID
+        <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+            or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="artType != null">
+            and A.ART_TYPE = #{artType,jdbcType=INTEGER}
+        </if>
+        <if test="artName != null">
+            and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+        </if>
+        <if test="artTag != null">
+            and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+        </if>
+        <if test="artRegion != null">
+            and A.ART_REGION = #{artRegion,jdbcType=INTEGER}
+        </if>
+        <if test="urgentLevel != null">
+            and A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+        </if>
+        <if test="submitStaffName != null">
+            and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getAllAlmReqtmpBusiayaCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_BUSIAYA T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and T.ART_ID = A.ART_ID
+        <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+            or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="artType != null">
+            and A.ART_TYPE = #{artType,jdbcType=INTEGER}
+        </if>
+        <if test="artName != null">
+            and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+        </if>
+        <if test="artTag != null">
+            and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+        </if>
+        <if test="artRegion != null">
+            and A.ART_REGION = #{artRegion,jdbcType=INTEGER}
+        </if>
+        <if test="urgentLevel != null">
+            and A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+        </if>
+        <if test="submitStaffName != null">
+            and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+        </if>)
+    </select>
+</mapper>

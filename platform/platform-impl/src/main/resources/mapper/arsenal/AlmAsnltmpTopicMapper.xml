@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpTopicDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpTopicRepository">
+        <id column="AAT_ID" property="aatId" jdbcType="INTEGER"/>
+        <result column="ART_TYPE" property="artType" jdbcType="INTEGER"/>
+        <result column="AAT_TAG" property="aatTag" jdbcType="VARCHAR"/>
+        <result column="AAT_NAME" property="aatName" jdbcType="VARCHAR"/>
+        <result column="AAT_REGION" property="aatRegion" jdbcType="VARCHAR"/>
+        <result column="AAT_DEPART" property="aatDepart" jdbcType="INTEGER"/>
+        <result column="SUBMIT_STAFF_ID" property="submitStaffId" jdbcType="INTEGER"/>
+        <result column="SUBMIT_STAFF_NAME" property="submitStaffName" jdbcType="VARCHAR"/>
+        <result column="SUBMIT_STAFF_PHONE" property="submitStaffPhone" jdbcType="VARCHAR"/>
+        <result column="URGENT_LEVEL" property="urgentLevel" jdbcType="INTEGER"/>
+        <result column="ASK_ONLINE_TIME" property="askOnlineTime" jdbcType="DATE"/>
+        <result column="RELIZE_METHOD" property="relizeMethod" jdbcType="INTEGER"/>
+        <result column="TARGET_CUST" property="targetCust" jdbcType="INTEGER"/>
+        <result column="REQ_TARGET" property="reqTarget" jdbcType="VARCHAR"/>
+        <result column="DEAL_CHANNEL" property="dealChannel" jdbcType="VARCHAR"/>
+        <result column="JOIN_WAY" property="joinWay" jdbcType="VARCHAR"/>
+        <result column="JOIN_LIMIT" property="joinLimit" jdbcType="VARCHAR"/>
+        <result column="BALANCE_EXP" property="balanceExp" jdbcType="VARCHAR"/>
+        <result column="MUTEX_EXP" property="mutexExp" jdbcType="VARCHAR"/>
+        <result column="OVERLY_EXP" property="overlyExp" jdbcType="VARCHAR"/>
+        <result column="BIND_EXP" property="bindExp" jdbcType="VARCHAR"/>
+        <result column="PRIO_EXP" property="prioExp" jdbcType="VARCHAR"/>
+        <result column="OTHER_EXP" property="otherExp" jdbcType="VARCHAR"/>
+        <result column="ORDER_MSG" property="orderMsg" jdbcType="VARCHAR"/>
+        <result column="UPDATE_MSG" property="updateMsg" jdbcType="VARCHAR"/>
+        <result column="FREE_FILL" property="freeFill" jdbcType="VARCHAR"/>
+        <result column="ACCOUNT_DETAIL" property="accountDetail" jdbcType="VARCHAR"/>
+        <result column="BUSI_REPORT" property="busiReport" jdbcType="VARCHAR"/>
+        <result column="ELE_SHOW" property="eleShow" jdbcType="VARCHAR"/>
+        <result column="AUTH_EXP" property="authExp" jdbcType="VARCHAR"/>
+        <result column="AAT_REGION_CONT" property="aatRegionCont" jdbcType="VARCHAR"/>
+        <result column="AAT_DEPART_CONT" property="aatDepartCont" jdbcType="VARCHAR"/>
+        <result column="URGENT_LEVEL_CONT" property="urgentLevelCont" jdbcType="VARCHAR"/>
+        <result column="RELIZE_METHOD_CONT" property="relizeMethodCont" jdbcType="VARCHAR"/>
+        <result column="TARGET_CUST_CONT" property="targetCustCont" jdbcType="VARCHAR"/>
+        <result column="REQ_TARGET_CONT" property="reqTargetCont" jdbcType="VARCHAR"/>
+        <result column="DEAL_CHANNEL_CONT" property="dealChannelCont" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
+        <result column="OPINION" property="opinion" jdbcType="VARCHAR"/>
+        <result column="ONLINE_STATE" property="onlineState" jdbcType="INTEGER"/>
+        <result column="SEND_TIME" property="sendTime" jdbcType="DATE"/>
+        <result column="STATE_BACK_TIME" property="stateBackTime" jdbcType="DATE"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    AAT_ID, ART_TYPE, AAT_TAG, AAT_NAME, AAT_REGION, AAT_DEPART, SUBMIT_STAFF_ID, SUBMIT_STAFF_NAME, 
+    SUBMIT_STAFF_PHONE, URGENT_LEVEL, ASK_ONLINE_TIME, RELIZE_METHOD, TARGET_CUST, REQ_TARGET, 
+    DEAL_CHANNEL, JOIN_WAY, JOIN_LIMIT, BALANCE_EXP, MUTEX_EXP, OVERLY_EXP, BIND_EXP, 
+    PRIO_EXP, OTHER_EXP, ORDER_MSG, UPDATE_MSG, FREE_FILL, ACCOUNT_DETAIL, BUSI_REPORT, 
+    ELE_SHOW, AUTH_EXP, AAT_REGION_CONT, AAT_DEPART_CONT, URGENT_LEVEL_CONT, RELIZE_METHOD_CONT, 
+    TARGET_CUST_CONT, REQ_TARGET_CONT, DEAL_CHANNEL_CONT, CREATE_TIME, OPINION, ONLINE_STATE, 
+    SEND_TIME, STATE_BACK_TIME
+  </sql>
+
+    <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_TOPIC$SEQ.nextval</sql>
+
+    <select id="selectAlmAsnltmpTopic" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ALM_ASNLTMP_TOPIC
+        where AAT_ID = #{aatId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteAlmAsnltmpTopic" parameterType="java.lang.Integer">
+    delete from ALM_ASNLTMP_TOPIC
+    where AAT_ID = #{aatId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="saveAlmAsnltmpTopic" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpTopicRepository">
+        <selectKey keyProperty="aatId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_ASNLTMP_TOPIC$SEQ.nextval from dual
+        </selectKey>
+        insert into ALM_ASNLTMP_TOPIC
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            AAT_ID,
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="aatTag != null">
+                AAT_TAG,
+            </if>
+            <if test="aatName != null">
+                AAT_NAME,
+            </if>
+            <if test="aatRegion != null">
+                AAT_REGION,
+            </if>
+            <if test="aatDepart != null">
+                AAT_DEPART,
+            </if>
+            <if test="submitStaffId != null">
+                SUBMIT_STAFF_ID,
+            </if>
+            <if test="submitStaffName != null">
+                SUBMIT_STAFF_NAME,
+            </if>
+            <if test="submitStaffPhone != null">
+                SUBMIT_STAFF_PHONE,
+            </if>
+            <if test="urgentLevel != null">
+                URGENT_LEVEL,
+            </if>
+            <if test="askOnlineTime != null">
+                ASK_ONLINE_TIME,
+            </if>
+            <if test="relizeMethod != null">
+                RELIZE_METHOD,
+            </if>
+            <if test="targetCust != null">
+                TARGET_CUST,
+            </if>
+            <if test="reqTarget != null">
+                REQ_TARGET,
+            </if>
+            <if test="dealChannel != null">
+                DEAL_CHANNEL,
+            </if>
+            <if test="joinWay != null">
+                JOIN_WAY,
+            </if>
+            <if test="joinLimit != null">
+                JOIN_LIMIT,
+            </if>
+            <if test="balanceExp != null">
+                BALANCE_EXP,
+            </if>
+            <if test="mutexExp != null">
+                MUTEX_EXP,
+            </if>
+            <if test="overlyExp != null">
+                OVERLY_EXP,
+            </if>
+            <if test="bindExp != null">
+                BIND_EXP,
+            </if>
+            <if test="prioExp != null">
+                PRIO_EXP,
+            </if>
+            <if test="otherExp != null">
+                OTHER_EXP,
+            </if>
+            <if test="orderMsg != null">
+                ORDER_MSG,
+            </if>
+            <if test="updateMsg != null">
+                UPDATE_MSG,
+            </if>
+            <if test="freeFill != null">
+                FREE_FILL,
+            </if>
+            <if test="accountDetail != null">
+                ACCOUNT_DETAIL,
+            </if>
+            <if test="busiReport != null">
+                BUSI_REPORT,
+            </if>
+            <if test="eleShow != null">
+                ELE_SHOW,
+            </if>
+            <if test="authExp != null">
+                AUTH_EXP,
+            </if>
+            <if test="aatRegionCont != null">
+                AAT_REGION_CONT,
+            </if>
+            <if test="aatDepartCont != null">
+                AAT_DEPART_CONT,
+            </if>
+            <if test="urgentLevelCont != null">
+                URGENT_LEVEL_CONT,
+            </if>
+            <if test="relizeMethodCont != null">
+                RELIZE_METHOD_CONT,
+            </if>
+            <if test="targetCustCont != null">
+                TARGET_CUST_CONT,
+            </if>
+            <if test="reqTargetCont != null">
+                REQ_TARGET_CONT,
+            </if>
+            <if test="dealChannelCont != null">
+                DEAL_CHANNEL_CONT,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="opinion != null">
+                OPINION,
+            </if>
+            <if test="onlineState != null">
+                ONLINE_STATE,
+            </if>
+            <if test="sendTime != null">
+                SEND_TIME,
+            </if>
+            <if test="stateBackTime != null">
+                STATE_BACK_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{aatId,jdbcType=INTEGER},
+            <if test="artType != null">
+                #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="aatTag != null">
+                #{aatTag,jdbcType=VARCHAR},
+            </if>
+            <if test="aatName != null">
+                #{aatName,jdbcType=VARCHAR},
+            </if>
+            <if test="aatRegion != null">
+                #{aatRegion,jdbcType=VARCHAR},
+            </if>
+            <if test="aatDepart != null">
+                #{aatDepart,jdbcType=INTEGER},
+            </if>
+            <if test="submitStaffId != null">
+                #{submitStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="submitStaffName != null">
+                #{submitStaffName,jdbcType=VARCHAR},
+            </if>
+            <if test="submitStaffPhone != null">
+                #{submitStaffPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="urgentLevel != null">
+                #{urgentLevel,jdbcType=INTEGER},
+            </if>
+            <if test="askOnlineTime != null">
+                #{askOnlineTime,jdbcType=DATE},
+            </if>
+            <if test="relizeMethod != null">
+                #{relizeMethod,jdbcType=INTEGER},
+            </if>
+            <if test="targetCust != null">
+                #{targetCust,jdbcType=INTEGER},
+            </if>
+            <if test="reqTarget != null">
+                #{reqTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="dealChannel != null">
+                #{dealChannel,jdbcType=VARCHAR},
+            </if>
+            <if test="joinWay != null">
+                #{joinWay,jdbcType=VARCHAR},
+            </if>
+            <if test="joinLimit != null">
+                #{joinLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="balanceExp != null">
+                #{balanceExp,jdbcType=VARCHAR},
+            </if>
+            <if test="mutexExp != null">
+                #{mutexExp,jdbcType=VARCHAR},
+            </if>
+            <if test="overlyExp != null">
+                #{overlyExp,jdbcType=VARCHAR},
+            </if>
+            <if test="bindExp != null">
+                #{bindExp,jdbcType=VARCHAR},
+            </if>
+            <if test="prioExp != null">
+                #{prioExp,jdbcType=VARCHAR},
+            </if>
+            <if test="otherExp != null">
+                #{otherExp,jdbcType=VARCHAR},
+            </if>
+            <if test="orderMsg != null">
+                #{orderMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="updateMsg != null">
+                #{updateMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="freeFill != null">
+                #{freeFill,jdbcType=VARCHAR},
+            </if>
+            <if test="accountDetail != null">
+                #{accountDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="busiReport != null">
+                #{busiReport,jdbcType=VARCHAR},
+            </if>
+            <if test="eleShow != null">
+                #{eleShow,jdbcType=VARCHAR},
+            </if>
+            <if test="authExp != null">
+                #{authExp,jdbcType=VARCHAR},
+            </if>
+            <if test="aatRegionCont != null">
+                #{aatRegionCont,jdbcType=VARCHAR},
+            </if>
+            <if test="aatDepartCont != null">
+                #{aatDepartCont,jdbcType=VARCHAR},
+            </if>
+            <if test="urgentLevelCont != null">
+                #{urgentLevelCont,jdbcType=VARCHAR},
+            </if>
+            <if test="relizeMethodCont != null">
+                #{relizeMethodCont,jdbcType=VARCHAR},
+            </if>
+            <if test="targetCustCont != null">
+                #{targetCustCont,jdbcType=VARCHAR},
+            </if>
+            <if test="reqTargetCont != null">
+                #{reqTargetCont,jdbcType=VARCHAR},
+            </if>
+            <if test="dealChannelCont != null">
+                #{dealChannelCont,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="opinion != null">
+                #{opinion,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineState != null">
+                #{onlineState,jdbcType=INTEGER},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=DATE},
+            </if>
+            <if test="stateBackTime != null">
+                #{stateBackTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmAsnltmpTopic" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpTopicRepository">
+        update ALM_ASNLTMP_TOPIC
+        <set>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="aatTag != null">
+                AAT_TAG = #{aatTag,jdbcType=VARCHAR},
+            </if>
+            <if test="aatName != null">
+                AAT_NAME = #{aatName,jdbcType=VARCHAR},
+            </if>
+            <if test="aatRegion != null">
+                AAT_REGION = #{aatRegion,jdbcType=VARCHAR},
+            </if>
+            <if test="aatDepart != null">
+                AAT_DEPART = #{aatDepart,jdbcType=INTEGER},
+            </if>
+            <if test="submitStaffId != null">
+                SUBMIT_STAFF_ID = #{submitStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="submitStaffName != null">
+                SUBMIT_STAFF_NAME = #{submitStaffName,jdbcType=VARCHAR},
+            </if>
+            <if test="submitStaffPhone != null">
+                SUBMIT_STAFF_PHONE = #{submitStaffPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="urgentLevel != null">
+                URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER},
+            </if>
+            <if test="askOnlineTime != null">
+                ASK_ONLINE_TIME = #{askOnlineTime,jdbcType=DATE},
+            </if>
+            <if test="relizeMethod != null">
+                RELIZE_METHOD = #{relizeMethod,jdbcType=INTEGER},
+            </if>
+            <if test="targetCust != null">
+                TARGET_CUST = #{targetCust,jdbcType=INTEGER},
+            </if>
+            <if test="reqTarget != null">
+                REQ_TARGET = #{reqTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="dealChannel != null">
+                DEAL_CHANNEL = #{dealChannel,jdbcType=VARCHAR},
+            </if>
+            <if test="joinWay != null">
+                JOIN_WAY = #{joinWay,jdbcType=VARCHAR},
+            </if>
+            <if test="joinLimit != null">
+                JOIN_LIMIT = #{joinLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="balanceExp != null">
+                BALANCE_EXP = #{balanceExp,jdbcType=VARCHAR},
+            </if>
+            <if test="mutexExp != null">
+                MUTEX_EXP = #{mutexExp,jdbcType=VARCHAR},
+            </if>
+            <if test="overlyExp != null">
+                OVERLY_EXP = #{overlyExp,jdbcType=VARCHAR},
+            </if>
+            <if test="bindExp != null">
+                BIND_EXP = #{bindExp,jdbcType=VARCHAR},
+            </if>
+            <if test="prioExp != null">
+                PRIO_EXP = #{prioExp,jdbcType=VARCHAR},
+            </if>
+            <if test="otherExp != null">
+                OTHER_EXP = #{otherExp,jdbcType=VARCHAR},
+            </if>
+            <if test="orderMsg != null">
+                ORDER_MSG = #{orderMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="updateMsg != null">
+                UPDATE_MSG = #{updateMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="freeFill != null">
+                FREE_FILL = #{freeFill,jdbcType=VARCHAR},
+            </if>
+            <if test="accountDetail != null">
+                ACCOUNT_DETAIL = #{accountDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="busiReport != null">
+                BUSI_REPORT = #{busiReport,jdbcType=VARCHAR},
+            </if>
+            <if test="eleShow != null">
+                ELE_SHOW = #{eleShow,jdbcType=VARCHAR},
+            </if>
+            <if test="authExp != null">
+                AUTH_EXP = #{authExp,jdbcType=VARCHAR},
+            </if>
+            <if test="aatRegionCont != null">
+                AAT_REGION_CONT = #{aatRegionCont,jdbcType=VARCHAR},
+            </if>
+            <if test="aatDepartCont != null">
+                AAT_DEPART_CONT = #{aatDepartCont,jdbcType=VARCHAR},
+            </if>
+            <if test="urgentLevelCont != null">
+                URGENT_LEVEL_CONT = #{urgentLevelCont,jdbcType=VARCHAR},
+            </if>
+            <if test="relizeMethodCont != null">
+                RELIZE_METHOD_CONT = #{relizeMethodCont,jdbcType=VARCHAR},
+            </if>
+            <if test="targetCustCont != null">
+                TARGET_CUST_CONT = #{targetCustCont,jdbcType=VARCHAR},
+            </if>
+            <if test="reqTargetCont != null">
+                REQ_TARGET_CONT = #{reqTargetCont,jdbcType=VARCHAR},
+            </if>
+            <if test="dealChannelCont != null">
+                DEAL_CHANNEL_CONT = #{dealChannelCont,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=DATE},
+            </if>
+            <if test="opinion != null">
+                OPINION = #{opinion,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineState != null">
+                ONLINE_STATE = #{onlineState,jdbcType=INTEGER},
+            </if>
+            <if test="sendTime != null">
+                SEND_TIME = #{sendTime,jdbcType=DATE},
+            </if>
+            <if test="stateBackTime != null">
+                STATE_BACK_TIME = #{stateBackTime,jdbcType=DATE},
+            </if>
+        </set>
+        where AAT_ID = #{aatId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAllAlmAsnltmpTopic" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.* from ALM_ASNLTMP_TOPIC T
+        where 1=1
+        <if test="artType != null">
+            and ART_TYPE = #{artType,jdbcType=INTEGER}
+        </if>
+        <if test="aatName !=null">
+            and AAT_NAME like CONCAT(CONCAT('%',#{aatName}),'%')
+        </if>
+        <if test="aatTag !=null">
+            and AAT_TAG like CONCAT(CONCAT('%',#{aatTag}),'%')
+        </if>
+        <if test="aatRegion !=null">
+            and AAT_REGION = #{aatRegion,jdbcType=VARCHAR}
+        </if>
+        <if test="aatDepart !=null">
+            and AAT_DEPART = #{aatDepart,jdbcType=INTEGER}
+        </if>
+        <if test="submitStaffName !=null">
+            and SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+        </if>
+        <if test="onlineState !=null">
+            and ONLINE_STATE = #{onlineState,jdbcType=INTEGER}
+        </if>
+        <if test=" startTime !=null">
+            <![CDATA[   and ASK_ONLINE_TIME >=  to_date(#{startTime}, 'yyyy-mm-dd')   ]]>
+        </if>
+        <if test="endTime !=null">
+            <![CDATA[   and ASK_ONLINE_TIME <=  to_date(#{endTime}, 'yyyy-mm-dd')   ]]>
+        </if>
+        <if test="keyword !=null">and (AAT_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+            or AAT_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+            or SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+            or AAT_DEPART like CONCAT(CONCAT('%',#{keyword}),'%')
+            or AAT_REGION like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        )
+    </select>
+
+    <select id="selectAllAlmAsnltmpTopic" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.* from ALM_ASNLTMP_TOPIC T
+        where 1=1
+        <if test="artType != null">
+           and ART_TYPE = #{artType,jdbcType=INTEGER}
+        </if>
+        <if test="aatName !=null">
+            and AAT_NAME like CONCAT(CONCAT('%',#{aatName}),'%')
+        </if>
+        <if test="aatTag !=null">
+            and AAT_TAG like CONCAT(CONCAT('%',#{aatTag}),'%')
+        </if>
+        <if test="aatRegion !=null">
+            and AAT_REGION = #{aatRegion,jdbcType=VARCHAR}
+        </if>
+        <if test="aatDepart !=null">
+            and AAT_DEPART = #{aatDepart,jdbcType=INTEGER}
+        </if>
+        <if test="submitStaffName !=null">
+            and SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+        </if>
+        <if test="onlineState !=null">
+            and ONLINE_STATE = #{onlineState,jdbcType=INTEGER}
+        </if>
+        <if test=" startTime !=null">
+            <![CDATA[   and ASK_ONLINE_TIME >=  to_date(#{startTime}, 'yyyy-mm-dd')   ]]>
+        </if>
+        <if test="endTime !=null">
+            <![CDATA[   and ASK_ONLINE_TIME <=  to_date(#{endTime}, 'yyyy-mm-dd')   ]]>
+        </if>
+        <if test="keyword !=null">and (AAT_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+            or AAT_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+            or SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+            or AAT_DEPART like CONCAT(CONCAT('%',#{keyword}),'%')
+            or AAT_REGION like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+        ORDER BY aat_id DESC
+    </select>
+</mapper>

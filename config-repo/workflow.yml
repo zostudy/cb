@@ -1,0 +1,10 @@
+server:
+  port: 18083
+  context-path: /rms/workflow
+security:
+  basic:
+    enabled: false
+logging:
+  level:
+    ROOT: debug
+  file: logs/workflow.log

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpMarketDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpMarketRepository">
+        <result column="ARM_ID" property="armId" jdbcType="INTEGER"/>
+        <result column="ART_TYPE" property="artType" jdbcType="INTEGER"/>
+        <result column="MARKET_NAME" property="marketName" jdbcType="VARCHAR"/>
+        <result column="EFFECT_PLAN" property="effectPlan" jdbcType="VARCHAR"/>
+        <result column="PURPOST" property="purpost" jdbcType="VARCHAR"/>
+        <result column="ACTIVATE_TIME_START" property="activateTimeStart" jdbcType="DATE"/>
+        <result column="ACTIVATE_TIME_END" property="activateTimeEnd" jdbcType="DATE"/>
+        <result column="ACRIVATE_TYPE" property="acrivateType" jdbcType="VARCHAR"/>
+        <result column="ACTIVATE_CHANNEL" property="activateChannel" jdbcType="VARCHAR"/>
+        <result column="ACTIVATE_LIMIT" property="activateLimit" jdbcType="VARCHAR"/>
+        <result column="EFFECT_WAY" property="effectWay" jdbcType="VARCHAR"/>
+        <result column="INVALID_WAY" property="invalidWay" jdbcType="VARCHAR"/>
+        <result column="PRIOR_CONTENT" property="priorContent" jdbcType="VARCHAR"/>
+        <result column="ART_ID" property="artId" jdbcType="INTEGER"/>
+        <result column="CHANNEL_MARK" property="channelMark" jdbcType="VARCHAR"/>
+        <result column="MARKET_RESOURCE" property="marketResource" jdbcType="INTEGER"/>
+        <result column="FEEDBACK_RESOURCE" property="feedbackResource" jdbcType="INTEGER"/>
+        <result column="MARKET_ORDERNO" property="marketOrderno" jdbcType="VARCHAR"/>
+        <result column="FEEDBACK_ORDERNO" property="feedbackOrderno" jdbcType="VARCHAR"/>
+        <result column="MARKET_BATCHNO" property="marketBatchno" jdbcType="VARCHAR"/>
+        <result column="FEEDBACK_BATCHNO" property="feedbackBatchno" jdbcType="VARCHAR"/>
+        <result column="TARGET_CUSTOMER" property="targetCustomer" jdbcType="VARCHAR"/>
+        <result column="PURPOST_CONT" property="purpostCont" jdbcType="VARCHAR"/>
+        <result column="ACRIVATE_TYPE_CONT" property="acrivateTypeCont" jdbcType="VARCHAR"/>
+        <result column="ACTIVATE_CHANNEL_CONT" property="activateChannelCont" jdbcType="VARCHAR"/>
+        <result column="MARKET_RESOURCE_CONT" property="marketResourceCont" jdbcType="VARCHAR"/>
+        <result column="FEEDBACK_RESOURCE_CONT" property="feedbackResourceCont" jdbcType="VARCHAR"/>
+        <result column="MARKET_CONTENT" property="marketContent" jdbcType="CLOB"/>
+        <result column="BILLING_SHARE" property="billingShare" jdbcType="CLOB"/>
+        <result column="MUTEX" property="mutex" jdbcType="CLOB"/>
+        <result column="SUPERPOSITION" property="superposition" jdbcType="CLOB"/>
+        <result column="MESSAGE" property="message" jdbcType="CLOB"/>
+        <result column="BILLS" property="bills" jdbcType="CLOB"/>
+        <result column="REPORT_FORM" property="reportForm" jdbcType="CLOB"/>
+        <result column="OTHER_CONTENT" property="otherContent" jdbcType="CLOB"/>
+        <result column="MONITOR_DEMOND" property="monitorDemond" jdbcType="CLOB"/>
+        <result column="STAFF_PERM" property="staffPerm" jdbcType="CLOB"/>
+        <result column="MARKET_CONT" property="marketCont" jdbcType="CLOB"/>
+        <result column="PACKAGE_ALLO" property="packageAllo" jdbcType="CLOB"/>
+
+        <result column="ART_TAG" property="artTag" jdbcType="VARCHAR"/>
+        <result column="ART_NAME" property="artName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>ALM_REQTMP_MARKET$SEQ.nextval</sql>
+
+    <select id="selectAlmReqtmpMarket" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from ALM_REQTMP_MARKET
+    where ARM_ID = #{armId,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectAlmReqtmpMarketByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from ALM_REQTMP_MARKET
+        where ART_ID = #{artId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deletaAlmReqtmpMarket" parameterType="java.lang.Integer">
+    delete from ALM_REQTMP_MARKET
+    where ARM_ID = #{armId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="saveAlmReqtmpMarket" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpMarketRepository">
+        <selectKey keyProperty="armId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_REQTMP_MARKET$SEQ.nextval from dual
+        </selectKey>
+        insert into ALM_REQTMP_MARKET
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ARM_ID,
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="marketName != null">
+                MARKET_NAME,
+            </if>
+            <if test="effectPlan != null">
+                EFFECT_PLAN,
+            </if>
+            <if test="purpost != null">
+                PURPOST,
+            </if>
+            <if test="activateTimeStart != null">
+                ACTIVATE_TIME_START,
+            </if>
+            <if test="activateTimeEnd != null">
+                ACTIVATE_TIME_END,
+            </if>
+            <if test="acrivateType != null">
+                ACRIVATE_TYPE,
+            </if>
+            <if test="activateChannel != null">
+                ACTIVATE_CHANNEL,
+            </if>
+            <if test="activateLimit != null">
+                ACTIVATE_LIMIT,
+            </if>
+            <if test="effectWay != null">
+                EFFECT_WAY,
+            </if>
+            <if test="invalidWay != null">
+                INVALID_WAY,
+            </if>
+            <if test="priorContent != null">
+                PRIOR_CONTENT,
+            </if>
+            <if test="artId != null">
+                ART_ID,
+            </if>
+            <if test="channelMark != null">
+                CHANNEL_MARK,
+            </if>
+            <if test="marketResource != null">
+                MARKET_RESOURCE,
+            </if>
+            <if test="feedbackResource != null">
+                FEEDBACK_RESOURCE,
+            </if>
+            <if test="marketOrderno != null">
+                MARKET_ORDERNO,
+            </if>
+            <if test="feedbackOrderno != null">
+                FEEDBACK_ORDERNO,
+            </if>
+            <if test="marketBatchno != null">
+                MARKET_BATCHNO,
+            </if>
+            <if test="feedbackBatchno != null">
+                FEEDBACK_BATCHNO,
+            </if>
+            <if test="targetCustomer != null">
+                TARGET_CUSTOMER,
+            </if>
+            <if test="purpostCont != null">
+                PURPOST_CONT,
+            </if>
+            <if test="acrivateTypeCont != null">
+                ACRIVATE_TYPE_CONT,
+            </if>
+            <if test="activateChannelCont != null">
+                ACTIVATE_CHANNEL_CONT,
+            </if>
+            <if test="marketResourceCont != null">
+                MARKET_RESOURCE_CONT,
+            </if>
+            <if test="feedbackResourceCont != null">
+                FEEDBACK_RESOURCE_CONT,
+            </if>
+            <if test="marketContent != null">
+                MARKET_CONTENT,
+            </if>
+            <if test="billingShare != null">
+                BILLING_SHARE,
+            </if>
+            <if test="mutex != null">
+                MUTEX,
+            </if>
+            <if test="superposition != null">
+                SUPERPOSITION,
+            </if>
+            <if test="message != null">
+                MESSAGE,
+            </if>
+            <if test="bills != null">
+                BILLS,
+            </if>
+            <if test="reportForm != null">
+                REPORT_FORM,
+            </if>
+            <if test="otherContent != null">
+                OTHER_CONTENT,
+            </if>
+            <if test="monitorDemond != null">
+                MONITOR_DEMOND,
+            </if>
+            <if test="staffPerm != null">
+                STAFF_PERM,
+            </if>
+            <if test="marketCont != null">
+                MARKET_CONT,
+            </if>
+            <if test="packageAllo != null">
+                PACKAGE_ALLO,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{armId,jdbcType=INTEGER},
+            <if test="artType != null">
+                #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="marketName != null">
+                #{marketName,jdbcType=VARCHAR},
+            </if>
+            <if test="effectPlan != null">
+                #{effectPlan,jdbcType=VARCHAR},
+            </if>
+            <if test="purpost != null">
+                #{purpost,jdbcType=VARCHAR},
+            </if>
+            <if test="activateTimeStart != null">
+                #{activateTimeStart,jdbcType=DATE},
+            </if>
+            <if test="activateTimeEnd != null">
+                #{activateTimeEnd,jdbcType=DATE},
+            </if>
+            <if test="acrivateType != null">
+                #{acrivateType,jdbcType=VARCHAR},
+            </if>
+            <if test="activateChannel != null">
+                #{activateChannel,jdbcType=VARCHAR},
+            </if>
+            <if test="activateLimit != null">
+                #{activateLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="effectWay != null">
+                #{effectWay,jdbcType=VARCHAR},
+            </if>
+            <if test="invalidWay != null">
+                #{invalidWay,jdbcType=VARCHAR},
+            </if>
+            <if test="priorContent != null">
+                #{priorContent,jdbcType=VARCHAR},
+            </if>
+            <if test="artId != null">
+                #{artId,jdbcType=INTEGER},
+            </if>
+            <if test="channelMark != null">
+                #{channelMark,jdbcType=VARCHAR},
+            </if>
+            <if test="marketResource != null">
+                #{marketResource,jdbcType=INTEGER},
+            </if>
+            <if test="feedbackResource != null">
+                #{feedbackResource,jdbcType=INTEGER},
+            </if>
+            <if test="marketOrderno != null">
+                #{marketOrderno,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackOrderno != null">
+                #{feedbackOrderno,jdbcType=VARCHAR},
+            </if>
+            <if test="marketBatchno != null">
+                #{marketBatchno,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackBatchno != null">
+                #{feedbackBatchno,jdbcType=VARCHAR},
+            </if>
+            <if test="targetCustomer != null">
+                #{targetCustomer,jdbcType=VARCHAR},
+            </if>
+            <if test="purpostCont != null">
+                #{purpostCont,jdbcType=VARCHAR},
+            </if>
+            <if test="acrivateTypeCont != null">
+                #{acrivateTypeCont,jdbcType=VARCHAR},
+            </if>
+            <if test="activateChannelCont != null">
+                #{activateChannelCont,jdbcType=VARCHAR},
+            </if>
+            <if test="marketResourceCont != null">
+                #{marketResourceCont,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackResourceCont != null">
+                #{feedbackResourceCont,jdbcType=VARCHAR},
+            </if>
+            <if test="marketContent != null">
+                #{marketContent,jdbcType=CLOB},
+            </if>
+            <if test="billingShare != null">
+                #{billingShare,jdbcType=CLOB},
+            </if>
+            <if test="mutex != null">
+                #{mutex,jdbcType=CLOB},
+            </if>
+            <if test="superposition != null">
+                #{superposition,jdbcType=CLOB},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=CLOB},
+            </if>
+            <if test="bills != null">
+                #{bills,jdbcType=CLOB},
+            </if>
+            <if test="reportForm != null">
+                #{reportForm,jdbcType=CLOB},
+            </if>
+            <if test="otherContent != null">
+                #{otherContent,jdbcType=CLOB},
+            </if>
+            <if test="monitorDemond != null">
+                #{monitorDemond,jdbcType=CLOB},
+            </if>
+            <if test="staffPerm != null">
+                #{staffPerm,jdbcType=CLOB},
+            </if>
+            <if test="marketCont != null">
+                #{marketCont,jdbcType=CLOB},
+            </if>
+            <if test="packageAllo != null">
+                #{packageAllo,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmReqtmpMarket" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpMarketRepository">
+        update ALM_REQTMP_MARKET
+        <set>
+            <if test="artType !=null">
+                ART_TYPE= #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="marketName !=null">
+                MARKET_NAME= #{marketName,jdbcType=VARCHAR},
+            </if>
+            <if test="effectPlan !=null">
+                EFFECT_PLAN= #{effectPlan,jdbcType=VARCHAR},
+            </if>
+            <if test="purpost !=null">
+                PURPOST= #{purpost,jdbcType=VARCHAR},
+            </if>
+            <if test="activateTimeStart !=null">
+                ACTIVATE_TIME_START= #{activateTimeStart,jdbcType=DATE},
+            </if>
+            <if test="activateTimeEnd !=null">
+                ACTIVATE_TIME_END= #{activateTimeEnd,jdbcType=DATE},
+            </if>
+            <if test="acrivateType !=null">
+                ACRIVATE_TYPE= #{acrivateType,jdbcType=VARCHAR},
+            </if>
+            <if test="activateChannel !=null">
+                ACTIVATE_CHANNEL= #{activateChannel,jdbcType=VARCHAR},
+            </if>
+            <if test="activateLimit !=null">
+                ACTIVATE_LIMIT= #{activateLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="effectWay !=null">
+                EFFECT_WAY= #{effectWay,jdbcType=VARCHAR},
+            </if>
+            <if test="invalidWay !=null">
+                INVALID_WAY= #{invalidWay,jdbcType=VARCHAR},
+            </if>
+            <if test="priorContent !=null">
+                PRIOR_CONTENT= #{priorContent,jdbcType=VARCHAR},
+            </if>
+            <if test="artId !=null">
+                ART_ID= #{artId,jdbcType=DECIMAL},
+            </if>
+            <if test="channelMark !=null">
+                CHANNEL_MARK= #{channelMark,jdbcType=VARCHAR},
+            </if>
+            <if test="marketResource !=null">
+                MARKET_RESOURCE= #{marketResource,jdbcType=DECIMAL},
+            </if>
+            <if test="feedbackResource !=null">
+                FEEDBACK_RESOURCE= #{feedbackResource,jdbcType=DECIMAL},
+            </if>
+            <if test="marketOrderno !=null">
+                MARKET_ORDERNO= #{marketOrderno,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackOrderno !=null">
+                FEEDBACK_ORDERNO= #{feedbackOrderno,jdbcType=VARCHAR},
+            </if>
+            <if test="marketBatchno !=null">
+                MARKET_BATCHNO= #{marketBatchno,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackBatchno !=null">
+                FEEDBACK_BATCHNO= #{feedbackBatchno,jdbcType=VARCHAR},
+            </if>
+            <if test="targetCustomer !=null">
+                TARGET_CUSTOMER= #{targetCustomer,jdbcType=VARCHAR},
+            </if>
+            <if test="purpostCont !=null">
+                PURPOST_CONT= #{purpostCont,jdbcType=VARCHAR},
+            </if>
+            <if test="acrivateTypeCont !=null">
+                ACRIVATE_TYPE_CONT= #{acrivateTypeCont,jdbcType=VARCHAR},
+            </if>
+            <if test="activateChannelCont !=null">
+                ACTIVATE_CHANNEL_CONT= #{activateChannelCont,jdbcType=VARCHAR},
+            </if>
+            <if test="marketResourceCont !=null">
+                MARKET_RESOURCE_CONT= #{marketResourceCont,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackResourceCont !=null">
+                FEEDBACK_RESOURCE_CONT= #{feedbackResourceCont,jdbcType=VARCHAR},
+            </if>
+            <if test="marketContent !=null">
+                MARKET_CONTENT= #{marketContent,jdbcType=CLOB},
+            </if>
+            <if test="billingShare !=null">
+                BILLING_SHARE= #{billingShare,jdbcType=CLOB},
+            </if>
+            <if test="mutex !=null">
+                MUTEX= #{mutex,jdbcType=CLOB},
+            </if>
+            <if test="superposition !=null">
+                SUPERPOSITION= #{superposition,jdbcType=CLOB},
+            </if>
+            <if test="message !=null">
+                MESSAGE= #{message,jdbcType=CLOB},
+            </if>
+            <if test="bills !=null">
+                BILLS= #{bills,jdbcType=CLOB},
+            </if>
+            <if test="reportForm !=null">
+                REPORT_FORM= #{reportForm,jdbcType=CLOB},
+            </if>
+            <if test="otherContent !=null">
+                OTHER_CONTENT= #{otherContent,jdbcType=CLOB},
+            </if>
+            <if test="monitorDemond !=null">
+                MONITOR_DEMOND= #{monitorDemond,jdbcType=CLOB},
+            </if>
+            <if test="staffPerm !=null">
+                STAFF_PERM= #{staffPerm,jdbcType=CLOB},
+            </if>
+            <if test="marketCont !=null">
+                MARKET_CONT= #{marketCont,jdbcType=CLOB},
+            </if>
+            <if test="packageAllo !=null">
+                PACKAGE_ALLO= #{packageAllo,jdbcType=CLOB}
+            </if>
+        </set>
+        where ARM_ID = #{armId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAllAlmReqtmpMarket" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_MARKET T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and T.ART_ID = A.ART_ID
+        <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+            or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="artType != null">
+            and A.ART_TYPE = #{artType,jdbcType=INTEGER}
+        </if>
+        <if test="artName != null">
+            and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+        </if>
+        <if test="artTag != null">
+            and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+        </if>
+        <if test="artRegion != null">
+            and A.ART_REGION =#{artRegion,jdbcType=INTEGER}
+        </if>
+        <if test="urgentLevel != null">
+            and A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+        </if>
+        <if test="submitStaffName != null">
+            and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+        </if>)
+    </select>
+
+    <select id="selectAllAlmReqtmpMarket" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_MARKET T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and T.ART_ID = A.ART_ID
+        <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+            or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="artType != null">
+            and A.ART_TYPE = #{artType,jdbcType=INTEGER}
+        </if>
+        <if test="artName != null">
+            and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+        </if>
+        <if test="artTag != null">
+            and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+        </if>
+        <if test="artRegion != null">
+            and A.ART_REGION =#{artRegion,jdbcType=INTEGER}
+        </if>
+        <if test="urgentLevel != null">
+            and A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+        </if>
+        <if test="submitStaffName != null">
+            and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+</mapper>

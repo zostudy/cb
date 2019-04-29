@@ -1,0 +1,73 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18761/eureka/
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+#    oracle数据库
+#    url: jdbc:oracle:thin:@10.1.195.102:1521:AIDB
+#    url: jdbc:oracle:thin:@//10.1.195.102:1521/AIDB
+#    username: xinjiang
+#    password: xinjiang
+    url: jdbc:oracle:thin:@//127.0.0.1:1521/ORCL
+    username: zos
+    password: zos
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+    default-property-inclusion: non_empty
+  redis:
+#    host: 10.1.195.103
+    host: localhost
+    username: root
+    password:
+    port: 6379
+    pool:
+      max-idle: 100
+      min-idle: 1
+      max-active: 1000
+      max-wait: -1
+  http:
+    multipart:
+      enabled: true
+      #(这里是限制单个文件的大小)
+      max-file-size: 10MB
+      #(这里是限制的文件大小)
+      max-request-size: 10MB
+#security:
+#  ignored: /,/**,/**/**,/**/**/**,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**,/workflow/**
+#  basic:
+#    enabled: false
+#  user:
+#    name: username
+#    password: password
+mybatis:
+  mapper-locations: classpath*:mapper/*/*Mapper.xml
+
+logging:
+  level:
+    root: info
+    com.asiainfo: debug
+    org.springframework:  info
+    org.mybatis.spring: info
+  file: logs/${spring.application.name}.log
+
+feign:
+  hystrix:
+    enabled: false
+#Hystrix超时配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled:  false
+        isolation:
+          thread:
+            timeoutInMilliseconds:  300000
+#      timeout:
+#        enabled: false

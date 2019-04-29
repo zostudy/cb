@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpServiceRelatDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpServiceRelatRepository">
+        <id column="ASR_ID" property="asrId" jdbcType="DECIMAL"/>
+        <result column="ART_TYPE" property="artType" jdbcType="DECIMAL"/>
+        <result column="AS_ID" property="asId" jdbcType="DECIMAL"/>
+
+        <result column="ASV_ID" property="asvId" jdbcType="INTEGER"/>
+        <result column="SERVICE_ID" property="serviceId" jdbcType="INTEGER"/>
+        <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR"/>
+        <result column="ART_NAME" property="artName" jdbcType="VARCHAR"/>
+
+        <result column="AAT_ID" property="aatId" jdbcType="INTEGER"/>
+        <result column="AAT_TAG" property="aatTag" jdbcType="VARCHAR"/>
+        <result column="OBJ_ID" property="objId" jdbcType="INTEGER"/>
+        <result column="SERVICE_VALUE" property="serviceValue" jdbcType="VARCHAR"/>
+        <result column="DEFAULE_OPTION" property="defauleOption" jdbcType="INTEGER" />
+        <result column="SELECT_OPTION" property="selectOption" jdbcType="INTEGER" />
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    ASR_ID, ART_TYPE, AS_ID
+  </sql>
+
+    <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_SERVICE_RELAT$SEQ.nextval</sql>
+
+    <select id="selectAlmAsnltmpServiceRelat" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ALM_ASNLTMP_SERVICE_RELAT
+        where ASR_ID = #{asrId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteAlmAsnltmpServiceRelat" parameterType="java.lang.Integer">
+    delete from ALM_ASNLTMP_SERVICE_RELAT
+    where ASR_ID = #{asrId,jdbcType=DECIMAL}
+  </delete>
+
+    <insert id="saveAlmAsnltmpServiceRelat"
+            parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpServiceRelatRepository">
+        <selectKey keyProperty="asrId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_ASNLTMP_SERVICE_RELAT$SEQ.nextval from dual
+        </selectKey>
+
+        insert into ALM_ASNLTMP_SERVICE_RELAT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ASR_ID,
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="asId != null">
+                AS_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{asrId,jdbcType=DECIMAL},
+            <if test="artType != null">
+                #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="asId != null">
+                #{asId,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmAsnltmpServiceRelat"
+            parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpServiceRelatRepository">
+        update ALM_ASNLTMP_SERVICE_RELAT
+        <set>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=DECIMAL},
+            </if>
+            <if test="asId != null">
+                AS_ID = #{asId,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where ASR_ID = #{asrId,jdbcType=DECIMAL}
+    </update>
+
+    <select id="getAllAlmAsnltmpServiceRelatCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*,A.SERVICE_ID,A.SERVICE_NAME from
+        ALM_ASNLTMP_SERVICE_RELAT T,
+        ALM_ARSENAL_SERVICE A
+        where 1=1
+        and t.AS_ID = a.AS_ID
+        <if test="artType !=null">and t.ART_TYPE = #{artType,jdbcType=DECIMAL}
+        </if>)
+    </select>
+
+    <select id="selectAllAlmAsnltmpServiceRelat" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*,A.SERVICE_ID,A.SERVICE_NAME from
+        ALM_ASNLTMP_SERVICE_RELAT T,
+        ALM_ARSENAL_SERVICE A
+        where 1=1
+        and t.AS_ID = a.AS_ID
+        <if test="artType !=null">and t.ART_TYPE = #{artType,jdbcType=DECIMAL}
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getServiceByTypeAndId" resultType="java.lang.Integer">
+    select count(*) from ALM_ASNLTMP_SERVICE_RELAT
+    where ART_TYPE = #{artType,jdbcType=DECIMAL}
+    and AS_ID = #{asId,jdbcType=DECIMAL}
+    </select>
+
+    <select id="selectAlmAsnltmpServiceRelatByArtType" resultMap="BaseResultMap">
+        SELECT T.*,
+        A.ASV_ID,
+        A.AAT_ID,
+        A.AAT_TAG,
+        A.OBJ_ID,
+        A.SERVICE_VALUE,
+        A.SELECT_OPTION,
+        A.DEFAULE_OPTION,
+        B.SERVICE_ID,
+        B.SERVICE_NAME
+        FROM ALM_ASNLTMP_SERVICE_RELAT T
+        LEFT JOIN (SELECT *
+        FROM ALM_ASNLTMP_SERVICE_VALUE
+        WHERE 1=1
+        <if test="aatId != null">
+            and AAT_ID = #{aatId,jdbcType=INTEGER}
+        </if>
+        <if test="objId !=null">
+            AND OBJ_ID = #{objId,jdbcType=INTEGER}
+        </if>
+        ) A
+        ON T.ART_TYPE = A.ART_TYPE
+        AND T.AS_ID = A.AS_ID
+        LEFT JOIN ALM_ARSENAL_SERVICE B
+        ON T.AS_ID = B.AS_ID
+        WHERE T.ART_TYPE = #{artType,jdbcType=DECIMAL}
+    </select>
+
+</mapper>

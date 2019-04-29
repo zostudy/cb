@@ -1,0 +1,12 @@
+server:
+  port: 19009
+  context-path: /uaa
+security:
+  oauth2:
+    client:
+      client-id: root
+      client-secret: root
+sso:
+  xj:
+    timeout: 3000
+    oaJumpPath : 10.12.1.11:19090/#/ssologin

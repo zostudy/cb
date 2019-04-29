@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysParamDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysParamRepository">
+        <result column="PARAM_TYPE" property="paramType" jdbcType="VARCHAR"/>
+        <result column="PARAM_ID" property="paramId" jdbcType="INTEGER"/>
+        <result column="PARAM_NO" property="paramNo" jdbcType="VARCHAR"/>
+        <result column="PARAM_NAME" property="paramName" jdbcType="VARCHAR"/>
+        <result column="PARAM_DISC" property="paramDesc" jdbcType="VARCHAR"/>
+        <result column="PARAM_RELA_ID" property="paramRelaId" jdbcType="INTEGER"/>
+        <result column="PARAM_VALUE" property="paramValue" jdbcType="VARCHAR"/>
+        <result column="SORT_ID" property="sortId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectParamByType" resultMap="BaseResultMap">
+        select * from ALM_SYS_PARAM
+        where PARAM_TYPE = #{paramType,jdbcType=VARCHAR}
+        <if test="paramReleId != null">
+        	and PARAM_RELA_ID = #{paramReleId,jdbcType=INTEGER}
+        </if>
+        ORDER BY param_id
+    </select>
+
+    <select id="selecParams" resultMap="BaseResultMap">
+        select distinct PARAM_TYPE from ALM_SYS_PARAM
+        where PARAM_TYPE like CONCAT(CONCAT('%',#{paramType}),'%')
+    </select>
+</mapper>

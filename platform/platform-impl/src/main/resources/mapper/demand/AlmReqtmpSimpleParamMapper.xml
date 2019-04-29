@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpSimpleParamDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpSimpleParamRepository">
+        <id column="ARSP_ID" property="arspId" jdbcType="INTEGER"/>
+        <result column="OBJ_TAG" property="objTag" jdbcType="VARCHAR"/>
+        <result column="OBJ_NAME" property="objName" jdbcType="VARCHAR"/>
+        <result column="MODIFY_TYPE" property="modifyType" jdbcType="INTEGER"/>
+        <result column="ONLINE_TIME" property="onlineTime" jdbcType="VARCHAR"/>
+        <result column="OFFLINE_TIME" property="offlineTime" jdbcType="VARCHAR"/>
+        <result column="MODIFY_NAME" property="modifyName" jdbcType="VARCHAR"/>
+        <result column="NOTE_BEFORE" property="noteBefore" jdbcType="VARCHAR"/>
+        <result column="NOTE_AFTER" property="noteAfter" jdbcType="VARCHAR"/>
+        <result column="MARK" property="mark" jdbcType="VARCHAR"/>
+        <result column="ART_ID" property="artId" jdbcType="INTEGER"/>
+        <result column="ART_TYPE" property="artType" jdbcType="INTEGER"/>
+        <result column="MODIFY_TYPE_CONT" property="modifyTypeCont" jdbcType="VARCHAR"/>
+
+        <result column="ART_TAG" property="artTag" jdbcType="VARCHAR" />
+        <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>ALM_REQTMP_SIMPLEPARAM$SEQ.nextval</sql>
+
+    <select id="selectAlmReqtmpSimpleParam" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from ALM_REQTMP_SIMPLEPARAM
+    where ARSP_ID = #{arspId,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectAlmReqtmpSimpleParamByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from ALM_REQTMP_SIMPLEPARAM
+        where ART_ID = #{artId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteAlmReqtmpSimpleParam" parameterType="java.lang.Integer">
+    delete from ALM_REQTMP_SIMPLEPARAM
+    where ARSP_ID = #{arspId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="saveAlmReqtmpSimpleParam"
+            parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpSimpleParamRepository">
+        <selectKey keyProperty="arspId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_REQTMP_SIMPLEPARAM$SEQ.nextval from dual
+        </selectKey>
+        insert into ALM_REQTMP_SIMPLEPARAM
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ARSP_ID,
+            <if test="objTag != null">
+                OBJ_TAG,
+            </if>
+            <if test="objName != null">
+                OBJ_NAME,
+            </if>
+            <if test="modifyType != null">
+                MODIFY_TYPE,
+            </if>
+            <if test="onlineTime != null">
+                ONLINE_TIME,
+            </if>
+            <if test="offlineTime != null">
+                OFFLINE_TIME,
+            </if>
+            <if test="modifyName != null">
+                MODIFY_NAME,
+            </if>
+            <if test="noteBefore != null">
+                NOTE_BEFORE,
+            </if>
+            <if test="noteAfter != null">
+                NOTE_AFTER,
+            </if>
+            <if test="mark != null">
+                MARK,
+            </if>
+            <if test="artId != null">
+                ART_ID,
+            </if>
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="modifyTypeCont != null">
+                MODIFY_TYPE_CONT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{arspId,jdbcType=INTEGER},
+            <if test="objTag != null">
+                #{objTag,jdbcType=VARCHAR},
+            </if>
+            <if test="objName != null">
+                #{objName,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyType != null">
+                #{modifyType,jdbcType=INTEGER},
+            </if>
+            <if test="onlineTime != null">
+                #{onlineTime,jdbcType=VARCHAR},
+            </if>
+            <if test="offlineTime != null">
+                #{offlineTime,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyName != null">
+                #{modifyName,jdbcType=VARCHAR},
+            </if>
+            <if test="noteBefore != null">
+                #{noteBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="noteAfter != null">
+                #{noteAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="mark != null">
+                #{mark,jdbcType=VARCHAR},
+            </if>
+            <if test="artId != null">
+                #{artId,jdbcType=INTEGER},
+            </if>
+            <if test="artType != null">
+                #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTypeCont != null">
+                #{modifyTypeCont,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmReqtmpSimpleParam"
+            parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpSimpleParamRepository">
+        update ALM_REQTMP_SIMPLEPARAM
+        <set>
+            <if test="objTag != null">
+                OBJ_TAG = #{objTag,jdbcType=VARCHAR},
+            </if>
+            <if test="objName != null">
+                OBJ_NAME = #{objName,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyType != null">
+                MODIFY_TYPE = #{modifyType,jdbcType=INTEGER},
+            </if>
+            <if test="onlineTime != null">
+                ONLINE_TIME = #{onlineTime,jdbcType=VARCHAR},
+            </if>
+            <if test="offlineTime != null">
+                OFFLINE_TIME = #{offlineTime,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyName != null">
+                MODIFY_NAME = #{modifyName,jdbcType=VARCHAR},
+            </if>
+            <if test="noteBefore != null">
+                NOTE_BEFORE = #{noteBefore,jdbcType=VARCHAR},
+            </if>
+            <if test="noteAfter != null">
+                NOTE_AFTER = #{noteAfter,jdbcType=VARCHAR},
+            </if>
+            <if test="mark != null">
+                MARK = #{mark,jdbcType=VARCHAR},
+            </if>
+            <if test="artId != null">
+                ART_ID = #{artId,jdbcType=INTEGER},
+            </if>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTypeCont != null">
+                MODIFY_TYPE_CONT = #{modifyTypeCont,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ARSP_ID = #{arspId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllAlmReqtmpSimpleParam" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_SIMPLEPARAM T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and T.ART_ID = A.ART_ID
+        and t.ART_ID =#{artId,jdbcType=INTEGER}
+        <if test="modifyType !=null"> and  t.MODIFY_TYPE =#{modifyType,jdbcType=INTEGER} 
+	    </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getAllAlmReqtmpSimpleParam" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_SIMPLEPARAM T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and T.ART_ID = A.ART_ID
+        and t.ART_ID =#{artId,jdbcType=INTEGER}
+        <if test="modifyType !=null"> and  t.MODIFY_TYPE =#{modifyType,jdbcType=INTEGER} 
+	    </if>
+         )
+    </select>
+    
+    <select id="getAllAlmReqtmpSimpleParamType" resultType="java.lang.Integer">
+         select distinct t.modify_type from ALM_REQTMP_SIMPLEPARAM T   where t.ART_ID =#{artId,jdbcType=INTEGER}
+    </select>
+</mapper>

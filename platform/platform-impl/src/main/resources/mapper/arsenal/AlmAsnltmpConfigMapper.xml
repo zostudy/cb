@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpConfigDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpConfigRepository" >
+    <id column="AAC_ID" property="aacId" jdbcType="INTEGER" />
+    <result column="TB_NAME" property="tbName" jdbcType="VARCHAR" />
+    <result column="UPDATE_COLUMN" property="updateColumn" jdbcType="VARCHAR" />
+    <result column="TABLE_REMARK" property="tableRemark" jdbcType="VARCHAR" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AAC_ID, TB_NAME, UPDATE_COLUMN, TABLE_REMARK, ART_TYPE
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_CONFIG$SEQ.nextval</sql>
+
+  <select id="selectAlmAsnltmpConfigById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ASNLTMP_CONFIG
+    where AAC_ID = #{aacId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmAsnltmpConfig" parameterType="java.lang.Integer" >
+    delete from ALM_ASNLTMP_CONFIG
+    where AAC_ID = #{aacId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmAsnltmpConfig" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpConfigRepository" >
+    <selectKey keyProperty="aacId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_CONFIG$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ASNLTMP_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AAC_ID,
+      <if test="tbName != null" >
+        TB_NAME,
+      </if>
+      <if test="updateColumn != null" >
+        UPDATE_COLUMN,
+      </if>
+      <if test="tableRemark != null" >
+        TABLE_REMARK,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{aacId,jdbcType=INTEGER},
+      <if test="tbName != null" >
+        #{tbName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateColumn != null" >
+        #{updateColumn,jdbcType=VARCHAR},
+      </if>
+      <if test="tableRemark != null" >
+        #{tableRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpConfig" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpConfigRepository" >
+    update ALM_ASNLTMP_CONFIG
+    <set >
+      <if test="tbName != null" >
+        TB_NAME = #{tbName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateColumn != null" >
+        UPDATE_COLUMN = #{updateColumn,jdbcType=VARCHAR},
+      </if>
+      <if test="tableRemark != null" >
+        TABLE_REMARK = #{tableRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AAC_ID = #{aacId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAllAlmAsnltmpConfigCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_CONFIG T
+    where 1=1
+    <if test="keyword !=null">and (TB_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>)
+  </select>
+
+  <select id="selectAllAlmAsnltmpConfig" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_CONFIG T
+    where 1=1
+    <if test="keyword !=null">and (TB_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+</mapper>

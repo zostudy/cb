@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStructureDefDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStructureDefRepository">
+        <id column="STRUCTURE_ID" property="structureId" jdbcType="INTEGER"/>
+        <result column="STRUCTURE_NAME" property="structureName" jdbcType="VARCHAR"/>
+        <result column="STRUCTURE_TYPE" property="structureType" jdbcType="VARCHAR"/>
+        <result column="STRUCTURE_ORDER" property="structureOrder" jdbcType="INTEGER"/>
+        <result column="STRUCTURE_PARENT_ID" property="structureParentId" jdbcType="INTEGER"/>
+        <result column="NOTES" property="notes" jdbcType="VARCHAR"/>
+        <result column="STRUCTURE_CODE" property="structureCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_STRUCTURE_DEF$SEQ.nextval</sql>
+
+    <select id="selectByStructureId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    *
+    from SYS_STRUCTURE_DEF
+    where STRUCTURE_ID = #{structureId,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectAllStructure" resultMap="BaseResultMap">
+    select
+    *
+    from SYS_STRUCTURE_DEF
+  </select>
+
+    <delete id="deleteStructure">
+    delete from SYS_STRUCTURE_DEF
+    where STRUCTURE_ID = #{structureId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="saveStructure" parameterType="com.asiainfo.rms.system.domain.SysStructureDefRepository">
+        <selectKey keyProperty="structureId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_STRUCTURE_DEF$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_STRUCTURE_DEF
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            STRUCTURE_ID,
+            <if test="structureName != null">
+                STRUCTURE_NAME,
+            </if>
+            <if test="structureType != null">
+                STRUCTURE_TYPE,
+            </if>
+            <if test="structureOrder != null">
+                STRUCTURE_ORDER,
+            </if>
+            <if test="structureParentId != null">
+                STRUCTURE_PARENT_ID,
+            </if>
+            <if test="notes != null">
+                NOTES,
+            </if>
+            <if test="structureCode != null">
+                STRUCTURE_CODE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{structureId,jdbcType=DECIMAL},
+            <if test="structureName != null">
+                #{structureName,jdbcType=VARCHAR},
+            </if>
+            <if test="structureType != null">
+                #{structureType,jdbcType=VARCHAR},
+            </if>
+            <if test="structureOrder != null">
+                #{structureOrder,jdbcType=DECIMAL},
+            </if>
+            <if test="structureParentId != null">
+                #{structureParentId,jdbcType=DECIMAL},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="structureCode != null">
+                #{structureCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStructure" parameterType="com.asiainfo.rms.system.domain.SysStructureDefRepository">
+        update SYS_STRUCTURE_DEF
+        <set>
+            <if test="structureName != null">
+                STRUCTURE_NAME = #{structureName,jdbcType=VARCHAR},
+            </if>
+            <if test="structureType != null">
+                STRUCTURE_TYPE = #{structureType,jdbcType=VARCHAR},
+            </if>
+            <if test="structureOrder != null">
+                STRUCTURE_ORDER = #{structureOrder,jdbcType=DECIMAL},
+            </if>
+            <if test="structureParentId != null">
+                STRUCTURE_PARENT_ID = #{structureParentId,jdbcType=DECIMAL},
+            </if>
+            <if test="notes != null">
+                NOTES = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="structureCode != null">
+                STRUCTURE_CODE = #{structureCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where STRUCTURE_ID = #{structureId,jdbcType=DECIMAL}
+    </update>
+
+    <select id="selectStructureByKeyword" resultMap="BaseResultMap">
+        SELECT *
+        FROM (SELECT ROWNUM AS ROWNO,D.*
+        FROM SYS_STRUCTURE_DEF D
+        WHERE 1=1
+        <if test="keyword !=null">
+            and (d.STRUCTURE_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+            or D.notes like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="structureParentId !=null">
+            AND D.STRUCTURE_CODE like
+            (select a.structure_code from SYS_STRUCTURE_DEF a where a.structure_id =  #{structureParentId})||'.%'
+        </if>
+        AND D.STRUCTURE_TYPE = 2
+        and ROWNUM &lt;= (#{offset} * #{size}) ) A
+        WHERE A.ROWNO >= (#{offset} - 1) * #{size} + 1
+    </select>
+
+    <select id="getStructureByKeywordCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM (SELECT ROWNUM AS ROWNO,D.*
+        FROM SYS_STRUCTURE_DEF D
+        WHERE 1=1
+        <if test="keyword !=null">
+            and (d.STRUCTURE_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+            or D.notes like CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="structureParentId !=null">
+            AND D.STRUCTURE_CODE like
+            (select a.structure_code from SYS_STRUCTURE_DEF a where a.structure_id =  #{structureParentId})||'.%'
+        </if>
+        AND D.STRUCTURE_TYPE = 2) A
+    </select>
+
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStaffOrgRelatDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStaffOrgRelatRepository">
+        <result column="staff_org_relat_id" property="staffOrgRelatId" jdbcType="INTEGER"/>
+        <result column="organize_id" property="organizeId" jdbcType="INTEGER"/>
+        <result column="staff_id" property="staffId" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="ext1" property="ext1" jdbcType="VARCHAR"/>
+        <result column="ext2" property="ext2" jdbcType="VARCHAR"/>
+        <result column="ext3" property="ext3" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="organize_name" property="organizeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id='TABLE_NAME'>SYS_STAFF_ORG_RELAT</sql>
+    <sql id='TABLE_SEQUENCE'>SYS_STAFF_ORG_RELAT$SEQ.nextval</sql>
+
+    <insert id="saveStaffOrgRelat" parameterType="com.asiainfo.rms.system.domain.SysStaffOrgRelatRepository">
+        <selectKey keyProperty="staffOrgRelatId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_STAFF_ORG_RELAT$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_STAFF_ORG_RELAT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            staff_org_relat_id,
+            <if test="organizeId != null">
+                organize_id,
+            </if>
+            <if test="staffId != null">
+                staff_id,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="notes != null">
+                notes,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="ext1 != null">
+                ext1,
+            </if>
+            <if test="ext2 != null">
+                ext2,
+            </if>
+            <if test="ext3 != null">
+                ext3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{staffOrgRelatId,jdbcType=INTEGER},
+            <if test="organizeId != null">
+                #{organizeId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="ext1 != null">
+                #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                #{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+
+    </insert>
+    <update id="updateStaffOrgRelat" parameterType="com.asiainfo.rms.system.domain.SysStaffOrgRelatRepository">
+        UPDATE SYS_STAFF_ORG_RELAT
+        <trim prefix="set" suffixOverrides=",">
+            <if test="organizeId != null">
+                organize_id= #{organizeId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                notes = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time =#{createTime,jdbcType=DATE},
+            </if>
+            <if test="ext1 != null">
+                ext1=#{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                ext2=#{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                ext3= #{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </update>
+    <select id="selectByStaffOrgRelatId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select A.*,B.CODE,B.ORGANIZE_NAME from SYS_STAFF_ORG_RELAT A,SYS_ORGANIZE B
+        where A.state =1
+        and B.STATE = 1
+        and A.ORGANIZE_ID = B.ORGANIZE_ID
+        and A.staff_org_relat_id = #{staffOrgRelatId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectStaffOrgRelatByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from SYS_STAFF_ORG_RELAT A,SYS_ORGANIZE B
+        where A.state =1
+        and B.STATE = 1
+        and A.ORGANIZE_ID = B.ORGANIZE_ID
+        and A.STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </select>
+
+    <update id="deleteStaffOrgRelat" parameterType="com.asiainfo.rms.system.domain.SysStaffOrgRelatRepository">
+        update SYS_STAFF_ORG_RELAT
+        set state = 0
+        where staff_org_relat_id = #{staffOrgRelatId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectCountByStaffId" resultType="java.lang.Integer">
+        select count(*) from SYS_STAFF_ORG_RELAT t
+        where STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteStaffByStaffId">
+        delete from  SYS_STAFF_ORG_RELAT t
+        where STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </delete>
+</mapper>

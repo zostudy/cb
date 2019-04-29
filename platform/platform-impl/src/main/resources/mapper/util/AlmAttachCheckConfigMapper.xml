@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.util.dao.AlmAttachCheckConfigDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.util.domain.AlmAttachCheckConfigRepository" >
+    <id column="ATT_CHK_ID" property="attChkId" jdbcType="DECIMAL" />
+    <result column="CODING_TYPE" property="codingType" jdbcType="DECIMAL" />
+    <result column="ATT_TYPE" property="attType" jdbcType="VARCHAR" />
+    <result column="LINK_NO" property="linkNo" jdbcType="VARCHAR" />
+    <result column="SYS_TAG" property="sysTag" jdbcType="VARCHAR" />
+    <result column="SUBSYS_TAG" property="subsysTag" jdbcType="VARCHAR" />
+    <result column="OBJ_TYPE" property="objType" jdbcType="VARCHAR" />
+    <result column="MARK" property="mark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id='TABLE_NAME'>ALM_ATTACH_CHECK_CONFIG</sql>
+  <sql id='TABLE_SEQUENCE'>ALM_ATTACH_CHECK_CONFIG$SEQ.nextval</sql>
+  <sql id="Base_Column_List" >
+    ATT_CHK_ID, CODING_TYPE, ATT_TYPE, LINK_NO, SYS_TAG, SUBSYS_TAG, OBJ_TYPE, MARK, 
+    STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ATTACH_CHECK_CONFIG
+    where ATT_CHK_ID = #{attChkId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from ALM_ATTACH_CHECK_CONFIG
+    where ATT_CHK_ID = #{attChkId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachCheckConfigRepository" >
+    insert into ALM_ATTACH_CHECK_CONFIG (ATT_CHK_ID, CODING_TYPE, ATT_TYPE, 
+      LINK_NO, SYS_TAG, SUBSYS_TAG, 
+      OBJ_TYPE, MARK, STATUS
+      )
+    values (#{attChkId,jdbcType=DECIMAL}, #{codingType,jdbcType=DECIMAL}, #{attType,jdbcType=VARCHAR}, 
+      #{linkNo,jdbcType=VARCHAR}, #{sysTag,jdbcType=VARCHAR}, #{subsysTag,jdbcType=VARCHAR}, 
+      #{objType,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachCheckConfigRepository" >
+    insert into ALM_ATTACH_CHECK_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attChkId != null" >
+        ATT_CHK_ID,
+      </if>
+      <if test="codingType != null" >
+        CODING_TYPE,
+      </if>
+      <if test="attType != null" >
+        ATT_TYPE,
+      </if>
+      <if test="linkNo != null" >
+        LINK_NO,
+      </if>
+      <if test="sysTag != null" >
+        SYS_TAG,
+      </if>
+      <if test="subsysTag != null" >
+        SUBSYS_TAG,
+      </if>
+      <if test="objType != null" >
+        OBJ_TYPE,
+      </if>
+      <if test="mark != null" >
+        MARK,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attChkId != null" >
+        #{attChkId,jdbcType=DECIMAL},
+      </if>
+      <if test="codingType != null" >
+        #{codingType,jdbcType=DECIMAL},
+      </if>
+      <if test="attType != null" >
+        #{attType,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNo != null" >
+        #{linkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sysTag != null" >
+        #{sysTag,jdbcType=VARCHAR},
+      </if>
+      <if test="subsysTag != null" >
+        #{subsysTag,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null" >
+        #{objType,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachCheckConfigRepository" >
+    update ALM_ATTACH_CHECK_CONFIG
+    <set >
+      <if test="codingType != null" >
+        CODING_TYPE = #{codingType,jdbcType=DECIMAL},
+      </if>
+      <if test="attType != null" >
+        ATT_TYPE = #{attType,jdbcType=VARCHAR},
+      </if>
+      <if test="linkNo != null" >
+        LINK_NO = #{linkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sysTag != null" >
+        SYS_TAG = #{sysTag,jdbcType=VARCHAR},
+      </if>
+      <if test="subsysTag != null" >
+        SUBSYS_TAG = #{subsysTag,jdbcType=VARCHAR},
+      </if>
+      <if test="objType != null" >
+        OBJ_TYPE = #{objType,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        MARK = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ATT_CHK_ID = #{attChkId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachCheckConfigRepository" >
+    update ALM_ATTACH_CHECK_CONFIG
+    set CODING_TYPE = #{codingType,jdbcType=DECIMAL},
+      ATT_TYPE = #{attType,jdbcType=VARCHAR},
+      LINK_NO = #{linkNo,jdbcType=VARCHAR},
+      SYS_TAG = #{sysTag,jdbcType=VARCHAR},
+      SUBSYS_TAG = #{subsysTag,jdbcType=VARCHAR},
+      OBJ_TYPE = #{objType,jdbcType=VARCHAR},
+      MARK = #{mark,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where ATT_CHK_ID = #{attChkId,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByCond" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ATTACH_CHECK_CONFIG
+    where 1=1
+    <if test="objType !=null">  
+		   and OBJ_TYPE=#{objType}
+	</if>
+	<if test="submitLink !=null">  
+		   and LINK_NO=#{submitLink}
+	</if>
+	<if test="codingType !=null">  
+		   and CODING_TYPE=#{codingType}
+	</if>
+	<if test="sysTag !=null">  
+		   and SYS_TAG=#{sysTag}
+	</if>
+	<if test="subSysTag !=null">  
+		   and SUBSYS_TAG=#{subSysTag}
+	</if>
+  </select>
+</mapper>

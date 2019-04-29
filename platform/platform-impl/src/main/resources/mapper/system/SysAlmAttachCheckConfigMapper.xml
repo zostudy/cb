@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysAlmAttachCheckConfigDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysAlmAttachCheckConfigRepostitory" >
+    <id column="ATT_CHK_ID" property="attChkId" jdbcType="INTEGER" />
+    <result column="CODING_TYPE" property="codingType" jdbcType="INTEGER" />
+    <result column="ATT_TYPE" property="attType" jdbcType="VARCHAR" />
+    <result column="LINK_NO" property="linkNo" jdbcType="VARCHAR" />
+    <result column="SYS_TAG" property="sysTag" jdbcType="VARCHAR" />
+    <result column="SUBSYS_TAG" property="subsysTag" jdbcType="VARCHAR" />
+    <result column="OBJ_TYPE" property="objType" jdbcType="VARCHAR" />
+    <result column="MARK" property="mark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectCheckRuleByConds" resultMap="BaseResultMap">
+    select *
+    from ALM_ATTACH_CHECK_CONFIG
+    where 1=1
+    <if test="objType !=null">  
+		   and OBJ_TYPE=#{objType}
+	</if>
+	<if test="submitLink !=null">  
+		   and LINK_NO=#{submitLink}
+	</if>
+	<if test="codingType !=null">  
+		   and CODING_TYPE=#{codingType}
+	</if>
+	<if test="sysTag !=null">  
+		   and SYS_TAG=#{sysTag}
+	</if>
+	<if test="subSysTag !=null">  
+		   and SUBSYS_TAG=#{subSysTag}
+	</if>
+  </select>
+</mapper>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmFreeFlowActivityDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmFreeFlowActivityRepository" >
+    <id column="ACTIVITY_ID" property="activityId" jdbcType="DECIMAL" />
+    <id column="AAT_ID" property="aatId" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NO" property="activityNo" jdbcType="DECIMAL" />
+    <result column="ACTIVITY_NAME" property="activityName" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="VARCHAR" />
+    <result column="END_TIME" property="endTime" jdbcType="VARCHAR" />
+    <result column="FLOW_TYPE_NO" property="flowTypeNo" jdbcType="VARCHAR" />
+    <result column="FLOW_TYPE_NAME" property="flowTypeName" jdbcType="VARCHAR" />
+    <result column="FLOW_PRIORITY_NO" property="flowPriorityNo" jdbcType="VARCHAR" />
+    <result column="FLOW_PRIORITY_NAME" property="flowPriorityName" jdbcType="VARCHAR" />
+    <result column="VALIDITY_TYPE_NO" property="validityTypeNo" jdbcType="VARCHAR" />
+    <result column="VALIDITY_TYPE_NAME" property="validityTypeName" jdbcType="VARCHAR" />
+    <result column="LEVEL_NO" property="levelNo" jdbcType="VARCHAR" />
+    <result column="LEVEL_NAME" property="levelName" jdbcType="VARCHAR" />
+    <result column="RULE_CONTENT" property="ruleContent" jdbcType="VARCHAR" />
+    <result column="IS_WARN" property="isWarn" jdbcType="DECIMAL" />
+    <result column="NOTE_CONTENT" property="noteContent" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="EXT1" property="ext1" jdbcType="VARCHAR" />
+    <result column="EXT2" property="ext2" jdbcType="VARCHAR" />
+    <result column="EXT3" property="ext3" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id='TABLE_SEQUENCE'>ALM_FREEFLOW_ACTIVITY$SEQ.nextval</sql>
+
+  <insert id="saveFreeFlowActivity" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmFreeFlowActivityRepository" >
+    <selectKey keyProperty="activityId" resultType="java.lang.Long" order="BEFORE">
+      select ALM_FREEFLOW_ACTIVITY$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_FREEFLOW_ACTIVITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ACTIVITY_ID,
+      <if test="aatId != null" >
+        AAT_ID,
+      </if>
+      <if test="activityNo != null" >
+        ACTIVITY_NO,
+      </if>
+      <if test="activityName != null" >
+        ACTIVITY_NAME,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="flowTypeNo != null" >
+        FLOW_TYPE_NO,
+      </if>
+      <if test="flowTypeName != null" >
+        FLOW_TYPE_NAME,
+      </if>
+      <if test="flowPriorityNo != null" >
+        FLOW_PRIORITY_NO,
+      </if>
+      <if test="flowPriorityName != null" >
+        FLOW_PRIORITY_NAME,
+      </if>
+      <if test="validityTypeNo != null" >
+        VALIDITY_TYPE_NO,
+      </if>
+      <if test="validityTypeName != null" >
+        VALIDITY_TYPE_NAME,
+      </if>
+      <if test="levelNo != null" >
+        LEVEL_NO,
+      </if>
+      <if test="levelName != null" >
+        LEVEL_NAME,
+      </if>
+      <if test="ruleContent != null" >
+        RULE_CONTENT,
+      </if>
+      <if test="isWarn != null" >
+        IS_WARN,
+      </if>
+      <if test="noteContent != null" >
+        NOTE_CONTENT,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="ext1 != null" >
+        EXT1,
+      </if>
+      <if test="ext2 != null" >
+        EXT2,
+      </if>
+      <if test="ext3 != null" >
+        EXT3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{activityId,jdbcType=DECIMAL},
+      <if test="aatId != null" >
+        #{aatId,jdbcType=DECIMAL},
+      </if>
+      <if test="activityNo != null" >
+        #{activityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="flowTypeNo != null" >
+        #{flowTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="flowTypeName != null" >
+        #{flowTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="flowPriorityNo != null" >
+        #{flowPriorityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="flowPriorityName != null" >
+        #{flowPriorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="validityTypeNo != null" >
+        #{validityTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="validityTypeName != null" >
+        #{validityTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNo != null" >
+        #{levelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleContent != null" >
+        #{ruleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isWarn != null" >
+        #{isWarn,jdbcType=DECIMAL},
+      </if>
+      <if test="noteContent != null" >
+        #{noteContent,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateFreeFlowActivity" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmFreeFlowActivityRepository" >
+    update ALM_FREEFLOW_ACTIVITY
+    <set >
+      <if test="activityNo != null" >
+        ACTIVITY_NO = #{activityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="activityName != null" >
+        ACTIVITY_NAME = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="flowTypeNo != null" >
+        FLOW_TYPE_NO = #{flowTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="flowTypeName != null" >
+        FLOW_TYPE_NAME = #{flowTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="flowPriorityNo != null" >
+        FLOW_PRIORITY_NO = #{flowPriorityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="flowPriorityName != null" >
+        FLOW_PRIORITY_NAME = #{flowPriorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="validityTypeNo != null" >
+        VALIDITY_TYPE_NO = #{validityTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="validityTypeName != null" >
+        VALIDITY_TYPE_NAME = #{validityTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelNo != null" >
+        LEVEL_NO = #{levelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null" >
+        LEVEL_NAME = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleContent != null" >
+        RULE_CONTENT = #{ruleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isWarn != null" >
+        IS_WARN = #{isWarn,jdbcType=DECIMAL},
+      </if>
+      <if test="noteContent != null" >
+        NOTE_CONTENT = #{noteContent,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        EXT1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        EXT2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        EXT3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACTIVITY_ID = #{activityId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="findFreeFlowActivity" resultMap="BaseResultMap" parameterType="map" >
+    select
+    *
+    from ALM_FREEFLOW_ACTIVITY
+    where ACTIVITY_ID = #{activityId,jdbcType=DECIMAL}
+  </select>
+</mapper>

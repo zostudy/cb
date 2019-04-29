@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpTopicDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpTopicRepository" >
+    <id column="ART_ID" property="artId" jdbcType="INTEGER" />
+    <result column="ART_TAG" property="artTag" jdbcType="VARCHAR" />
+    <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+    <result column="ART_REGION" property="artRegion" jdbcType="INTEGER" />
+    <result column="ART_DEPART" property="artDepart" jdbcType="INTEGER" />
+    <result column="SUBMIT_STAFF_ID" property="submitStaffId" jdbcType="INTEGER" />
+    <result column="SUBMIT_STAFF_NAME" property="submitStaffName" jdbcType="VARCHAR" />
+    <result column="SUBMIT_STAFF_PHONE" property="submitStaffPhone" jdbcType="VARCHAR" />
+    <result column="URGENT_LEVEL" property="urgentLevel" jdbcType="INTEGER" />
+    <result column="UPLOAD_BUSIPAG" property="uploadBusipag" jdbcType="INTEGER" />
+    <result column="RELIZE_METHOD" property="relizeMethod" jdbcType="INTEGER" />
+    <result column="ASK_ONLINE_TIME" property="askOnlineTime" jdbcType="DATE" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="TEMPLATE_ID" property="templateId" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="OPINION" property="opinion" jdbcType="VARCHAR" />
+    <result column="ART_REGION_CONT" property="artRegionCont" jdbcType="VARCHAR" />
+    <result column="ART_DEPART_CONT" property="artDepartCont" jdbcType="VARCHAR" />
+    <result column="URGENT_LEVEL_CONT" property="urgentLevelCont" jdbcType="VARCHAR" />
+    <result column="UPLOAD_BUSIPAG_CONT" property="uploadBusipagCont" jdbcType="VARCHAR" />
+    <result column="RELIZE_METHOD_CONT" property="relizeMethodCont" jdbcType="VARCHAR" />
+    <result column="SIMILAR_MARK" property="similarMark" jdbcType="INTEGER" />
+  </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>ALM_REQTMP_TOPIC$SEQ.nextval</sql>
+
+  <select id="selectAlmReqtmpTopicById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from ALM_REQTMP_TOPIC
+    where ART_ID = #{artId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmReqtmpTopic" parameterType="java.lang.Integer" >
+    delete from ALM_REQTMP_TOPIC
+    where ART_ID = #{artId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmReqtmpTopic" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpTopicRepository" >
+      <selectKey keyProperty="artId" resultType="java.lang.Integer" order="BEFORE">
+          select ALM_REQTMP_TOPIC$SEQ.nextval from dual
+      </selectKey>
+    insert into ALM_REQTMP_TOPIC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ART_ID,
+      <if test="artTag != null" >
+        ART_TAG,
+      </if>
+      <if test="artName != null" >
+        ART_NAME,
+      </if>
+      <if test="artRegion != null" >
+        ART_REGION,
+      </if>
+      <if test="artDepart != null" >
+        ART_DEPART,
+      </if>
+      <if test="submitStaffId != null" >
+        SUBMIT_STAFF_ID,
+      </if>
+      <if test="submitStaffName != null" >
+        SUBMIT_STAFF_NAME,
+      </if>
+      <if test="submitStaffPhone != null" >
+        SUBMIT_STAFF_PHONE,
+      </if>
+      <if test="urgentLevel != null" >
+        URGENT_LEVEL,
+      </if>
+      <if test="uploadBusipag != null" >
+        UPLOAD_BUSIPAG,
+      </if>
+      <if test="relizeMethod != null" >
+        RELIZE_METHOD,
+      </if>
+      <if test="askOnlineTime != null" >
+        ASK_ONLINE_TIME,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="templateId != null" >
+        TEMPLATE_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="opinion != null" >
+        OPINION,
+      </if>
+      <if test="artRegionCont != null" >
+        ART_REGION_CONT,
+      </if>
+      <if test="artDepartCont != null" >
+        ART_DEPART_CONT,
+      </if>
+      <if test="urgentLevelCont != null" >
+        URGENT_LEVEL_CONT,
+      </if>
+      <if test="uploadBusipagCont != null" >
+        UPLOAD_BUSIPAG_CONT,
+      </if>
+      <if test="relizeMethodCont != null" >
+        RELIZE_METHOD_CONT,
+      </if>
+      <if test="similarMark != null" >
+        SIMILAR_MARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{artId,jdbcType=INTEGER},
+      <if test="artTag != null" >
+        #{artTag,jdbcType=VARCHAR},
+      </if>
+      <if test="artName != null" >
+        #{artName,jdbcType=VARCHAR},
+      </if>
+      <if test="artRegion != null" >
+        #{artRegion,jdbcType=INTEGER},
+      </if>
+      <if test="artDepart != null" >
+        #{artDepart,jdbcType=INTEGER},
+      </if>
+      <if test="submitStaffId != null" >
+        #{submitStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="submitStaffName != null" >
+        #{submitStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="submitStaffPhone != null" >
+        #{submitStaffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentLevel != null" >
+        #{urgentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="uploadBusipag != null" >
+        #{uploadBusipag,jdbcType=INTEGER},
+      </if>
+      <if test="relizeMethod != null" >
+        #{relizeMethod,jdbcType=INTEGER},
+      </if>
+      <if test="askOnlineTime != null" >
+        #{askOnlineTime,jdbcType=DATE},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="opinion != null" >
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="artRegionCont != null" >
+        #{artRegionCont,jdbcType=VARCHAR},
+      </if>
+      <if test="artDepartCont != null" >
+        #{artDepartCont,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentLevelCont != null" >
+        #{urgentLevelCont,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadBusipagCont != null" >
+        #{uploadBusipagCont,jdbcType=VARCHAR},
+      </if>
+      <if test="relizeMethodCont != null" >
+        #{relizeMethodCont,jdbcType=VARCHAR},
+      </if>
+      <if test="similarMark != null" >
+        #{similarMark,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmReqtmpTopic" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpTopicRepository" >
+    update ALM_REQTMP_TOPIC
+    <set >
+      <if test="artTag != null" >
+        ART_TAG = #{artTag,jdbcType=VARCHAR},
+      </if>
+      <if test="artName != null" >
+        ART_NAME = #{artName,jdbcType=VARCHAR},
+      </if>
+      <if test="artRegion != null" >
+        ART_REGION = #{artRegion,jdbcType=INTEGER},
+      </if>
+      <if test="artDepart != null" >
+        ART_DEPART = #{artDepart,jdbcType=INTEGER},
+      </if>
+      <if test="submitStaffId != null" >
+        SUBMIT_STAFF_ID = #{submitStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="submitStaffName != null" >
+        SUBMIT_STAFF_NAME = #{submitStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="submitStaffPhone != null" >
+        SUBMIT_STAFF_PHONE = #{submitStaffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentLevel != null" >
+        URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="uploadBusipag != null" >
+        UPLOAD_BUSIPAG = #{uploadBusipag,jdbcType=INTEGER},
+      </if>
+      <if test="relizeMethod != null" >
+        RELIZE_METHOD = #{relizeMethod,jdbcType=INTEGER},
+      </if>
+      <if test="askOnlineTime != null" >
+        ASK_ONLINE_TIME = #{askOnlineTime,jdbcType=DATE},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        TEMPLATE_ID = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="opinion != null" >
+        OPINION = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="artRegionCont != null" >
+        ART_REGION_CONT = #{artRegionCont,jdbcType=VARCHAR},
+      </if>
+      <if test="artDepartCont != null" >
+        ART_DEPART_CONT = #{artDepartCont,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentLevelCont != null" >
+        URGENT_LEVEL_CONT = #{urgentLevelCont,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadBusipagCont != null" >
+        UPLOAD_BUSIPAG_CONT = #{uploadBusipagCont,jdbcType=VARCHAR},
+      </if>
+      <if test="relizeMethodCont != null" >
+        RELIZE_METHOD_CONT = #{relizeMethodCont,jdbcType=VARCHAR},
+      </if>
+      <if test="similarMark != null" >
+        SIMILAR_MARK = #{similarMark,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ART_ID = #{artId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllAlmReqtmpTopicCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_REQTMP_TOPIC T
+    where 1=1
+    <if test="keyword !=null">and (ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+	      and t.ART_REGION = #{artRegion,jdbcType=INTEGER}
+	    </if>
+    <if test="urgentLevel != null">
+      and  URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if>
+    <if test="submitStaffName != null">
+      and SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>
+     )
+  </select>
+
+  <select id="selectAllAlmReqtmpTopic" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_REQTMP_TOPIC T
+    where 1=1
+    <if test="keyword !=null">and (ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+      and t.ART_REGION = #{artRegion,jdbcType=INTEGER}
+    </if>
+    <if test="urgentLevel != null">
+      and  URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if>
+    <if test="submitStaffName != null">
+      and SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>
+
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+</mapper>

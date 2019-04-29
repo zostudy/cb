@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.util.dao.AlmAttachmentDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.util.domain.AlmAttachmentRepository" >
+    <id column="ATT_ID" property="attId" jdbcType="DECIMAL" />
+    <result column="ATT_NAME" property="attName" jdbcType="VARCHAR" />
+    <result column="ATT_PATH" property="attPath" jdbcType="VARCHAR" />
+    <result column="ATT_TYPE" property="attType" jdbcType="VARCHAR" />
+    <result column="ATT_DESC" property="attDesc" jdbcType="VARCHAR" />
+    <result column="SUBMITTER_TAG" property="submitterTag" jdbcType="VARCHAR" />
+    <result column="SUBMIT_TIME" property="submitTime" jdbcType="DATE" />
+    <result column="SUBMIT_LINK" property="submitLink" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id='TABLE_NAME'>ALM_ATTACHMENT</sql>
+  <sql id='TABLE_SEQUENCE'>ALM_ATTACHMENT$SEQ.nextval</sql>
+  <sql id="Base_Column_List" >
+    ATT_ID, ATT_NAME, ATT_PATH, ATT_TYPE, ATT_DESC, SUBMITTER_TAG, SUBMIT_TIME, SUBMIT_LINK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    A.* from ALM_ATTACHMENT A
+    where A.ATT_ID = #{attId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ALM_ATTACHMENT
+    where ATT_ID = #{attId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachmentRepository" >
+  	<selectKey keyProperty="attId" resultType="java.lang.Long" order="BEFORE">
+            select ALM_ATTACHMENT$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ATTACHMENT (ATT_ID, ATT_NAME, ATT_PATH, 
+      ATT_TYPE, ATT_DESC, SUBMITTER_TAG, 
+      SUBMIT_TIME, SUBMIT_LINK)
+    values (#{attId,jdbcType=DECIMAL}, #{attName,jdbcType=VARCHAR}, #{attPath,jdbcType=VARCHAR}, 
+      #{attType,jdbcType=VARCHAR}, #{attDesc,jdbcType=VARCHAR}, #{submitterTag,jdbcType=VARCHAR}, 
+      #{submitTime,jdbcType=DATE}, #{submitLink,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachmentRepository" >
+    <selectKey keyProperty="attId" resultType="java.lang.Long" order="BEFORE">
+            select ALM_ATTACHMENT$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ATTACHMENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attId != null" >
+        ATT_ID,
+      </if>
+      <if test="attName != null" >
+        ATT_NAME,
+      </if>
+      <if test="attPath != null" >
+        ATT_PATH,
+      </if>
+      <if test="attType != null" >
+        ATT_TYPE,
+      </if>
+      <if test="attDesc != null" >
+        ATT_DESC,
+      </if>
+      <if test="submitterTag != null" >
+        SUBMITTER_TAG,
+      </if>
+      <if test="submitTime != null" >
+        SUBMIT_TIME,
+      </if>
+      <if test="submitLink != null" >
+        SUBMIT_LINK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attId != null" >
+        #{attId,jdbcType=DECIMAL},
+      </if>
+      <if test="attName != null" >
+        #{attName,jdbcType=VARCHAR},
+      </if>
+      <if test="attPath != null" >
+        #{attPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attType != null" >
+        #{attType,jdbcType=VARCHAR},
+      </if>
+      <if test="attDesc != null" >
+        #{attDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="submitterTag != null" >
+        #{submitterTag,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=DATE},
+      </if>
+      <if test="submitLink != null" >
+        #{submitLink,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachmentRepository" >
+    update ALM_ATTACHMENT
+    <set >
+      <if test="attName != null" >
+        ATT_NAME = #{attName,jdbcType=VARCHAR},
+      </if>
+      <if test="attPath != null" >
+        ATT_PATH = #{attPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attType != null" >
+        ATT_TYPE = #{attType,jdbcType=VARCHAR},
+      </if>
+      <if test="attDesc != null" >
+        ATT_DESC = #{attDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="submitterTag != null" >
+        SUBMITTER_TAG = #{submitterTag,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        SUBMIT_TIME = #{submitTime,jdbcType=DATE},
+      </if>
+      <if test="submitLink != null" >
+        SUBMIT_LINK = #{submitLink,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATT_ID = #{attId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttachmentRepository" >
+    update ALM_ATTACHMENT
+    set ATT_NAME = #{attName,jdbcType=VARCHAR},
+      ATT_PATH = #{attPath,jdbcType=VARCHAR},
+      ATT_TYPE = #{attType,jdbcType=VARCHAR},
+      ATT_DESC = #{attDesc,jdbcType=VARCHAR},
+      SUBMITTER_TAG = #{submitterTag,jdbcType=VARCHAR},
+      SUBMIT_TIME = #{submitTime,jdbcType=DATE},
+      SUBMIT_LINK = #{submitLink,jdbcType=VARCHAR}
+    where ATT_ID = #{attId,jdbcType=DECIMAL}
+  </update>
+</mapper>

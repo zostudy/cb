@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStructureInfoDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStructureInfoRepository" >
+    <id column="STRUCTURE_ID" property="structureId" jdbcType="INTEGER" />
+    <result column="STRUCTURE_INFO" property="structureInfo" jdbcType="CLOB" />
+  </resultMap>
+
+  <select id="selectInfoByStructureId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from SYS_STRUCTURE_INFO
+    where STRUCTURE_ID = #{structureId,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteStructureInfo" parameterType="java.lang.Integer" >
+    delete from SYS_STRUCTURE_INFO
+    where STRUCTURE_ID = #{structureId,jdbcType=DECIMAL}
+  </delete>
+
+  <insert id="saveStructureInfo" parameterType="com.asiainfo.rms.system.domain.SysStructureInfoRepository" >
+    insert into SYS_STRUCTURE_INFO (STRUCTURE_ID, STRUCTURE_INFO)
+    values (#{structureId,jdbcType=DECIMAL}, #{structureInfo,jdbcType=CLOB})
+  </insert>
+
+
+  <update id="updateStructureInfo" parameterType="com.asiainfo.rms.system.domain.SysStructureInfoRepository" >
+    update SYS_STRUCTURE_INFO
+    set STRUCTURE_INFO = #{structureInfo,jdbcType=CLOB}
+    where STRUCTURE_ID = #{structureId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="selectAllStructureInfo" resultMap="BaseResultMap">
+    select * from SYS_STRUCTURE_INFO
+  </select>
+</mapper>

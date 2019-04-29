@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpChargeDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpChargeRepository" >
+    <id column="AC_ID" property="acId" jdbcType="INTEGER" />
+    <result column="PRDCT_NAME" property="prdctName" jdbcType="VARCHAR" />
+    <result column="PRDCT_DSCR" property="prdctDscr" jdbcType="VARCHAR" />
+    <result column="PRDCT_BRAND" property="prdctBrand" jdbcType="INTEGER" />
+    <result column="CARD_COST" property="cardCost" jdbcType="INTEGER" />
+    <result column="FIRST_BILL" property="firstBill" jdbcType="INTEGER" />
+    <result column="FIRST_PASSBOOK" property="firstPassbook" jdbcType="INTEGER" />
+    <result column="FIRST_PB_CONT" property="firstPbCont" jdbcType="VARCHAR" />
+    <result column="CONSULT_PRDCT" property="consultPrdct" jdbcType="VARCHAR" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="AAT_ID" property="aatId" jdbcType="INTEGER" />
+    <result column="ONLINE_STATE" property="onlineState" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="PRDCT_BRAND_CONT" property="prdctBrandCont" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AC_ID, PRDCT_NAME, PRDCT_DSCR, PRDCT_BRAND, CARD_COST, FIRST_BILL, FIRST_PASSBOOK, 
+    FIRST_PB_CONT, CONSULT_PRDCT, ART_TYPE, AAT_ID, ONLINE_STATE, CREATE_TIME, PRDCT_BRAND_CONT
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_CHARGE$SEQ.nextval</sql>
+
+
+  <insert id="saveAlmAsnltmpCharge" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpChargeRepository" >
+    <selectKey keyProperty="acId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_CHARGE$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ASNLTMP_CHARGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AC_ID,
+      <if test="prdctName != null" >
+        PRDCT_NAME,
+      </if>
+      <if test="prdctDscr != null" >
+        PRDCT_DSCR,
+      </if>
+      <if test="prdctBrand != null" >
+        PRDCT_BRAND,
+      </if>
+      <if test="cardCost != null" >
+        CARD_COST,
+      </if>
+      <if test="firstBill != null" >
+        FIRST_BILL,
+      </if>
+      <if test="firstPassbook != null" >
+        FIRST_PASSBOOK,
+      </if>
+      <if test="firstPbCont != null" >
+        FIRST_PB_CONT,
+      </if>
+      <if test="consultPrdct != null" >
+        CONSULT_PRDCT,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="aatId != null" >
+        AAT_ID,
+      </if>
+      <if test="onlineState != null" >
+        ONLINE_STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="prdctBrandCont != null" >
+        PRDCT_BRAND_CONT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{acId,jdbcType=INTEGER},
+      <if test="prdctName != null" >
+        #{prdctName,jdbcType=VARCHAR},
+      </if>
+      <if test="prdctDscr != null" >
+        #{prdctDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="prdctBrand != null" >
+        #{prdctBrand,jdbcType=INTEGER},
+      </if>
+      <if test="cardCost != null" >
+        #{cardCost,jdbcType=INTEGER},
+      </if>
+      <if test="firstBill != null" >
+        #{firstBill,jdbcType=INTEGER},
+      </if>
+      <if test="firstPassbook != null" >
+        #{firstPassbook,jdbcType=INTEGER},
+      </if>
+      <if test="firstPbCont != null" >
+        #{firstPbCont,jdbcType=VARCHAR},
+      </if>
+      <if test="consultPrdct != null" >
+        #{consultPrdct,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatId != null" >
+        #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null" >
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="prdctBrandCont != null" >
+        #{prdctBrandCont,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpCharge" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpChargeRepository" >
+    update ALM_ASNLTMP_CHARGE
+    <set >
+      <if test="prdctName != null" >
+        PRDCT_NAME = #{prdctName,jdbcType=VARCHAR},
+      </if>
+      <if test="prdctDscr != null" >
+        PRDCT_DSCR = #{prdctDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="prdctBrand != null" >
+        PRDCT_BRAND = #{prdctBrand,jdbcType=INTEGER},
+      </if>
+      <if test="cardCost != null" >
+        CARD_COST = #{cardCost,jdbcType=INTEGER},
+      </if>
+      <if test="firstBill != null" >
+        FIRST_BILL = #{firstBill,jdbcType=INTEGER},
+      </if>
+      <if test="firstPassbook != null" >
+        FIRST_PASSBOOK = #{firstPassbook,jdbcType=INTEGER},
+      </if>
+      <if test="firstPbCont != null" >
+        FIRST_PB_CONT = #{firstPbCont,jdbcType=VARCHAR},
+      </if>
+      <if test="consultPrdct != null" >
+        CONSULT_PRDCT = #{consultPrdct,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatId != null" >
+        AAT_ID = #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null" >
+        ONLINE_STATE = #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="prdctBrandCont != null" >
+        PRDCT_BRAND_CONT = #{prdctBrandCont,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AC_ID = #{acId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAlmAsnltmpChargeByAarId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    *
+    from ALM_ASNLTMP_CHARGE
+    where AAT_ID = #{aatId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getChargeByAatId" resultType="java.lang.Integer">
+    select count(*) from ALM_ASNLTMP_CHARGE
+    where AAT_ID = #{aatId,jdbcType=INTEGER}
+  </select>
+</mapper>

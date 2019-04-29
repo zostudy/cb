@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpRewardCntDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpRewardCntRepository" >
+    <id column="CONTENT_ID" property="contentId" jdbcType="INTEGER" />
+    <result column="PROJECT_TYPE" property="projectType" jdbcType="VARCHAR" />
+    <result column="REWARD_NAME" property="rewardName" jdbcType="VARCHAR" />
+    <result column="ISSUE_PERIOD" property="issuePeriod" jdbcType="VARCHAR" />
+    <result column="ARR_ID" property="arrId" jdbcType="INTEGER" />
+    <result column="RULE_VALIDITY" property="ruleValidity" jdbcType="VARCHAR" />
+    <result column="FORMULA" property="formula" jdbcType="CLOB" />
+    <result column="UPPER_LIMIT" property="upperLimit" jdbcType="CLOB" />
+    <result column="ISSUE_CONDITION" property="issueCondition" jdbcType="CLOB" />
+    <result column="REPORT_COLUMN" property="reportColumn" jdbcType="CLOB" />
+  </resultMap>
+
+  <sql id='TABLE_SEQUENCE'>ALM_REQTMP_REWARDCNT$SEQ.nextval</sql>
+
+  <select id="selectAlmReqtmpRewardCnt" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_REWARDCNT
+    where CONTENT_ID = #{contentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteAlmReqtmpRewardCnt" parameterType="java.lang.Integer" >
+    delete from ALM_REQTMP_REWARDCNT
+    where CONTENT_ID = #{contentId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmReqtmpRewardCnt" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpRewardCntRepository" >
+    <selectKey keyProperty="contentId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_REQTMP_REWARDCNT$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_REQTMP_REWARDCNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        CONTENT_ID,
+      <if test="projectType != null" >
+        PROJECT_TYPE,
+      </if>
+      <if test="rewardName != null" >
+        REWARD_NAME,
+      </if>
+      <if test="issuePeriod != null" >
+        ISSUE_PERIOD,
+      </if>
+      <if test="arrId != null" >
+        ARR_ID,
+      </if>
+      <if test="ruleValidity != null" >
+        RULE_VALIDITY,
+      </if>
+      <if test="formula != null" >
+        FORMULA,
+      </if>
+      <if test="upperLimit != null" >
+        UPPER_LIMIT,
+      </if>
+      <if test="issueCondition != null" >
+        ISSUE_CONDITION,
+      </if>
+      <if test="reportColumn != null" >
+        REPORT_COLUMN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{contentId,jdbcType=INTEGER},
+      <if test="projectType != null" >
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardName != null" >
+        #{rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePeriod != null" >
+        #{issuePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="arrId != null" >
+        #{arrId,jdbcType=INTEGER},
+      </if>
+      <if test="ruleValidity != null" >
+        #{ruleValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="formula != null" >
+        #{formula,jdbcType=CLOB},
+      </if>
+      <if test="upperLimit != null" >
+        #{upperLimit,jdbcType=CLOB},
+      </if>
+      <if test="issueCondition != null" >
+        #{issueCondition,jdbcType=CLOB},
+      </if>
+      <if test="reportColumn != null" >
+        #{reportColumn,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateAlmReqtmpRewardCnt" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpRewardCntRepository" >
+    update ALM_REQTMP_REWARDCNT
+    <set >
+      <if test="projectType != null" >
+        PROJECT_TYPE = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardName != null" >
+        REWARD_NAME = #{rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePeriod != null" >
+        ISSUE_PERIOD = #{issuePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="arrId != null" >
+        ARR_ID = #{arrId,jdbcType=INTEGER},
+      </if>
+      <if test="ruleValidity != null" >
+        RULE_VALIDITY = #{ruleValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="formula != null" >
+        FORMULA = #{formula,jdbcType=CLOB},
+      </if>
+      <if test="upperLimit != null" >
+        UPPER_LIMIT = #{upperLimit,jdbcType=CLOB},
+      </if>
+      <if test="issueCondition != null" >
+        ISSUE_CONDITION = #{issueCondition,jdbcType=CLOB},
+      </if>
+      <if test="reportColumn != null" >
+        REPORT_COLUMN = #{reportColumn,jdbcType=CLOB},
+      </if>
+    </set>
+    where CONTENT_ID = #{contentId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllAlmReqtmpRewardCnt" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_REQTMP_REWARDCNT T
+    where 1=1
+    and ARR_ID = #{arrId,jdbcType=INTEGER}
+    <if test="keyword !=null">
+      and REWARD_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+  <select id="getAllAlmReqtmpRewardCntCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_REQTMP_REWARDCNT T
+    where 1=1
+    and ARR_ID = #{arrId,jdbcType=INTEGER}
+    <if test="keyword !=null">
+      and REWARD_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+    </if>)
+  </select>
+
+
+</mapper>

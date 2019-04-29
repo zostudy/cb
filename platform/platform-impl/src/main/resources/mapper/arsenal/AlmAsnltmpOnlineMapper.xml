@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpOnlineDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpOnlineRepository" >
+    <id column="AAO_ID" property="aaoId" jdbcType="INTEGER" />
+    <result column="REQ_TAG" property="reqTag" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="SEND_TIME" property="sendTime" jdbcType="DATE" />
+    <result column="STATE_BACK_TIME" property="stateBackTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AAO_ID, REQ_TAG, STATE, SEND_TIME, STATE_BACK_TIME
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_ONLINE$SEQ.nextval</sql>
+
+  <select id="selectAlmAsnltmpOnline" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ASNLTMP_ONLINE
+    where AAO_ID = #{aaoId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmAsnltmpOnline" parameterType="java.lang.Integer" >
+    delete from ALM_ASNLTMP_ONLINE
+    where AAO_ID = #{aaoId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmAsnltmpOnline" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpOnlineRepository" >
+    <selectKey keyProperty="aaoId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_ONLINE$SEQ.nextval from dual
+    </selectKey>
+
+    insert into ALM_ASNLTMP_ONLINE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AAO_ID,
+      <if test="reqTag != null" >
+        REQ_TAG,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME,
+      </if>
+      <if test="stateBackTime != null" >
+        STATE_BACK_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{aaoId,jdbcType=INTEGER},
+      <if test="reqTag != null" >
+        #{reqTag,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=DATE},
+      </if>
+      <if test="stateBackTime != null" >
+        #{stateBackTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpOnline" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpOnlineRepository" >
+    update ALM_ASNLTMP_ONLINE
+    <set >
+      <if test="reqTag != null" >
+        REQ_TAG = #{reqTag,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME = #{sendTime,jdbcType=DATE},
+      </if>
+      <if test="stateBackTime != null" >
+        STATE_BACK_TIME = #{stateBackTime,jdbcType=DATE},
+      </if>
+    </set>
+    where AAO_ID = #{aaoId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllAlmAsnltmpOnlineCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_ONLINE T
+    where 1=1
+    <if test="keyword !=null">and (REQ_TAG like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>)
+  </select>
+  
+  <select id="selectAllAlmAsnltmpOnline" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_ONLINE T
+    where 1=1
+    <if test="keyword !=null">and (REQ_TAG like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+</mapper>

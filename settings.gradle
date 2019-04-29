@@ -1,0 +1,14 @@
+rootProject.name = 'rms'
+include "core"
+include "auth:auth-resource"
+include "auth:auth-server"
+include "config-server"
+include "eureka-server"
+include "api-gateway"
+include 'api-common'
+include 'platform:platform-api'
+include 'platform:platform-client'
+include 'platform:platform-impl'
+include 'workflow:workflow-api'
+include 'workflow:workflow-client'
+include 'workflow:workflow-impl'

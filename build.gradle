@@ -1,0 +1,136 @@
+import java.text.SimpleDateFormat
+
+def buildTime() {
+	TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"))
+    def df = new SimpleDateFormat("yyyyMMddHHmmss")
+    df.setTimeZone(TimeZone.getDefault())
+    return df.format(new Date())
+}
+
+buildscript {
+
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.9"
+    }
+}
+
+allprojects {
+
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        mavenCentral()
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+
+    if (project.hasProperty("prod")) {
+        apply from: "$rootDir/gradle/profile_prod.gradle"
+    } else {
+        apply from: "$rootDir/gradle/profile_dev.gradle"
+    }
+
+    sourceCompatibility = 1.8
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR3"
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        }
+    }
+
+	clean.doFirst {
+	    delete "${rootDir}/build"
+	}
+
+    jar {
+        version = "$version.${buildTime()}-SNAPSHOT"
+        manifest.attributes "Implementation-Version": "$version.${buildTime()}-SNAPSHOT"
+    }
+
+    if (it.name.endsWith("-api")) {
+        dependencies {
+            compile "org.springframework.boot:spring-boot-starter-web"
+        }
+    }
+
+    if (it.name.endsWith("-impl") || it.name == "api-gateway" || it.name == "config-server" || it.name == "eureka-server" || it.name == "auth-server") {
+
+        apply plugin: 'org.springframework.boot'
+
+        dependencies {
+            testCompile "junit:junit:${junitVersion}"
+            testCompile 'org.springframework.boot:spring-boot-starter-test'
+        }
+
+        build {
+            doLast {
+                copy {
+                    from('build/libs') {
+                        include '*.jar'
+                    }
+                    into "$rootDir/build/"
+                }
+            }
+        }
+    }
+
+    if (it.name.endsWith("-impl") || it.name.endsWith("-api")) {
+        apply plugin: "net.ltgt.apt"
+        apply from: "$rootDir/gradle/lombok.gradle"
+    }
+
+    if (it.name.endsWith("-impl")) {
+        apply from: "$rootDir/gradle/mapstruct.gradle"
+        dependencies {
+
+            compile 'org.springframework.cloud:spring-cloud-starter-config'
+            compile 'org.springframework.cloud:spring-cloud-starter-eureka'
+            compile 'org.springframework.cloud:spring-cloud-starter-hystrix'
+            compile 'org.springframework.boot:spring-boot-starter-actuator'
+
+            compile 'org.springframework.boot:spring-boot-starter-redis'
+
+            compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${springBootMybatisVersion}"
+            compile 'com.zaxxer:HikariCP'
+            compile files("$rootDir/lib/ojdbc6.jar")
+            compile("io.springfox:springfox-swagger2:${springfoxVersion}") {
+                exclude module: 'mapstruct'
+            }
+            compile "io.springfox:springfox-bean-validators:${springfoxVersion}"
+            compile "io.springfox:springfox-swagger-ui:${springfoxVersion}"
+        }
+    }
+
+    if (it.name.endsWith("-client")) {
+        dependencies {
+            compile 'org.springframework.cloud:spring-cloud-starter-feign'
+        }
+    }
+}
+
+
+
+

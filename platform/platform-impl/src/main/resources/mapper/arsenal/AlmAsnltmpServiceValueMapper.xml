@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpServiceValueDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpServiceValueRepository" >
+    <id column="ASV_ID" property="asvId" jdbcType="INTEGER" />
+    <result column="AAT_ID" property="aatId" jdbcType="INTEGER" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="AAT_TAG" property="aatTag" jdbcType="VARCHAR" />
+    <result column="OBJ_ID" property="objId" jdbcType="INTEGER" />
+    <result column="DEFAULE_OPTION" property="defauleOption" jdbcType="INTEGER" />
+    <result column="SELECT_OPTION" property="selectOption" jdbcType="INTEGER" />
+    <result column="AS_ID" property="asId" jdbcType="INTEGER" />
+    <result column="SERVICE_ID" property="serviceId" jdbcType="INTEGER" />
+    <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+    <result column="SERVICE_VALUE" property="serviceValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ASV_ID, AAT_ID, ART_TYPE, AAT_TAG, OBJ_ID, DEFAULE_OPTION, SELECT_OPTION, AS_ID, 
+    SERVICE_ID, SERVICE_NAME, SERVICE_VALUE
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_SERVICE_VALUE$SEQ.nextval</sql>
+
+  <!--<select id="selectAlmAsnltmpServiceValue" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from ALM_ASNLTMP_SERVICE_VALUE-->
+    <!--where ASV_ID = #{asvId,jdbcType=INTEGER}-->
+  <!--</select>-->
+
+  <delete id="deleteAlmAsnltmpServiceValue" parameterType="java.lang.Integer" >
+    delete from ALM_ASNLTMP_SERVICE_VALUE
+    where ASV_ID = #{asvId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmAsnltmpServiceValue" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpServiceValueRepository" >
+    <selectKey keyProperty="asvId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_SERVICE_VALUE$SEQ.nextval from dual
+    </selectKey>
+
+    insert into ALM_ASNLTMP_SERVICE_VALUE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ASV_ID,
+      <if test="aatId != null" >
+        AAT_ID,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="aatTag != null" >
+        AAT_TAG,
+      </if>
+      <if test="objId != null" >
+        OBJ_ID,
+      </if>
+      <if test="defauleOption != null" >
+        DEFAULE_OPTION,
+      </if>
+      <if test="selectOption != null" >
+        SELECT_OPTION,
+      </if>
+      <if test="asId != null" >
+        AS_ID,
+      </if>
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME,
+      </if>
+      <if test="serviceValue != null" >
+        SERVICE_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{asvId,jdbcType=INTEGER},
+      <if test="aatId != null" >
+        #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatTag != null" >
+        #{aatTag,jdbcType=VARCHAR},
+      </if>
+      <if test="objId != null" >
+        #{objId,jdbcType=INTEGER},
+      </if>
+      <if test="defauleOption != null" >
+        #{defauleOption,jdbcType=INTEGER},
+      </if>
+      <if test="selectOption != null" >
+        #{selectOption,jdbcType=INTEGER},
+      </if>
+      <if test="asId != null" >
+        #{asId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceValue != null" >
+        #{serviceValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpServiceValue" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpServiceValueRepository" >
+    update ALM_ASNLTMP_SERVICE_VALUE
+    <set >
+      <if test="aatId != null" >
+        AAT_ID = #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatTag != null" >
+        AAT_TAG = #{aatTag,jdbcType=VARCHAR},
+      </if>
+      <if test="objId != null" >
+        OBJ_ID = #{objId,jdbcType=INTEGER},
+      </if>
+      <if test="defauleOption != null" >
+        DEFAULE_OPTION = #{defauleOption,jdbcType=INTEGER},
+      </if>
+      <if test="selectOption != null" >
+        SELECT_OPTION = #{selectOption,jdbcType=INTEGER},
+      </if>
+      <if test="asId != null" >
+        AS_ID = #{asId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null" >
+        SERVICE_ID = #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceValue != null" >
+        SERVICE_VALUE = #{serviceValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ASV_ID = #{asvId,jdbcType=INTEGER}
+  </update>
+  
+  <!--<select id="getAllAlmAsnltmpServiceValueCount" resultType="java.lang.Integer">-->
+    <!--select count(*) from (-->
+    <!--select ROWNUM AS ROWNO,-->
+    <!--T.* from ALM_ASNLTMP_SERVICE_VALUE T-->
+    <!--where 1=1-->
+    <!--<if test="keyword !=null">and (AAT_TAG like CONCAT(CONCAT('%',#{keyword}),'%')-->
+      <!--or SERVICE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))-->
+    <!--</if> )-->
+  <!--</select>-->
+
+  <!--<select id="selectAllAlmAsnltmpServiceValue" resultMap="BaseResultMap">-->
+    <!--select * from (-->
+    <!--select ROWNUM AS ROWNO,-->
+    <!--T.* from ALM_ASNLTMP_SERVICE_VALUE T-->
+    <!--where 1=1-->
+    <!--<if test="keyword !=null">and (AAT_TAG like CONCAT(CONCAT('%',#{keyword}),'%')-->
+      <!--or SERVICE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))-->
+    <!--</if>-->
+    <!--and ROWNUM &lt;= (#{offset} * #{size}) )a-->
+    <!--where a.ROWNO >=(#{offset}-1) * #{size}+1-->
+  <!--</select>-->
+</mapper>

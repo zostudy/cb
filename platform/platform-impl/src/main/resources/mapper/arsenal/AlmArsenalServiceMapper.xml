@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmArsenalServiceDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmArsenalServiceRepository" >
+    <id column="AS_ID" property="asId" jdbcType="INTEGER" />
+    <result column="SERVICE_ID" property="serviceId" jdbcType="INTEGER" />
+    <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    AS_ID, SERVICE_ID, SERVICE_NAME
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ARSENAL_SERVICE$SEQ.nextval</sql>
+
+  <insert id="saveAlmArsenalService" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmArsenalServiceRepository" >
+    <selectKey keyProperty="asId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ARSENAL_SERVICE$SEQ.nextval from dual
+    </selectKey>
+    
+    insert into ALM_ARSENAL_SERVICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AS_ID,
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{asId,jdbcType=INTEGER},
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="selectAlmArsenalServiceById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ARSENAL_SERVICE
+    where AS_ID = #{asId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmArsenalService" parameterType="java.lang.Integer" >
+    delete from ALM_ARSENAL_SERVICE
+    where AS_ID = #{asId,jdbcType=INTEGER}
+  </delete>
+
+
+  <update id="updateAlmArsenalService" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmArsenalServiceRepository" >
+    update ALM_ARSENAL_SERVICE
+    <set >
+      <if test="serviceId != null" >
+        SERVICE_ID = #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AS_ID = #{asId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllAlmArsenalService" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ARSENAL_SERVICE T
+    where 1=1
+    <if test="keyword !=null">and (SERVICE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+  <select id="getAllAlmArsenalService" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ARSENAL_SERVICE T
+    where 1=1
+    <if test="keyword !=null">and (SERVICE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>)
+  </select>
+
+  <select id="getAlmArsenalServiceByServiceId" resultType="java.lang.Integer">
+    select count(*) from ALM_ARSENAL_SERVICE
+    where SERVICE_ID = #{serviceId,jdbcType=INTEGER}
+  </select>
+</mapper>

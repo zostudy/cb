@@ -1,0 +1,11 @@
+dependencies{
+    compile project(":workflow:workflow-api")
+    compile project(":core")
+
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.activiti:activiti-spring-boot-starter-basic:${activiti}"
+    compile "org.activiti:activiti-spring-boot-starter-rest-api:${activiti}"
+    compile "org.activiti:activiti-spring-boot-starter-actuator:${activiti}"
+    compile "org.activiti:activiti-spring-boot-starter-jpa:${activiti}"
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
+}

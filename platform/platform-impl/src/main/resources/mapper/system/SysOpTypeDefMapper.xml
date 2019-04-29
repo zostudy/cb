@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysOpTypeDefDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysOpTypeDefRepository">
+        <id column="op_type_id" property="OpTypeId" jdbcType="INTEGER" />
+        <result column="op_type_name" property="OpTypeName" jdbcType="VARCHAR" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_OP_TYPE_DEF$SEQ.nextval</sql>
+
+    <insert id="saveOpTypeDef" parameterType="com.asiainfo.rms.system.domain.SysOpTypeDefRepository" >
+        <selectKey keyProperty="OpTypeId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_OP_TYPE_DEF$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_OP_TYPE_DEF
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                op_type_id,
+            <if test="opTypeName != null" >
+                op_type_name,
+            </if>
+            <if test="code != null" >
+                code,
+            </if>
+            <if test="notes != null" >
+                NOTES,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{OpTypeId,jdbcType=INTEGER},
+            <if test="opTypeName != null" >
+                #{opTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateOpTypeDef" parameterType="com.asiainfo.rms.system.domain.SysOpTypeDefRepository" >
+        update SYS_OP_TYPE_DEF
+        <set >
+            <if test="opTypeName != null" >
+                op_type_name = #{OpTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                NOTES = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where op_type_id = #{OpTypeId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getOpTypeCount" resultType="java.lang.Integer">
+        select count(*)
+        from SYS_OP_TYPE_DEF
+        where 1=1
+        <if test="OpTypeName !=null">and  op_type_name like CONCAT(CONCAT('%',#{OpTypeName}),'%')</if>
+        <if test="code !=null">and code like CONCAT(CONCAT('%',#{code}),'%')</if>
+        and state =1
+    </select>
+
+    <select id="selectAllOpType" resultMap="BaseResultMap">
+      select * from(select ROWNUM AS ROWNO,T.* from SYS_OP_TYPE_DEF T
+        where 1=1
+        <if test="OpTypeName !=null">and  op_type_name like CONCAT(CONCAT('%',#{OpTypeName}),'%')</if>
+        <if test="code !=null">and code like CONCAT(CONCAT('%',#{code}),'%')</if>
+        and state =1
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+
+    </select>
+
+    <update id="deleteOpTypeDefById" parameterType="com.asiainfo.rms.system.domain.SysOpTypeDefRepository">
+        update SYS_OP_TYPE_DEF
+        set state = 0
+        where op_type_id = #{opTypeId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllCode" resultMap="BaseResultMap" resultType="java.lang.Integer">
+        select code from SYS_OP_TYPE_DEF
+        where OP_TYPE_ID = (select MAX(op_type_id) from SYS_OP_TYPE_DEF)
+    </select>
+
+</mapper>

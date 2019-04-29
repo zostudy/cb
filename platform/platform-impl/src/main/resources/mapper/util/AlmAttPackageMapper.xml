@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.util.dao.AlmAttPackageDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.util.domain.AlmAttPackageRepository" >
+    <id column="ATT_PACK_ID" property="attPackId" jdbcType="DECIMAL" />
+    <result column="OBJ_ID" property="objId" jdbcType="DECIMAL" />
+    <result column="OBJ_TYPE" property="objType" jdbcType="DECIMAL" />
+    <result column="WO_ID" property="woId" jdbcType="DECIMAL" />
+    <result column="ATT_PACK_DESC" property="attPackDesc" jdbcType="VARCHAR" />
+    <result column="ATT_ID" property="attId" jdbcType="DECIMAL" />
+    <result column="OBJ_NO" property="objNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id='TABLE_NAME'>ALM_ATT_PACKAGE</sql>
+  <sql id='TABLE_SEQUENCE'>ALM_ATT_PACKAGE$SEQ.nextval</sql>
+  <sql id="Base_Column_List" >
+    ATT_PACK_ID, OBJ_ID, OBJ_TYPE, WO_ID, ATT_PACK_DESC, ATT_ID, OBJ_NO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ATT_PACKAGE
+    where ATT_PACK_ID = #{attPackId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByCond" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ATT_PACKAGE
+    where OBJ_ID = #{objId} and OBJ_TYPE = #{objType}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ALM_ATT_PACKAGE
+    where ATT_PACK_ID = #{attPackId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttPackageRepository" >
+    <selectKey keyProperty="attPackId" resultType="java.lang.Long" order="BEFORE">
+            select ALM_ATT_PACKAGE$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ATT_PACKAGE (ATT_PACK_ID, OBJ_ID, OBJ_TYPE, 
+      WO_ID, ATT_PACK_DESC, ATT_ID, 
+      OBJ_NO)
+    values (#{attPackId,jdbcType=DECIMAL}, #{objId,jdbcType=DECIMAL}, #{objType,jdbcType=DECIMAL}, 
+      #{woId,jdbcType=DECIMAL}, #{attPackDesc,jdbcType=VARCHAR}, #{attId,jdbcType=DECIMAL}, 
+      #{objNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttPackageRepository" >
+    <selectKey keyProperty="attPackId" resultType="java.lang.Long" order="BEFORE">
+            select ALM_ATT_PACKAGE$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ATT_PACKAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attPackId != null" >
+        ATT_PACK_ID,
+      </if>
+      <if test="objId != null" >
+        OBJ_ID,
+      </if>
+      <if test="objType != null" >
+        OBJ_TYPE,
+      </if>
+      <if test="woId != null" >
+        WO_ID,
+      </if>
+      <if test="attPackDesc != null" >
+        ATT_PACK_DESC,
+      </if>
+      <if test="attId != null" >
+        ATT_ID,
+      </if>
+      <if test="objNo != null" >
+        OBJ_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attPackId != null" >
+        #{attPackId,jdbcType=DECIMAL},
+      </if>
+      <if test="objId != null" >
+        #{objId,jdbcType=DECIMAL},
+      </if>
+      <if test="objType != null" >
+        #{objType,jdbcType=DECIMAL},
+      </if>
+      <if test="woId != null" >
+        #{woId,jdbcType=DECIMAL},
+      </if>
+      <if test="attPackDesc != null" >
+        #{attPackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="attId != null" >
+        #{attId,jdbcType=DECIMAL},
+      </if>
+      <if test="objNo != null" >
+        #{objNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttPackageRepository" >
+    update ALM_ATT_PACKAGE
+    <set >
+      <if test="objId != null" >
+        OBJ_ID = #{objId,jdbcType=DECIMAL},
+      </if>
+      <if test="objType != null" >
+        OBJ_TYPE = #{objType,jdbcType=DECIMAL},
+      </if>
+      <if test="woId != null" >
+        WO_ID = #{woId,jdbcType=DECIMAL},
+      </if>
+      <if test="attPackDesc != null" >
+        ATT_PACK_DESC = #{attPackDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="attId != null" >
+        ATT_ID = #{attId,jdbcType=DECIMAL},
+      </if>
+      <if test="objNo != null" >
+        OBJ_NO = #{objNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATT_PACK_ID = #{attPackId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asiainfo.rms.alm.util.domain.AlmAttPackageRepository" >
+    update ALM_ATT_PACKAGE
+    set OBJ_ID = #{objId,jdbcType=DECIMAL},
+      OBJ_TYPE = #{objType,jdbcType=DECIMAL},
+      WO_ID = #{woId,jdbcType=DECIMAL},
+      ATT_PACK_DESC = #{attPackDesc,jdbcType=VARCHAR},
+      ATT_ID = #{attId,jdbcType=DECIMAL},
+      OBJ_NO = #{objNo,jdbcType=VARCHAR}
+    where ATT_PACK_ID = #{attPackId,jdbcType=DECIMAL}
+  </update>
+</mapper>

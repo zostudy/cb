@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStationFuncDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStationFuncRepository">
+        <result column="station_func_relat_id" property="stationFuncRelatId" jdbcType="INTEGER"/>
+        <result column="station_id" property="stationId" jdbcType="INTEGER"/>
+        <result column="func_id" property="funcId" jdbcType="INTEGER"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="ext1" property="ext1" jdbcType="VARCHAR"/>
+        <result column="ext2" property="ext2" jdbcType="VARCHAR"/>
+        <result column="ext3" property="ext3" jdbcType="VARCHAR"/>
+        <result column="func_code" property="funcCode" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="checked" property="checked" jdbcType="INTEGER"/>
+
+        <result column="func_code" property="funcCode" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+    <sql id='TABLE_NAME'>SYS_STATION_FUNC</sql>
+    <sql id='TABLE_SEQUENCE'>SYS_STATION_FUNC$SEQ.nextval</sql>
+
+    <insert id="saveStationFunc" parameterType="com.asiainfo.rms.system.domain.SysStationFuncRepository">
+        <selectKey keyProperty="stationFuncRelatId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_STATION_FUNC$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_STATION_FUNC
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            station_func_relat_id,
+            <if test="stationId != null">
+                station_id,
+            </if>
+            <if test="funcId != null">
+                func_id,
+            </if>
+            <if test="notes != null">
+                notes,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="ext1 != null">
+                ext1,
+            </if>
+            <if test="ext2 != null">
+                ext2,
+            </if>
+            <if test="ext3 != null">
+                ext3,
+            </if>
+            <if test="checked != null">
+                checked,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{stationFuncRelatId,jdbcType=INTEGER},
+            <if test="stationId != null">
+                #{stationId,jdbcType=INTEGER},
+            </if>
+            <if test="funcId != null">
+                #{funcId,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="ext1 != null">
+                #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                #{ext3,jdbcType=VARCHAR},
+            </if>
+            <if test="checked != null">
+                #{checked,jdbcType=INTEGER},
+            </if>
+
+        </trim>
+    </insert>
+    <update id="updateStationFunc" parameterType="com.asiainfo.rms.system.domain.SysStationFuncRepository">
+        update sys_station_func
+        <trim prefix="set" suffixOverrides=",">
+            <if test="stationId != null">
+                station_id = #{stationId,jdbcType=INTEGER},
+            </if>
+            <if test="funcId != null">
+                func_id = #{funcId,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                notes = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=DATE},
+            </if>
+            <if test="ext1 != null">
+                ext1= #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                ext2 = #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                ext3 = #{ext3,jdbcType=VARCHAR},
+            </if>
+            <if test="checked != null">
+            checked= #{checked,jdbcType=INTEGER},
+            </if>
+
+        </trim>
+        where station_func_relat_id =#{stationFuncRelatId,jdbcType=INTEGER}
+    </update>
+    <select id="selectByStationFuncRelatId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from sys_station_func
+        where state =1
+        and station_func_relat_id =#{stationFuncRelatId,jdbcType=INTEGER}
+    </select>
+    <select id="selectStationFuncByStaffId" resultMap="BaseResultMap">
+        SELECT *
+        FROM SYS_STATION_FUNC T
+        WHERE T.STATE = 1
+        AND T.STATION_ID =
+        (SELECT A.STATION_ID
+        FROM SYS_AUTHOR A, SYS_STATION B
+        WHERE A.STAFF_ID = #{staffId,jdbcType=INTEGER}
+        AND A.STATE = 1
+        AND A.STATION_ID = B.STATION_ID
+        AND B.STATE = 1)
+    </select>
+
+    <update id="deleteStationFuncById" parameterType="com.asiainfo.rms.system.domain.SysStationFuncRepository">
+        UPDATE SYS_STATION_FUNC
+        set state = 0
+         where station_func_relat_id =#{stationFuncRelatId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectStationFuncByStationId" resultMap="BaseResultMap">
+        SELECT t.*,t1.station_id,t1.station_func_relat_id,t1.checked
+        FROM sys_function t LEFT JOIN
+        (SELECT a.* FROM Sys_Station_Func a WHERE a.station_id = #{stationId,jdbcType=INTEGER} ) t1
+        ON t.func_id = t1.func_id and t1.state = 1
+        where t.state = 1
+    </select>
+
+    <delete id="deleteStationFuncByStationId" parameterType="java.lang.Integer">
+        delete from sys_station_func
+        where STATION_ID =#{stationId,jdbcType=INTEGER}
+    </delete>
+</mapper>

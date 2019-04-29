@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpFunctionDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpFunctionRepository">
+        <result column="ARF_ID" property="arfId" jdbcType="INTEGER"/>
+        <result column="PURPOST" property="purpost" jdbcType="VARCHAR"/>
+        <result column="ART_TYPE" property="artType" jdbcType="INTEGER"/>
+        <result column="ART_ID" property="artId" jdbcType="INTEGER"/>
+        <result column="FUNC_NAME" property="funcName" jdbcType="VARCHAR"/>
+        <result column="PURPOST_CONT" property="purpostCont" jdbcType="VARCHAR"/>
+        <result column="AUTONYM_IDENTIFY" property="autonymIdentify" jdbcType="VARCHAR"/>
+        <result column="AUTONYM_IDENTIFY_CONT" property="autonymIdentifyCont" jdbcType="VARCHAR"/>
+        <result column="FUNC_WF" property="funcWf" jdbcType="CLOB"/>
+        <result column="IMPLEMENT_REQ" property="implementReq" jdbcType="CLOB"/>
+        <result column="MESSAGE" property="message" jdbcType="CLOB"/>
+        <result column="BILLS" property="bills" jdbcType="CLOB"/>
+        <result column="ACCOUNTS" property="accounts" jdbcType="CLOB"/>
+        <result column="PERMISSION" property="permission" jdbcType="CLOB"/>
+        <result column="ONLINE_REQ" property="onlineReq" jdbcType="CLOB"/>
+        <result column="BUSI_RELATE" property="busiRelate" jdbcType="CLOB"/>
+        <result column="COMPLEMENT" property="complement" jdbcType="CLOB"/>
+        <result column="OTHER_CONTENT" property="otherContent" jdbcType="CLOB"/>
+        <result column="FUNCWF_CONT" property="funcwfCont" jdbcType="CLOB"/>
+        <result column="IMPLEMENT_CONT" property="implementCont" jdbcType="CLOB"/>
+        <result column="DATA_UPDATE" property="dataUpdate" jdbcType="CLOB"/>
+
+        <result column="ART_TAG" property="artTag" jdbcType="VARCHAR" />
+        <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>ALM_REQTMP_FUNCTION$SEQ.nextval</sql>
+
+    <select id="selectAlmReqtmpFunction" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select *
+    from ALM_REQTMP_FUNCTION
+    where ARF_ID = #{arfId,jdbcType=INTEGER}
+</select>
+
+    <select id="selectAlmReqtmpFunctionByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from ALM_REQTMP_FUNCTION
+        where ART_ID = #{artId,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteAlmReqtmpFunction" parameterType="java.lang.Integer">
+    delete from ALM_REQTMP_FUNCTION
+    where ARF_ID = #{arfId,jdbcType=INTEGER}
+  </delete>
+
+
+    <insert id="saveAlmReqtmpFunction" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpFunctionRepository">
+        <selectKey keyProperty="arfId" resultType="java.lang.Integer" order="BEFORE">
+            select ALM_REQTMP_FUNCTION$SEQ.nextval from dual
+        </selectKey>
+        insert into ALM_REQTMP_FUNCTION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ARF_ID,
+            <if test="purpost != null">
+                PURPOST,
+            </if>
+            <if test="artType != null">
+                ART_TYPE,
+            </if>
+            <if test="artId != null">
+                ART_ID,
+            </if>
+            <if test="funcName != null">
+                FUNC_NAME,
+            </if>
+            <if test="purpostCont != null">
+                PURPOST_CONT,
+            </if>
+            <if test="autonymIdentify != null">
+                AUTONYM_IDENTIFY,
+            </if>
+            <if test="autonymIdentifyCont != null">
+                AUTONYM_IDENTIFY_CONT,
+            </if>
+            <if test="funcWf != null">
+                FUNC_WF,
+            </if>
+            <if test="implementReq != null">
+                IMPLEMENT_REQ,
+            </if>
+            <if test="message != null">
+                MESSAGE,
+            </if>
+            <if test="bills != null">
+                BILLS,
+            </if>
+            <if test="accounts != null">
+                ACCOUNTS,
+            </if>
+            <if test="permission != null">
+                PERMISSION,
+            </if>
+            <if test="onlineReq != null">
+                ONLINE_REQ,
+            </if>
+            <if test="busiRelate != null">
+                BUSI_RELATE,
+            </if>
+            <if test="complement != null">
+                COMPLEMENT,
+            </if>
+            <if test="otherContent != null">
+                OTHER_CONTENT,
+            </if>
+            <if test="funcwfCont != null">
+                FUNCWF_CONT,
+            </if>
+            <if test="implementCont != null">
+                IMPLEMENT_CONT,
+            </if>
+            <if test="dataUpdate != null">
+                DATA_UPDATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{arfId,jdbcType=INTEGER},
+            <if test="purpost != null">
+                #{purpost,jdbcType=VARCHAR},
+            </if>
+            <if test="artType != null">
+                #{artType,jdbcType=INTEGER},
+            </if>
+            <if test="artId != null">
+                #{artId,jdbcType=INTEGER},
+            </if>
+            <if test="funcName != null">
+                #{funcName,jdbcType=VARCHAR},
+            </if>
+            <if test="purpostCont != null">
+                #{purpostCont,jdbcType=VARCHAR},
+            </if>
+            <if test="autonymIdentify != null">
+                #{autonymIdentify,jdbcType=VARCHAR},
+            </if>
+            <if test="autonymIdentifyCont != null">
+                #{autonymIdentifyCont,jdbcType=VARCHAR},
+            </if>
+            <if test="funcWf != null">
+                #{funcWf,jdbcType=CLOB},
+            </if>
+            <if test="implementReq != null">
+                #{implementReq,jdbcType=CLOB},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=CLOB},
+            </if>
+            <if test="bills != null">
+                #{bills,jdbcType=CLOB},
+            </if>
+            <if test="accounts != null">
+                #{accounts,jdbcType=CLOB},
+            </if>
+            <if test="permission != null">
+                #{permission,jdbcType=CLOB},
+            </if>
+            <if test="onlineReq != null">
+                #{onlineReq,jdbcType=CLOB},
+            </if>
+            <if test="busiRelate != null">
+                #{busiRelate,jdbcType=CLOB},
+            </if>
+            <if test="complement != null">
+                #{complement,jdbcType=CLOB},
+            </if>
+            <if test="otherContent != null">
+                #{otherContent,jdbcType=CLOB},
+            </if>
+            <if test="funcwfCont != null">
+                #{funcwfCont,jdbcType=CLOB},
+            </if>
+            <if test="implementCont != null">
+                #{implementCont,jdbcType=CLOB},
+            </if>
+            <if test="dataUpdate != null">
+                #{dataUpdate,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlmReqtmpFunction" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpFunctionRepository">
+        update ALM_REQTMP_FUNCTION
+        <set>
+            <if test="purpost != null">
+                PURPOST = #{purpost,jdbcType=VARCHAR},
+            </if>
+            <if test="artType != null">
+                ART_TYPE = #{artType,jdbcType=VARCHAR},
+            </if>
+            <if test="artId != null">
+                ART_ID = #{artId,jdbcType=VARCHAR},
+            </if>
+            <if test="funcName != null">
+                FUNC_NAME = #{funcName,jdbcType=VARCHAR},
+            </if>
+            <if test="purpostCont != null">
+                PURPOST_CONT = #{purpostCont,jdbcType=VARCHAR},
+            </if>
+            <if test="autonymIdentify != null">
+                AUTONYM_IDENTIFY = #{autonymIdentify,jdbcType=VARCHAR},
+            </if>
+            <if test="autonymIdentifyCont != null">
+                AUTONYM_IDENTIFY_CONT = #{autonymIdentifyCont,jdbcType=VARCHAR},
+            </if>
+            <if test="funcWf != null">
+                FUNC_WF = #{funcWf,jdbcType=VARCHAR},
+            </if>
+            <if test="implementReq != null">
+                IMPLEMENT_REQ = #{implementReq,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null">
+                MESSAGE = #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="bills != null">
+                BILLS = #{bills,jdbcType=VARCHAR},
+            </if>
+            <if test="accounts != null">
+                ACCOUNTS = #{accounts,jdbcType=VARCHAR},
+            </if>
+            <if test="permission != null">
+                PERMISSION = #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineReq != null">
+                ONLINE_REQ = #{onlineReq,jdbcType=VARCHAR},
+            </if>
+            <if test="busiRelate != null">
+                BUSI_RELATE = #{busiRelate,jdbcType=VARCHAR},
+            </if>
+            <if test="complement != null">
+                COMPLEMENT = #{complement,jdbcType=VARCHAR},
+            </if>
+            <if test="otherContent != null">
+                OTHER_CONTENT = #{otherContent,jdbcType=VARCHAR},
+            </if>
+            <if test="funcwfCont != null">
+                FUNCWF_CONT = #{funcwfCont,jdbcType=VARCHAR},
+            </if>
+            <if test="implementCont != null">
+                IMPLEMENT_CONT = #{implementCont,jdbcType=VARCHAR},
+            </if>
+            <if test="dataUpdate != null">
+                DATA_UPDATE = #{dataUpdate,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ARF_ID = #{arfId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllAlmReqtmpFunction" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_FUNCTION T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and a.ART_ID = t.ART_ID
+        <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+	      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+	    </if>
+	    <if test="artType != null">
+	      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+	    </if>
+	    <if test="artName != null">
+	    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+	    </if>
+	    <if test="artTag != null">
+	    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+	    </if>
+        <if test="artRegion != null">
+            and A.ART_REGION  = #{artRegion,jdbcType=INTEGER}
+        </if>
+	    <if test="urgentLevel != null">
+	      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+	    </if>
+	    <if test="submitStaffName != null">
+	      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+	    </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getAllAlmReqtmpFunctionCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_FUNCTION T,ALM_REQTMP_TOPIC A
+        where 1=1
+        and a.ART_ID = t.ART_ID
+        <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+	      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+	    </if>
+	    <if test="artType != null">
+	      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+	    </if>
+	    <if test="artName != null">
+	    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+	    </if>
+	    <if test="artTag != null">
+	    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+	    </if>
+	    <if test="artRegion != null">
+	      and A.ART_REGION  = #{artRegion,jdbcType=INTEGER}
+	    </if>
+	    <if test="urgentLevel != null">
+	      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+	    </if>
+	    <if test="submitStaffName != null">
+	      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+	    </if>
+        )
+    </select>
+</mapper>

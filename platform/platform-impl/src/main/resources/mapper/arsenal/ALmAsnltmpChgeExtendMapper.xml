@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.arsenal.dao.AlmAsnltmpChgeExtendDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpChgeExtendRepository" >
+    <id column="ACE_ID" property="aceId" jdbcType="INTEGER" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="AAT_ID" property="aatId" jdbcType="INTEGER" />
+    <result column="BENEFIT_NAME" property="benefitName" jdbcType="VARCHAR" />
+    <result column="BENEFIT_DSCR" property="benefitDscr" jdbcType="VARCHAR" />
+    <result column="IN_TRAFFIC_TYPE1" property="inTrafficType1" jdbcType="INTEGER" />
+    <result column="IN_TRAFFIC_TYPE_CONT1" property="inTrafficTypeCont1" jdbcType="VARCHAR" />
+    <result column="IN_TRAFFIC_AMOUNT1" property="inTrafficAmount1" jdbcType="INTEGER" />
+    <result column="IN_TRAFFIC_TYPE_PRIO1" property="inTrafficTypePrio1" jdbcType="INTEGER" />
+    <result column="IN_TIME_TYPE1" property="inTimeType1" jdbcType="INTEGER" />
+    <result column="IN_TIME_TYPE_CONT1" property="inTimeTypeCont1" jdbcType="VARCHAR" />
+    <result column="IN_TIME_AMOUNT1" property="inTimeAmount1" jdbcType="INTEGER" />
+    <result column="IN_SHORT_MSG" property="inShortMsg" jdbcType="INTEGER" />
+    <result column="IN_MEDIA_MSG" property="inMediaMsg" jdbcType="INTEGER" />
+    <result column="OUT_CALLING" property="outCalling" jdbcType="VARCHAR" />
+    <result column="OUT_CALLED" property="outCalled" jdbcType="VARCHAR" />
+    <result column="OUT_TRAFFIC" property="outTraffic" jdbcType="VARCHAR" />
+    <result column="OUT_SHORT_MSG" property="outShortMsg" jdbcType="INTEGER" />
+    <result column="OUT_MEDIA_MSG" property="outMediaMsg" jdbcType="INTEGER" />
+    <result column="SUBJECT_CODE1" property="subjectCode1" jdbcType="INTEGER" />
+    <result column="SUBJECT_CODE_CONT1" property="subjectCodeCont1" jdbcType="VARCHAR" />
+    <result column="SHARE_RATIO1" property="shareRatio1" jdbcType="VARCHAR" />
+    <result column="SUBJECT_CODE2" property="subjectCode2" jdbcType="INTEGER" />
+    <result column="SUBJECT_CODE_CONT2" property="subjectCodeCont2" jdbcType="VARCHAR" />
+    <result column="SHARE_RATIO2" property="shareRatio2" jdbcType="VARCHAR" />
+    <result column="SUBJECT_CODE3" property="subjectCode3" jdbcType="INTEGER" />
+    <result column="SUBJECT_CODE_CONT3" property="subjectCodeCont3" jdbcType="VARCHAR" />
+    <result column="SHARE_RATIO3" property="shareRatio3" jdbcType="VARCHAR" />
+    <result column="ONLINE_STATE" property="onlineState" jdbcType="INTEGER" />
+    <result column="FIRST_CHARGE_WAY" property="firstChargeWay" jdbcType="INTEGER" />
+    <result column="FIRST_CHARGE_WAY_CONT" property="firstChargeWayCont" jdbcType="VARCHAR" />
+    <result column="SECND_CHARGE_WAY" property="secndChargeWay" jdbcType="INTEGER" />
+    <result column="SECND_CHARGE_WAY_CONT" property="secndChargeWayCont" jdbcType="VARCHAR" />
+    <result column="ROLLIN_WAY" property="rollinWay" jdbcType="INTEGER" />
+    <result column="ROLLIN_WAY_CONT" property="rollinWayCont" jdbcType="VARCHAR" />
+    <result column="ROLLOUT_WAY" property="rolloutWay" jdbcType="INTEGER" />
+    <result column="ROLLOUT_WAY_CONT" property="rolloutWayCont" jdbcType="VARCHAR" />
+    <result column="PACKAGE_PRIOD" property="packagePriod" jdbcType="INTEGER" />
+    <result column="PACKAGE_PRIOD_CONT" property="packagePriodCont" jdbcType="VARCHAR" />
+    <result column="AC_ID" property="acId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACE_ID, ART_TYPE, AAT_ID, BENEFIT_NAME, BENEFIT_DSCR, IN_TRAFFIC_TYPE1, IN_TRAFFIC_TYPE_CONT1, 
+    IN_TRAFFIC_AMOUNT1, IN_TRAFFIC_TYPE_PRIO1, IN_TIME_TYPE1, IN_TIME_TYPE_CONT1, IN_TIME_AMOUNT1, 
+    IN_SHORT_MSG, IN_MEDIA_MSG, OUT_CALLING, OUT_CALLED, OUT_TRAFFIC, OUT_SHORT_MSG, 
+    OUT_MEDIA_MSG, SUBJECT_CODE1, SUBJECT_CODE_CONT1, SHARE_RATIO1, SUBJECT_CODE2, SUBJECT_CODE_CONT2, 
+    SHARE_RATIO2, SUBJECT_CODE3, SUBJECT_CODE_CONT3, SHARE_RATIO3, ONLINE_STATE, FIRST_CHARGE_WAY, 
+    FIRST_CHARGE_WAY_CONT, SECND_CHARGE_WAY, SECND_CHARGE_WAY_CONT, ROLLIN_WAY, ROLLIN_WAY_CONT, 
+    ROLLOUT_WAY, ROLLOUT_WAY_CONT, PACKAGE_PRIOD, PACKAGE_PRIOD_CONT, AC_ID
+  </sql>
+
+  <sql id='TABLE_SEQUENCE'>ALM_ASNLTMP_CHGE_EXTEND$SEQ.nextval</sql>
+
+  <select id="selectAlmAsnltmpChgeExtendById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALM_ASNLTMP_CHGE_EXTEND
+    where ACE_ID = #{aceId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteAlmAsnltmpChgeExtend" parameterType="java.lang.Integer" >
+    delete from ALM_ASNLTMP_CHGE_EXTEND
+    where ACE_ID = #{aceId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmAsnltmpChgeExtend" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpChgeExtendRepository" >
+    <selectKey keyProperty="aceId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_ASNLTMP_CHGE_EXTEND$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_ASNLTMP_CHGE_EXTEND
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ACE_ID,
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="aatId != null" >
+        AAT_ID,
+      </if>
+      <if test="benefitName != null" >
+        BENEFIT_NAME,
+      </if>
+      <if test="benefitDscr != null" >
+        BENEFIT_DSCR,
+      </if>
+      <if test="inTrafficType1 != null" >
+        IN_TRAFFIC_TYPE1,
+      </if>
+      <if test="inTrafficTypeCont1 != null" >
+        IN_TRAFFIC_TYPE_CONT1,
+      </if>
+      <if test="inTrafficAmount1 != null" >
+        IN_TRAFFIC_AMOUNT1,
+      </if>
+      <if test="inTrafficTypePrio1 != null" >
+        IN_TRAFFIC_TYPE_PRIO1,
+      </if>
+      <if test="inTimeType1 != null" >
+        IN_TIME_TYPE1,
+      </if>
+      <if test="inTimeTypeCont1 != null" >
+        IN_TIME_TYPE_CONT1,
+      </if>
+      <if test="inTimeAmount1 != null" >
+        IN_TIME_AMOUNT1,
+      </if>
+      <if test="inShortMsg != null" >
+        IN_SHORT_MSG,
+      </if>
+      <if test="inMediaMsg != null" >
+        IN_MEDIA_MSG,
+      </if>
+      <if test="outCalling != null" >
+        OUT_CALLING,
+      </if>
+      <if test="outCalled != null" >
+        OUT_CALLED,
+      </if>
+      <if test="outTraffic != null" >
+        OUT_TRAFFIC,
+      </if>
+      <if test="outShortMsg != null" >
+        OUT_SHORT_MSG,
+      </if>
+      <if test="outMediaMsg != null" >
+        OUT_MEDIA_MSG,
+      </if>
+      <if test="subjectCode1 != null" >
+        SUBJECT_CODE1,
+      </if>
+      <if test="subjectCodeCont1 != null" >
+        SUBJECT_CODE_CONT1,
+      </if>
+      <if test="shareRatio1 != null" >
+        SHARE_RATIO1,
+      </if>
+      <if test="subjectCode2 != null" >
+        SUBJECT_CODE2,
+      </if>
+      <if test="subjectCodeCont2 != null" >
+        SUBJECT_CODE_CONT2,
+      </if>
+      <if test="shareRatio2 != null" >
+        SHARE_RATIO2,
+      </if>
+      <if test="subjectCode3 != null" >
+        SUBJECT_CODE3,
+      </if>
+      <if test="subjectCodeCont3 != null" >
+        SUBJECT_CODE_CONT3,
+      </if>
+      <if test="shareRatio3 != null" >
+        SHARE_RATIO3,
+      </if>
+      <if test="onlineState != null" >
+        ONLINE_STATE,
+      </if>
+      <if test="firstChargeWay != null" >
+        FIRST_CHARGE_WAY,
+      </if>
+      <if test="firstChargeWayCont != null" >
+        FIRST_CHARGE_WAY_CONT,
+      </if>
+      <if test="secndChargeWay != null" >
+        SECND_CHARGE_WAY,
+      </if>
+      <if test="secndChargeWayCont != null" >
+        SECND_CHARGE_WAY_CONT,
+      </if>
+      <if test="rollinWay != null" >
+        ROLLIN_WAY,
+      </if>
+      <if test="rollinWayCont != null" >
+        ROLLIN_WAY_CONT,
+      </if>
+      <if test="rolloutWay != null" >
+        ROLLOUT_WAY,
+      </if>
+      <if test="rolloutWayCont != null" >
+        ROLLOUT_WAY_CONT,
+      </if>
+      <if test="packagePriod != null" >
+        PACKAGE_PRIOD,
+      </if>
+      <if test="packagePriodCont != null" >
+        PACKAGE_PRIOD_CONT,
+      </if>
+      <if test="acId != null" >
+        AC_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{aceId,jdbcType=INTEGER},
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatId != null" >
+        #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="benefitName != null" >
+        #{benefitName,jdbcType=VARCHAR},
+      </if>
+      <if test="benefitDscr != null" >
+        #{benefitDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="inTrafficType1 != null" >
+        #{inTrafficType1,jdbcType=INTEGER},
+      </if>
+      <if test="inTrafficTypeCont1 != null" >
+        #{inTrafficTypeCont1,jdbcType=VARCHAR},
+      </if>
+      <if test="inTrafficAmount1 != null" >
+        #{inTrafficAmount1,jdbcType=INTEGER},
+      </if>
+      <if test="inTrafficTypePrio1 != null" >
+        #{inTrafficTypePrio1,jdbcType=INTEGER},
+      </if>
+      <if test="inTimeType1 != null" >
+        #{inTimeType1,jdbcType=INTEGER},
+      </if>
+      <if test="inTimeTypeCont1 != null" >
+        #{inTimeTypeCont1,jdbcType=VARCHAR},
+      </if>
+      <if test="inTimeAmount1 != null" >
+        #{inTimeAmount1,jdbcType=INTEGER},
+      </if>
+      <if test="inShortMsg != null" >
+        #{inShortMsg,jdbcType=INTEGER},
+      </if>
+      <if test="inMediaMsg != null" >
+        #{inMediaMsg,jdbcType=INTEGER},
+      </if>
+      <if test="outCalling != null" >
+        #{outCalling,jdbcType=VARCHAR},
+      </if>
+      <if test="outCalled != null" >
+        #{outCalled,jdbcType=VARCHAR},
+      </if>
+      <if test="outTraffic != null" >
+        #{outTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="outShortMsg != null" >
+        #{outShortMsg,jdbcType=INTEGER},
+      </if>
+      <if test="outMediaMsg != null" >
+        #{outMediaMsg,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCode1 != null" >
+        #{subjectCode1,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCodeCont1 != null" >
+        #{subjectCodeCont1,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRatio1 != null" >
+        #{shareRatio1,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCode2 != null" >
+        #{subjectCode2,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCodeCont2 != null" >
+        #{subjectCodeCont2,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRatio2 != null" >
+        #{shareRatio2,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCode3 != null" >
+        #{subjectCode3,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCodeCont3 != null" >
+        #{subjectCodeCont3,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRatio3 != null" >
+        #{shareRatio3,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineState != null" >
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="firstChargeWay != null" >
+        #{firstChargeWay,jdbcType=INTEGER},
+      </if>
+      <if test="firstChargeWayCont != null" >
+        #{firstChargeWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="secndChargeWay != null" >
+        #{secndChargeWay,jdbcType=INTEGER},
+      </if>
+      <if test="secndChargeWayCont != null" >
+        #{secndChargeWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rollinWay != null" >
+        #{rollinWay,jdbcType=INTEGER},
+      </if>
+      <if test="rollinWayCont != null" >
+        #{rollinWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rolloutWay != null" >
+        #{rolloutWay,jdbcType=INTEGER},
+      </if>
+      <if test="rolloutWayCont != null" >
+        #{rolloutWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="packagePriod != null" >
+        #{packagePriod,jdbcType=INTEGER},
+      </if>
+      <if test="packagePriodCont != null" >
+        #{packagePriodCont,jdbcType=VARCHAR},
+      </if>
+      <if test="acId != null" >
+        #{acId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateAlmAsnltmpChgeExtend" parameterType="com.asiainfo.rms.alm.arsenal.domain.AlmAsnltmpChgeExtendRepository" >
+    update ALM_ASNLTMP_CHGE_EXTEND
+    <set >
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="aatId != null" >
+        AAT_ID = #{aatId,jdbcType=INTEGER},
+      </if>
+      <if test="benefitName != null" >
+        BENEFIT_NAME = #{benefitName,jdbcType=VARCHAR},
+      </if>
+      <if test="benefitDscr != null" >
+        BENEFIT_DSCR = #{benefitDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="inTrafficType1 != null" >
+        IN_TRAFFIC_TYPE1 = #{inTrafficType1,jdbcType=INTEGER},
+      </if>
+      <if test="inTrafficTypeCont1 != null" >
+        IN_TRAFFIC_TYPE_CONT1 = #{inTrafficTypeCont1,jdbcType=VARCHAR},
+      </if>
+      <if test="inTrafficAmount1 != null" >
+        IN_TRAFFIC_AMOUNT1 = #{inTrafficAmount1,jdbcType=INTEGER},
+      </if>
+      <if test="inTrafficTypePrio1 != null" >
+        IN_TRAFFIC_TYPE_PRIO1 = #{inTrafficTypePrio1,jdbcType=INTEGER},
+      </if>
+      <if test="inTimeType1 != null" >
+        IN_TIME_TYPE1 = #{inTimeType1,jdbcType=INTEGER},
+      </if>
+      <if test="inTimeTypeCont1 != null" >
+        IN_TIME_TYPE_CONT1 = #{inTimeTypeCont1,jdbcType=VARCHAR},
+      </if>
+      <if test="inTimeAmount1 != null" >
+        IN_TIME_AMOUNT1 = #{inTimeAmount1,jdbcType=INTEGER},
+      </if>
+      <if test="inShortMsg != null" >
+        IN_SHORT_MSG = #{inShortMsg,jdbcType=INTEGER},
+      </if>
+      <if test="inMediaMsg != null" >
+        IN_MEDIA_MSG = #{inMediaMsg,jdbcType=INTEGER},
+      </if>
+      <if test="outCalling != null" >
+        OUT_CALLING = #{outCalling,jdbcType=VARCHAR},
+      </if>
+      <if test="outCalled != null" >
+        OUT_CALLED = #{outCalled,jdbcType=VARCHAR},
+      </if>
+      <if test="outTraffic != null" >
+        OUT_TRAFFIC = #{outTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="outShortMsg != null" >
+        OUT_SHORT_MSG = #{outShortMsg,jdbcType=INTEGER},
+      </if>
+      <if test="outMediaMsg != null" >
+        OUT_MEDIA_MSG = #{outMediaMsg,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCode1 != null" >
+        SUBJECT_CODE1 = #{subjectCode1,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCodeCont1 != null" >
+        SUBJECT_CODE_CONT1 = #{subjectCodeCont1,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRatio1 != null" >
+        SHARE_RATIO1 = #{shareRatio1,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCode2 != null" >
+        SUBJECT_CODE2 = #{subjectCode2,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCodeCont2 != null" >
+        SUBJECT_CODE_CONT2 = #{subjectCodeCont2,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRatio2 != null" >
+        SHARE_RATIO2 = #{shareRatio2,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCode3 != null" >
+        SUBJECT_CODE3 = #{subjectCode3,jdbcType=INTEGER},
+      </if>
+      <if test="subjectCodeCont3 != null" >
+        SUBJECT_CODE_CONT3 = #{subjectCodeCont3,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRatio3 != null" >
+        SHARE_RATIO3 = #{shareRatio3,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineState != null" >
+        ONLINE_STATE = #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="firstChargeWay != null" >
+        FIRST_CHARGE_WAY = #{firstChargeWay,jdbcType=INTEGER},
+      </if>
+      <if test="firstChargeWayCont != null" >
+        FIRST_CHARGE_WAY_CONT = #{firstChargeWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="secndChargeWay != null" >
+        SECND_CHARGE_WAY = #{secndChargeWay,jdbcType=INTEGER},
+      </if>
+      <if test="secndChargeWayCont != null" >
+        SECND_CHARGE_WAY_CONT = #{secndChargeWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rollinWay != null" >
+        ROLLIN_WAY = #{rollinWay,jdbcType=INTEGER},
+      </if>
+      <if test="rollinWayCont != null" >
+        ROLLIN_WAY_CONT = #{rollinWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="rolloutWay != null" >
+        ROLLOUT_WAY = #{rolloutWay,jdbcType=INTEGER},
+      </if>
+      <if test="rolloutWayCont != null" >
+        ROLLOUT_WAY_CONT = #{rolloutWayCont,jdbcType=VARCHAR},
+      </if>
+      <if test="packagePriod != null" >
+        PACKAGE_PRIOD = #{packagePriod,jdbcType=INTEGER},
+      </if>
+      <if test="packagePriodCont != null" >
+        PACKAGE_PRIOD_CONT = #{packagePriodCont,jdbcType=VARCHAR},
+      </if>
+      <if test="acId != null" >
+        AC_ID = #{acId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ACE_ID = #{aceId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllAlmAsnltmpChgeExtend" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_CHGE_EXTEND T
+    where 1=1
+    <if test="aatId !=null">and AAT_ID = #{aatId,jdbcType=INTEGER}
+    </if>)
+  </select>
+
+  <select id="selectAllAlmAsnltmpChgeExtend" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.* from ALM_ASNLTMP_CHGE_EXTEND T
+    where 1=1
+    <if test="aatId !=null">and AAT_ID = #{aatId,jdbcType=INTEGER}
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+</mapper>

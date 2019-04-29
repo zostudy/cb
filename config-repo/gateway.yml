@@ -1,0 +1,52 @@
+server:
+  port: 18080
+zuul:
+  servlet-path: /
+  sensitive-headers: "*"
+  ignoreLocalService: true
+  retryable: false
+  routes:
+    auth-server:
+      path: /uaa/**
+      stripPrefix: false
+#微服务配置
+#    demo:
+#      path: /demo/system/**
+#      stripPrefix: false
+    platform:
+      path: /rms/platform/**
+      stripPrefix: false
+    workflow:
+      path: /rms/workflow/**
+      stripPrefix: false
+  add-proxy-headers: true
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+feign:
+  hystrix:
+    enabled: false
+ribbon:
+    ReadTimeout: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ats:
+  security:
+    skipUris: [
+      {name: login, url: /uaa/oauth/token},
+      {name: validateCode, url: /platform/system/image},
+      {name: userInfo, url: /platform/system/login/info},
+      {name: validateCodeRms, url: /rms/platform/system/image},
+      {name: userInfoRms, url: /rms/platform/system/login/info},
+      {name: ssologin, url: /rms/workflow-xj/ssoLogin/getLoginInfo},
+      {name: download, url: /rms/workflow-xj/file/download/*},
+      {name: oldReqDownload, url: /rms/workflow-xj/process/oldReq/almxjoldattacthdetail/download},
+      {name: excel, url: /**/excel}
+    ]

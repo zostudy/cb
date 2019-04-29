@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpComprehensiveDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpComprehensiveRepository" >
+    <id column="ARC_ID" property="arcId" jdbcType="INTEGER" />
+    <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+    <result column="PURPOST" property="purpost" jdbcType="VARCHAR" />
+    <result column="PREDICT_DEV" property="predictDev" jdbcType="VARCHAR" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="ART_ID" property="artId" jdbcType="INTEGER" />
+    <result column="PURPOST_CONT" property="purpostCont" jdbcType="VARCHAR" />
+    <result column="AUTONYM_IDENTIFY" property="autonymIdentify" jdbcType="VARCHAR" />
+    <result column="AUTONYM_IDENTIFY_CONT" property="autonymIdentifyCont" jdbcType="VARCHAR" />
+    <result column="REQ_DETAIL" property="reqDetail" jdbcType="CLOB" />
+    <result column="OTHER_CONTENT" property="otherContent" jdbcType="CLOB" />
+    <result column="REQ_CONT" property="reqCont" jdbcType="CLOB" />
+
+    <result column="ART_TOPIC_TAG" property="artTopicTag" jdbcType="VARCHAR" />
+    <result column="ART_TOPIC_NAME" property="artTopicName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id='TABLE_SEQUENCE'>ALM_REQTMP_COMPREHENSIVE$SEQ.nextval</sql>
+
+  <select id="selectAlmReqtmpConprehensive" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_COMPREHENSIVE
+    where ARC_ID = #{arcId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAlmReqtmpConprehensiveByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_COMPREHENSIVE
+    where ART_ID = #{artId,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteAlmReqtmpConprehensive" parameterType="java.lang.Integer" >
+    delete from ALM_REQTMP_COMPREHENSIVE
+    where ARC_ID = #{arcId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmReqtmpConprehensive" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpComprehensiveRepository" >
+    <selectKey keyProperty="arcId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_REQTMP_COMPREHENSIVE$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_REQTMP_COMPREHENSIVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ARC_ID,
+      <if test="artName != null" >
+        ART_NAME,
+      </if>
+      <if test="purpost != null" >
+        PURPOST,
+      </if>
+      <if test="predictDev != null" >
+        PREDICT_DEV,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="artId != null" >
+        ART_ID,
+      </if>
+      <if test="purpostCont != null" >
+        PURPOST_CONT,
+      </if>
+      <if test="autonymIdentify != null" >
+        AUTONYM_IDENTIFY,
+      </if>
+      <if test="autonymIdentifyCont != null" >
+        AUTONYM_IDENTIFY_CONT,
+      </if>
+      <if test="reqDetail != null" >
+        REQ_DETAIL,
+      </if>
+      <if test="otherContent != null" >
+        OTHER_CONTENT,
+      </if>
+      <if test="reqCont != null" >
+        REQ_CONT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{arcId,jdbcType=INTEGER},
+      <if test="artName != null" >
+        #{artName,jdbcType=VARCHAR},
+      </if>
+      <if test="purpost != null" >
+        #{purpost,jdbcType=VARCHAR},
+      </if>
+      <if test="predictDev != null" >
+        #{predictDev,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="artId != null" >
+        #{artId,jdbcType=INTEGER},
+      </if>
+      <if test="purpostCont != null" >
+        #{purpostCont,jdbcType=VARCHAR},
+      </if>
+      <if test="autonymIdentify != null" >
+        #{autonymIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="autonymIdentifyCont != null" >
+        #{autonymIdentifyCont,jdbcType=VARCHAR},
+      </if>
+      <if test="reqDetail != null" >
+        #{reqDetail,jdbcType=CLOB},
+      </if>
+      <if test="otherContent != null" >
+        #{otherContent,jdbcType=CLOB},
+      </if>
+      <if test="reqCont != null" >
+        #{reqCont,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateAlmReqtmpConprehensive" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpComprehensiveRepository" >
+    update ALM_REQTMP_COMPREHENSIVE
+    <set >
+      <if test="artName != null" >
+        ART_NAME = #{artName,jdbcType=VARCHAR},
+      </if>
+      <if test="purpost != null" >
+        PURPOST = #{purpost,jdbcType=VARCHAR},
+      </if>
+      <if test="predictDev != null" >
+        PREDICT_DEV = #{predictDev,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="artId != null" >
+        ART_ID = #{artId,jdbcType=INTEGER},
+      </if>
+      <if test="purpostCont != null" >
+        PURPOST_CONT = #{purpostCont,jdbcType=VARCHAR},
+      </if>
+      <if test="autonymIdentify != null" >
+        AUTONYM_IDENTIFY = #{autonymIdentify,jdbcType=VARCHAR},
+      </if>
+      <if test="autonymIdentifyCont != null" >
+        AUTONYM_IDENTIFY_CONT = #{autonymIdentifyCont,jdbcType=VARCHAR},
+      </if>
+      <if test="reqDetail != null" >
+        REQ_DETAIL = #{reqDetail,jdbcType=CLOB},
+      </if>
+      <if test="otherContent != null" >
+        OTHER_CONTENT = #{otherContent,jdbcType=CLOB},
+      </if>
+      <if test="reqCont != null" >
+        REQ_CONT = #{reqCont,jdbcType=CLOB},
+      </if>
+    </set>
+    where ARC_ID = #{arcId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAlmReqtmpConprehensive" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.*,A.ART_TAG ART_TOPIC_TAG,A.ART_NAME ART_TOPIC_NAME from ALM_REQTMP_COMPREHENSIVE T,ALM_REQTMP_TOPIC A
+    where 1=1
+    and t.ART_ID = a.ART_ID
+    <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+      and A.ART_REGION =#{artRegion,jdbcType=INTEGER}
+    </if>
+    <if test="urgentLevel != null">
+      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if> 
+    <if test="submitStaffName != null">
+      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>)
+  </select>
+  
+  <select id="selectAllAlmReqtmpConprehensive" resultMap="BaseResultMap">
+    select * from (
+    select ROWNUM AS ROWNO,
+    T.*,A.ART_TAG ART_TOPIC_TAG,A.ART_NAME ART_TOPIC_NAME from ALM_REQTMP_COMPREHENSIVE T,ALM_REQTMP_TOPIC A
+    where 1=1
+    and t.ART_ID = a.ART_ID
+    <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+      and A.ART_REGION =#{artRegion,jdbcType=INTEGER}
+    </if>
+    <if test="urgentLevel != null">
+      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if>
+    <if test="submitStaffName != null">
+      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+  </select>
+
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysWorkingGroupDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysWorkingGroupRepository" >
+        <id column="WORK_GROUP_ID" property="workGroupId" jdbcType="INTEGER" />
+        <result column="WORK_GROUP_NAME" property="workGroupName" jdbcType="VARCHAR" />
+        <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+        <result column="STATE" property="state" jdbcType="INTEGER" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+        <result column="OP_ID" property="opId" jdbcType="INTEGER" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_WORKING_GROUP$SEQ.nextval</sql>
+
+    <insert id="saveWorkingGroup" parameterType="com.asiainfo.rms.system.domain.SysWorkingGroupRepository" >
+        <selectKey keyProperty="workGroupId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_WORKING_GROUP$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_WORKING_GROUP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                WORK_GROUP_ID,
+            <if test="workGroupName != null" >
+                WORK_GROUP_NAME,
+            </if>
+            <if test="notes != null" >
+                NOTES,
+            </if>
+            <if test="state != null" >
+                STATE,
+            </if>
+            <if test="createDate != null" >
+                CREATE_DATE,
+            </if>
+            <if test="opId != null" >
+                OP_ID,
+            </if>
+            <if test="code != null" >
+                CODE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{workGroupId,jdbcType=INTEGER},
+            <if test="workGroupName != null" >
+                #{workGroupName,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=DATE},
+            </if>
+            <if test="opId != null" >
+                #{opId,jdbcType=INTEGER},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateWorkingGroup" parameterType="com.asiainfo.rms.system.domain.SysWorkingGroupRepository" >
+        update SYS_WORKING_GROUP
+        <set >
+            <if test="workGroupName != null" >
+                WORK_GROUP_NAME = #{workGroupName,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                NOTES = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                STATE = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null" >
+                CREATE_DATE = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="opId != null" >
+                OP_ID = #{opId,jdbcType=INTEGER},
+            </if>
+            <if test="code != null" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where WORK_GROUP_ID = #{workGroupId,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteWorkingGroupById" parameterType="com.asiainfo.rms.system.domain.SysWorkingGroupRepository" >
+        update SYS_WORKING_GROUP
+        set state = 0
+        where WORK_GROUP_ID = #{workGroupId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllWorkingGroup" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.WORK_GROUP_ID,
+        T.WORK_GROUP_NAME,
+        T.NOTES,
+        T.STATE,
+        to_char( T.CREATE_DATE, 'yyyy-MM-dd') CREATE_DATE,
+        T.OP_ID,
+        T.CODE
+        from SYS_WORKING_GROUP T
+        where 1=1
+        <if test="workGroupName!=null">AND WORK_GROUP_NAME like CONCAT(CONCAT('%',#{workGroupName}),'%') </if>
+        and state =1
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getWorkingGroupCount" resultType="java.lang.Integer">
+        select count(*) from SYS_WORKING_GROUP
+        where state =1
+        <if test="workGroupName!=null">AND WORK_GROUP_NAME like CONCAT(CONCAT('%',#{workGroupName}),'%') </if>
+        order by work_group_id
+    </select>
+
+    <select id="selectAllCode" resultType="java.lang.Integer" resultMap="BaseResultMap">
+        select code from SYS_WORKING_GROUP
+        where WORK_GROUP_ID = (select max(WORK_GROUP_ID) from SYS_WORKING_GROUP)
+    </select>
+
+</mapper>

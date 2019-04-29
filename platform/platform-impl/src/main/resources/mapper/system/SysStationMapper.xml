@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStationDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysStationRepository" >
+        <result column="station_id" property="stationId" jdbcType="INTEGER" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="notes" property="notes" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+        <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+        <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id='TABLE_NAME'>SYS_STATION</sql>
+    <sql id='TABLE_SEQUENCE'>SYS_STATION$SEQ.nextval</sql>
+
+    <insert id="saveStation" parameterType="com.asiainfo.rms.system.domain.SysStationRepository" >
+        <selectKey keyProperty="stationId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_STATION$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_STATION
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                station_id,
+            <if test="code != null" >
+                code,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="notes != null" >
+                notes,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="ext1 != null" >
+                ext1,
+            </if>
+            <if test="ext2 != null" >
+                ext2,
+            </if>
+            <if test="ext3 != null" >
+                ext3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{stationId,jdbcType=INTEGER},
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="ext1 != null" >
+                #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null" >
+                #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null" >
+                #{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStation" parameterType="com.asiainfo.rms.system.domain.SysStationRepository">
+        update SYS_STATION
+        <trim prefix="set" suffixOverrides=",">
+            <if test="code != null" >
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                name =  #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null" >
+                notes =  #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state =  #{state,jdbcType=INTEGER},
+            </if>
+            <if test="type != null" >
+                type =  #{type,jdbcType=INTEGER},
+            </if>
+            <if test="ext1 != null" >
+                ext1=  #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null" >
+                ext2 = #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null" >
+                ext3 = #{ext3,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+        where station_id = #{stationId,jdbcType=INTEGER}
+    </update>
+    <select id="selectByStationId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from sys_station
+        where state = 1
+        and station_id = #{stationId,jdbcType=INTEGER}
+    </select>
+    <select id="getStationCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM sys_station
+        WHERE 1=1
+        AND state = 1
+        <if test="keyWord !=null ">and( code like CONCAT(CONCAT('%',#{keyWord}),'%')
+        or name like CONCAT(CONCAT('%',#{keyWord}),'%'))
+        </if>
+        <if test="selectedStaffId !=null">
+            AND  STATION_ID NOT IN
+            (SELECT T1.STATION_ID FROM SYS_AUTHOR T1 WHERE T1.STAFF_ID = #{selectedStaffId,jdbcType=INTEGER} and T1.state = 1)
+        </if>
+        ORDER BY station_id DESC
+    </select>
+    <select id="selectAllStation" resultMap="BaseResultMap">
+        select * from (select ROWNUM AS ROWNO,T.* from sys_station T
+        where 1=1
+        and state =1
+        <if test="keyWord !=null ">and (code like CONCAT(CONCAT('%',#{keyWord}),'%')
+            or name like CONCAT(CONCAT('%',#{keyWord}),'%'))
+        </if>
+        <if test="selectedStaffId !=null">
+            AND T.STATION_ID NOT IN
+            (SELECT T1.STATION_ID FROM SYS_AUTHOR T1 WHERE T1.STAFF_ID = #{selectedStaffId,jdbcType=INTEGER} and T1.state = 1)
+        </if>
+
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <update id="deleteStationById" parameterType="com.asiainfo.rms.system.domain.SysStationRepository">
+        update sys_station
+        set state = 0
+         where station_id = #{stationId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllCode" resultType="java.lang.Integer" resultMap="BaseResultMap">
+        select code from sys_station
+        where station_id = (select max(station_id) from sys_station)
+    </select>
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysAuthorDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysAuthorRepository">
+        <result column="author_id" property="authorId" jdbcType="INTEGER"/>
+        <result column="station_id" property="stationId" jdbcType="INTEGER"/>
+        <result column="staff_id" property="staffId" jdbcType="INTEGER"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="CODE_NAME" property="codeName" jdbcType="VARCHAR"/>
+        <result column="EMPLOYEE_NAME" property="employeeName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIME"/>
+        <result column="end_time" property="endTime" jdbcType="TIME"/>
+        <result column="ext1" property="ext1" jdbcType="VARCHAR"/>
+        <result column="ext2" property="ext2" jdbcType="VARCHAR"/>
+        <result column="ext3" property="ext3" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_AUTHOR$SEQ.nextval</sql>
+
+    <insert id="saveAuthor" parameterType="com.asiainfo.rms.system.domain.SysAuthorRepository">
+        <selectKey keyProperty="authorId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_AUTHOR$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_AUTHOR
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            author_id,
+            <if test="stationId != null">
+                station_id,
+            </if>
+            <if test="staffId != null">
+                staff_id,
+            </if>
+            <if test="notes != null">
+                notes,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="ext1 != null">
+                ext1,
+            </if>
+            <if test="ext2 != null">
+                ext2,
+            </if>
+            <if test="ext3 != null">
+                ext3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{authorId,jdbcType=INTEGER},
+            <if test="stationId != null">
+                #{stationId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIME},
+            </if>
+            <if test="endTime != null">
+                end_time =#{endTime,jdbcType=TIME},
+            </if>
+            <if test="ext1 != null">
+                #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                #{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAuthor" parameterType="com.asiainfo.rms.system.domain.SysAuthorRepository">
+        UPDATE SYS_AUTHOR
+        <trim prefix="set" suffixOverrides=",">
+            <if test="stationId != null">
+                station_id=#{stationId,jdbcType=INTEGER},
+            </if>
+            <if test="staffId != null">
+                staff_id= #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null">
+                notes=#{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state =#{state,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time =#{createTime,jdbcType=TIME},
+            </if>
+            <if test="endTime != null">
+                end_time =#{endTime,jdbcType=TIME},
+            </if>
+            <if test="ext1 != null">
+                ext1=#{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null">
+                ext2=#{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null">
+                ext3=#{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where author_id = #{authorId,jdbcType=INTEGER}
+    </update>
+    <select id="selectByAuthorId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select A.*,B.CODE,B.NAME,S.CODE AS CODE_NAME,S.EMPLOYEE_NAME from SYS_AUTHOR A,SYS_STATION B,SYS_STAFF S
+        where A.state = 1
+        and B.STATE = 1
+        and A.STAFF_ID = S.STAFF_ID
+        and A.STATION_ID = B.STATION_ID
+        and A.author_id = #{authorId,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectByStationId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select A.*,B.CODE,B.NAME,S.CODE AS CODE_NAME,S.EMPLOYEE_NAME from SYS_AUTHOR A,SYS_STATION B,SYS_STAFF S
+        where A.state = 1
+        and B.STATE = 1
+        and A.STAFF_ID = S.STAFF_ID
+        and A.STATION_ID = B.STATION_ID
+        and B.STATION_ID = #{stationId,jdbcType=INTEGER}
+    </select>
+
+    <update id="deleteAuthorById" parameterType="com.asiainfo.rms.system.domain.SysAuthorRepository">
+        update SYS_AUTHOR
+        <set>
+            <if test="endTime != null" >
+                end_time = #{endTime,jdbcType=TIME},
+            </if>
+            <if test="state != null" >
+                STATE = #{state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where author_id = #{authorId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAuthorByStaffId" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.*, B.CODE, B.NAME,B.TYPE from SYS_AUTHOR T, SYS_STATION B
+        WHERE T.STATE = 1
+        AND B.STATE = 1
+        AND T.STATION_ID = B.STATION_ID
+        and T.staff_id = #{staffId,jdbcType=INTEGER}
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="getAuthorByStaffIdCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select ROWNUM AS ROWNO,
+        T.*, B.CODE, B.NAME,B.TYPE from SYS_AUTHOR T, SYS_STATION B
+        WHERE T.STATE = 1
+        AND B.STATE = 1
+        AND T.STATION_ID = B.STATION_ID
+        and T.staff_id = #{staffId,jdbcType=INTEGER})
+    </select>
+    
+    <select id="selectByStationIdAndStaffId" resultMap="BaseResultMap">
+        select A.*,B.CODE,B.NAME from SYS_AUTHOR A,SYS_STATION B
+        where A.state = 1
+        and B.STATE = 1
+        and A.STATION_ID = B.STATION_ID
+        and A.STATION_ID = #{stationId,jdbcType=INTEGER}
+        and A.STAFF_ID = #{staffId,jdbcType=INTEGER}
+    </select>
+</mapper>

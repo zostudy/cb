@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysOrganizeDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysOrganizeRepository" >
+        <id column="organize_id" property="organizeId" jdbcType="INTEGER" />
+        <result column="parent_organize_id" property="parentOrganizeId" jdbcType="INTEGER" />
+        <result column="organize_name" property="organizeName" jdbcType="VARCHAR" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+        <result column="org_type" property="orgType" jdbcType="INTEGER" />
+        <result column="notes" property="notes" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="create_date" property="createDate" jdbcType="DATE" />
+        <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+        <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+        <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+
+        <result column="CHILDREN_COUNT" property="childrenCount" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_ORGANIZE$SEQ.nextval</sql>
+
+    <insert id="saveOrganize" parameterType="com.asiainfo.rms.system.domain.SysOrganizeRepository">
+        <selectKey keyProperty="organizeId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_ORGANIZE$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_ORGANIZE
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                organize_id,
+            <if test="parentOrganizeId != null" >
+                parent_organize_id,
+            </if>
+            <if test="organizeName != null" >
+                organize_name,
+            </if>
+            <if test="code != null" >
+                code,
+            </if>
+            <if test="parentCode != null" >
+                parent_code,
+            </if>
+            <if test="orgType != null" >
+                org_type,
+            </if>
+            <if test="notes != null" >
+                notes,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="ext1 != null" >
+                ext1,
+            </if>
+            <if test="ext2 != null" >
+                ext2,
+            </if>
+            <if test="ext3 != null" >
+                ext3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{organizeId,jdbcType=INTEGER},
+            <if test="parentOrganizeId != null" >
+                #{parentOrganizeId,jdbcType=INTEGER},
+            </if>
+            <if test="organizeName != null" >
+                #{organizeName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null" >
+                #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgType != null" >
+                #{orgType,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null" >
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=DATE},
+            </if>
+            <if test="ext1 != null" >
+                #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null" >
+                #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null" >
+                #{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateOrganize" parameterType="com.asiainfo.rms.system.domain.SysOrganizeRepository">
+        update SYS_ORGANIZE
+        <trim prefix="set" suffixOverrides=",">
+            <if test="parentOrganizeId != null" >
+                parent_organize_id = #{parentOrganizeId,jdbcType=INTEGER},
+            </if>
+            <if test="organizeName != null" >
+                organize_name = #{organizeName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null" >
+                parent_code = #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orgType != null" >
+                org_type = #{orgType,jdbcType=INTEGER},
+            </if>
+            <if test="notes != null" >
+                notes = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null" >
+                create_date = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="ext1 != null" >
+                ext1 = #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null" >
+                ext2 = #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="ext3 != null" >
+                ext3 = #{ext3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where organize_id = #{organizeId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByOrganizeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        *
+        from SYS_ORGANIZE
+        where state = 1
+        and organize_id = #{organizeId,jdbcType=INTEGER}
+    </select>
+
+    <!--根据staffId查询组织 -->
+    <select id="selectOrganizeByStaffId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT
+        *
+        FROM SYS_ORGANIZE T
+        WHERE T.ORGANIZE_ID =
+       (SELECT A.ORGANIZE_ID FROM SYS_STAFF_ORG_RELAT A WHERE A.STAFF_ID = #{staffId,jdbcType=INTEGER})
+    </select>
+
+    <!--删除操作，修改状态 -->
+    <update id="deleteByOrganizeId" parameterType="com.asiainfo.rms.system.domain.SysOrganizeRepository">
+        update SYS_ORGANIZE
+        set state = 0
+        where organize_id = #{organizeId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllOrganize" resultMap="BaseResultMap">
+        select * from SYS_ORGANIZE
+        where 1=1
+        <if test="code!=null">AND code like CONCAT(CONCAT('%',#{code}),'%')</if>
+        <if test="organizeName!=null">AND organize_name like CONCAT(CONCAT('%',#{organizeName}),'%')</if>
+        <if test="state !=null">and state = #{state,jdbcType=INTEGER}</if>
+        order by organize_id
+    </select>
+
+    <select id="selectByParentCode" resultMap="BaseResultMap">
+        select code from SYS_ORGANIZE
+        where PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectOrganizeByParentId" resultMap="BaseResultMap">
+        SELECT T.*,
+        (SELECT COUNT(A.ORGANIZE_ID)
+        FROM SYS_ORGANIZE A
+        WHERE A.PARENT_ORGANIZE_ID = T.ORGANIZE_ID
+        <if test="state != null">
+            and A.state = #{state,jdbcType=INTEGER}
+        </if>
+        ) AS CHILDREN_COUNT
+        FROM SYS_ORGANIZE T
+        WHERE 1=1
+        <if test="parentOrganizeId != null">
+          and  T.PARENT_ORGANIZE_ID = #{parentOrganizeId,jdbcType=INTEGER}
+        </if>
+        <if test="parentOrganizeId == null">
+            and T.PARENT_ORGANIZE_ID is null
+        </if>
+        <if test="state != null">
+            and T.state = #{state,jdbcType=INTEGER}
+        </if>
+		ORDER BY T.ORGANIZE_ID
+    </select>
+
+    <select id="selectOrganizeInfoByOrganize" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT *
+        FROM (SELECT ROWNUM NO, A.*
+        FROM (SELECT T.*
+        FROM SYS_ORGANIZE T
+        START WITH 1=1
+        <if test="organizeId !=null">
+            AND T.ORGANIZE_ID = #{organizeId}
+        </if>
+        <if test="organizeCode !=null">
+            AND T.CODE = #{organizeCode}
+        </if>
+        CONNECT BY PRIOR T.PARENT_ORGANIZE_ID = T.ORGANIZE_ID
+        ORDER BY T.ORGANIZE_ID ASC
+        ) A) B
+        WHERE NO = #{tire}
+    </select>
+
+    <select id="selectOrganizeInfoByStaff" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT *
+        FROM (SELECT ROWNUM NO, A.*
+        FROM (SELECT T.*
+        FROM SYS_ORGANIZE T
+        START WITH 1 = 1
+        AND T.ORGANIZE_ID =
+        (SELECT ORGANIZE_ID
+        FROM SYS_STAFF_ORG_RELAT
+        WHERE STAFF_ID = (SELECT B.STAFF_ID
+        FROM SYS_STAFF B
+        WHERE 1=1
+        <if test="staffId !=null">
+            and B.STAFF_ID = #{staffId}
+        </if>
+        <if test="staffCode !=null">
+            AND B.CODE = #{staffCode}
+        </if>))
+        CONNECT BY PRIOR T.PARENT_ORGANIZE_ID = T.ORGANIZE_ID
+        ORDER BY T.ORGANIZE_ID ASC
+        ) A) B
+        WHERE NO = #{tire}
+    </select>
+
+    <select id="selectStaffYesOrNo" resultMap="BaseResultMap">
+        SELECT * FROM (SELECT T.*
+        FROM SYS_ORGANIZE T
+        START WITH 1=1
+        AND t.organize_id= #{organizeId}
+        CONNECT BY PRIOR T.PARENT_ORGANIZE_ID = T.ORGANIZE_ID
+        ORDER BY T.ORGANIZE_ID ASC) A
+        WHERE a.parent_organize_id=2
+        AND a.organize_id IN (SELECT param_no FROM alm_sys_param WHERE param_type='CITY_ORGANIZE_NUM')
+    </select>
+
+
+</mapper>

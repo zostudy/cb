@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysOpLogDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysOpLogRepository" >
+        <id column="OP_LOG_ID" property="opLogId" jdbcType="INTEGER" />
+        <result column="OP_TYPE_ID" property="opTypeId" jdbcType="INTEGER" />
+        <result column="OP_CONTENT" property="opContent" jdbcType="VARCHAR" />
+        <result column="OP_ID" property="opId" jdbcType="INTEGER" />
+        <result column="OP_DATE" property="opDate" jdbcType="DATE" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_OP_LOG$SEQ.nextval</sql>
+
+    <insert id="saveOpLog" parameterType="com.asiainfo.rms.system.domain.SysOpLogRepository" >
+        <selectKey keyProperty="opLogId" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_OP_LOG$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_OP_LOG
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                OP_LOG_ID,
+            <if test="opTypeId != null" >
+                OP_TYPE_ID,
+            </if>
+            <if test="opContent != null" >
+                OP_CONTENT,
+            </if>
+            <if test="opId != null" >
+                OP_ID,
+            </if>
+            <if test="opDate != null" >
+                OP_DATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{opLogId,jdbcType = INTEGER},
+            <if test="opTypeId != null" >
+                #{opTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="opContent != null" >
+                #{opContent,jdbcType=VARCHAR},
+            </if>
+            <if test="opId != null" >
+                #{opId,jdbcType=INTEGER},
+            </if>
+            <if test="opDate != null" >
+                #{opDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getOpTLogCount" resultType="java.lang.Integer">
+        select COUNT(*) from (
+        select ROWNUM AS ROWNO,
+        T.* from SYS_OP_LOG T,SYS_STAFF A
+        where 1=1
+        <if test="opTypeId !=null">
+            and t.OP_TYPE_ID = #{opTypeId,jdbcType=INTEGER}
+        </if>
+        <if test="opContent !=null">
+            and t.OP_CONTENT like CONCAT(CONCAT('%',#{opContent}),'%')
+        </if>
+        and t.OP_ID = a.STAFF_ID
+        and a.STATE = 1
+        <if test="keyword !=null">and (a.code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or a.EMPLOYEE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))</if>
+        <if test="startTime != null">
+            and to_char(t.OP_DATE,'yyyy-mm-dd')>=#{startTime}
+        </if>
+        <if test="endTime !=null">
+            and to_char(t.OP_DATE,'yyyy-mm-dd')&lt;= #{endTime}
+        </if>
+        )
+    </select>
+
+    <select id="selectAllOpLog" resultMap="BaseResultMap">
+        select * from (
+        select ROWNUM AS ROWNO,
+        T.* from SYS_OP_LOG T,SYS_STAFF A
+        where 1=1
+        <if test="opTypeId !=null">
+            and t.OP_TYPE_ID = #{opTypeId,jdbcType=INTEGER}
+        </if>
+        <if test="opContent !=null">
+            and t.OP_CONTENT like CONCAT(CONCAT('%',#{opContent}),'%')
+        </if>
+        and t.OP_ID = a.STAFF_ID
+        and a.STATE = 1
+        <if test="keyword !=null">and (a.code like CONCAT(CONCAT('%',#{keyword}),'%')
+            or a.EMPLOYEE_NAME like CONCAT(CONCAT('%',#{keyword}),'%'))</if>
+        <if test="startTime != null">
+            and to_char(t.OP_DATE,'yyyy-mm-dd')>=#{startTime}
+        </if>
+        <if test="endTime !=null">
+            and to_char(t.OP_DATE,'yyyy-mm-dd')&lt;= #{endTime}
+        </if>
+        and ROWNUM &lt;= (#{offset} * #{size}) )a
+        where a.ROWNO >=(#{offset}-1) * #{size}+1
+    </select>
+
+    <select id="selectByopLogId" resultMap="BaseResultMap" resultType="java.lang.Integer">
+        select * from SYS_OP_LOG
+        where OP_LOG_ID = #{opLogId,jdbcType = INTEGER}
+    </select>
+
+</mapper>

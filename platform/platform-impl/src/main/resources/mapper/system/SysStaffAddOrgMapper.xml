@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysStaffDao">
+    <resultMap id="BaseResultMap2" type="com.asiainfo.rms.system.domain.SysStaffAddOrgRepository">
+        <result column="staff_id" property="staffId" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="RECENT_PASSWORD" property="recentPassword" jdbcType="VARCHAR"/>
+        <result column="RECENT_time" property="recentTime" jdbcType="DATE"/>
+        <result column="employee_name" property="employeeName" jdbcType="VARCHAR"/>
+        <result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="religion" property="religion" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="lock_flag" property="lockFlag" jdbcType="INTEGER"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="ext1" property="ext1" jdbcType="VARCHAR"/>
+        <result column="ext2" property="ext2" jdbcType="VARCHAR"/>
+        <result column="ext3" property="ext3" jdbcType="VARCHAR"/>
+        
+        <result column="organize_id" property="organizeId" jdbcType="INTEGER"/>
+        <result column="organize_name" property="organizeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+	<resultMap id="BaseOrgResultMap" type="com.asiainfo.rms.system.domain.SysStaffOrgRepository">
+
+		<result column="organize_id" property="organizeId" jdbcType="INTEGER"/>
+		<result column="parent_organize_id" property="parentOrganizeId" jdbcType="INTEGER"/>
+		<result column="organize_name" property="organizeName" jdbcType="VARCHAR"/>
+		<result column="code" property="code" jdbcType="VARCHAR"/>
+		<result column="staff_total" property="staffTotal" jdbcType="INTEGER"/>
+	</resultMap>
+
+    
+	<!-- 开始 zhangbing add 2017.08-16 工作流选择用户   -->
+	<select id="selectStaffsForWF" resultMap="BaseResultMap2">
+       select DISTINCT sf.*,org.organize_id,org.organize_name
+		  from SYS_STAFF sf
+        <choose>
+	        <when test="organizeId !=null and organizeId > 0">
+	            ,(select * from  SYS_ORGANIZE o START WITH o.organize_id = #{organizeId} CONNECT BY PRIOR o.organize_id = o.parent_organize_id) org
+	        </when>
+	        <otherwise>
+	            ,SYS_ORGANIZE org
+	        </otherwise>
+    	</choose>
+		       ,SYS_STAFF_ORG_RELAT sor
+		       ,SYS_AUTHOR author
+		       ,SYS_STATION sta
+		       ,SYS_STATION_WF_ROLE swr
+		       ,SYS_WF_ROLE wr
+		<if test="wgCode !=null">
+	           ,SYS_STAFF_WORKING_GROUP swg
+		       ,SYS_WORKING_GROUP wg
+		</if>
+		 where 1=1 
+		   and sf.staff_id=sor.staff_id
+		   and org.organize_id=sor.organize_id
+		   and author.staff_id = sf.staff_id
+		   and author.station_id = sta.station_id
+		   and sta.station_id = swr.station_id
+		   and wr.wf_role_id = swr.wf_role_id
+		   and author.state != 0
+		<if test="wgCode !=null">  
+		   and sf.staff_id=swg.staff_id
+		   and swg.work_group_id=wg.work_group_id
+		</if>
+		   and sta.type=2
+        <if test="wgCode !=null">and wg.code=#{wgCode}</if>
+        <if test="staffCode !=null">and (sf.code like CONCAT(CONCAT('%',#{staffCode}),'%')</if>
+        <if test="roleCode !=null">and wr.code=#{roleCode}</if>
+		<if test="employeeName != null">and sf.employee_name LIKE '%' || #{employeeName} || '%'</if>
+    </select>
+    <!-- 结束 zhangbing add 2017.08-16 工作流选择用户   -->
+
+
+	<!--根据roleCode,parentOrganizeId查询环节处理人组织结构树信息-->
+	<select id="selectStaffTotal" resultMap="BaseOrgResultMap">
+		select a.* FROM (
+		select t.organize_id,t.organize_name,t.parent_organize_id,t.code,
+		(
+		get_org_staff_total(t.organize_id,#{roleCode,jdbcType=VARCHAR})
+		) as staff_total
+		from sys_organize t
+		where t.state = 1 and t.parent_organize_id = #{parentOrganizeId,jdbcType=INTEGER}
+		) a where a.staff_total>0
+	</select>
+
+	<!--根据roleCode,organizeId查询该组织下环节处理人-->
+	<select id="selectStaffsForOrgWF" resultMap="BaseResultMap2">
+		select DISTINCT u.*,uo.organize_id from sys_staff u
+		left join sys_author au on au.staff_id = u.staff_id
+		left join sys_station station on station.station_id = au.station_id
+		left join sys_station_wf_role station_role on station_role.station_id = station.station_id
+		left join sys_wf_role wfrole on wfrole.wf_role_id = station_role.wf_role_id
+		left join sys_staff_org_relat uo on uo.staff_id = u.staff_id
+		WHERE wfrole.code= #{roleCode,jdbcType=VARCHAR}
+		and wfrole.state = 1
+		and station.state = 1
+		and au.state = 1
+		and u.state = 1
+		<if test="organizeId !=null">
+			and uo.organize_id=#{organizeId,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="selectStaffsForOrgWFByName" resultMap="BaseResultMap2">
+		select DISTINCT u.* from sys_staff u
+		left join sys_author au on au.staff_id = u.staff_id
+		left join sys_station station on station.station_id = au.station_id
+		left join sys_station_wf_role station_role on station_role.station_id = station.station_id
+		left join sys_wf_role wfrole on wfrole.wf_role_id = station_role.wf_role_id
+		left join sys_staff_org_relat uo on uo.staff_id = u.staff_id
+		WHERE wfrole.code= #{roleCode,jdbcType=VARCHAR}
+		and station.state = 1
+		and u.state = 1
+		<if test="organizeId !=null">
+			and uo.organize_id IN(SELECT t.organize_id
+			FROM SYS_ORGANIZE T
+			START WITH 1 = 1
+			AND T.ORGANIZE_ID =#{organizeId,jdbcType=INTEGER}
+			CONNECT BY PRIOR T.ORGANIZE_ID = T.PARENT_ORGANIZE_ID)
+		</if>
+		<if test="keyword !=null">
+			and u.employee_name like CONCAT(CONCAT('%',#{keyword}),'%')
+		</if>
+	</select>
+
+	<!-- 根据organizeId查询处所有的部门 -->
+	<select id="getOrganizeInfo" resultMap="BaseOrgResultMap">
+		select t.organize_id,t.organize_name
+		from SYS_ORGANIZE t start with ORGANIZE_ID = #{organizeId,jdbcType=INTEGER}
+		connect by prior PARENT_ORGANIZE_ID = ORGANIZE_ID
+	</select>
+
+
+
+
+
+
+
+</mapper>

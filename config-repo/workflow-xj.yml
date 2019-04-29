@@ -1,0 +1,41 @@
+server:
+  port: 18183
+  context-path: /rms/workflow-xj
+security:
+  basic:
+    enabled: false
+logging:
+  level:
+    ROOT: debug
+  file: logs/workflow-xj.log
+basePath: /home/ftp/
+pdfPath: pdf
+isSendOAorSms: N
+synSendOAorSms: N
+crm:
+  sftp:
+    host: 127.0.0.1
+    password: admin
+    user: admin
+    port: 22
+    remote:
+      directory: /ywlc
+    switch: false
+  http:
+    url: http://10.238.99.200:7001/oppf
+lc4a:
+  url: http://10.238.161.41:8070/resservice/services/ResService?wsdl
+  clientip: 127.0.0.1
+  clientport: 888
+  crm4aorg: crm
+spring:
+  jpa:
+    properties:
+      hibernate:
+        #default_catalog: xinjiang
+        default_schema: xinjiang
+jpa:
+  hibernate:
+    ddl-auto: validate
+    
+templatePath: E:\xinjiang\rms\workflow-xj\workflow-xj-api\src\main\resources\processes\

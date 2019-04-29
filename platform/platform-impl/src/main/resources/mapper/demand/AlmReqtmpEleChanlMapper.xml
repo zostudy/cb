@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.alm.demand.dao.AlmReqtmpEleChanlDao" >
+  <resultMap id="BaseResultMap" type="com.asiainfo.rms.alm.demand.domain.AlmReqtmpEleChanlRepository" >
+    <id column="ARE_ID" property="areId" jdbcType="INTEGER" />
+    <result column="PURPOST" property="purpost" jdbcType="VARCHAR" />
+    <result column="ART_TYPE" property="artType" jdbcType="INTEGER" />
+    <result column="ART_ID" property="artId" jdbcType="INTEGER" />
+    <result column="ELE_CHANNEL" property="eleChannel" jdbcType="VARCHAR" />
+    <result column="ELE_CHANNEL_CONT" property="eleChannelCont" jdbcType="VARCHAR" />
+    <result column="MONITOR_REQ" property="monitorReq" jdbcType="VARCHAR" />
+    <result column="PURPOST_CONT" property="purpostCont" jdbcType="VARCHAR" />
+    <result column="FUNC_WF" property="funcWf" jdbcType="CLOB" />
+    <result column="IMPLEMENT_REQ" property="implementReq" jdbcType="CLOB" />
+    <result column="INTERFACE" property="interfaces" jdbcType="CLOB" />
+    <result column="REPORT_FORM" property="reportForm" jdbcType="CLOB" />
+    <result column="MONITOR_DEMOND" property="monitorDemond" jdbcType="CLOB" />
+    <result column="OTHER_CONTENT" property="otherContent" jdbcType="CLOB" />
+    <result column="FUNCWF_CONT" property="funcwfCont" jdbcType="CLOB" />
+    <result column="IMPLREQ_CONT" property="implreqCont" jdbcType="CLOB" />
+    <result column="INSERT_CODE" property="insertCode" jdbcType="CLOB" />
+
+    <result column="ART_TAG" property="artTag" jdbcType="VARCHAR" />
+    <result column="ART_NAME" property="artName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id='TABLE_SEQUENCE'>ALM_REQTMP_ELECHANL$SEQ.nextval</sql>
+
+  <select id="selectAlmReqtmpEleChanl" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_ELECHANL
+    where ARE_ID = #{areId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAlmReqtmpEleChanlByArtId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from ALM_REQTMP_ELECHANL
+    where ART_ID = #{artId,jdbcType=DECIMAL}
+  </select>
+
+  <delete id="deleteAlmReqtmpEleChanl" parameterType="java.lang.Integer" >
+    delete from ALM_REQTMP_ELECHANL
+    where ARE_ID = #{areId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="saveAlmReqtmpEleChanl" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpEleChanlRepository" >
+    <selectKey keyProperty="areId" resultType="java.lang.Integer" order="BEFORE">
+      select ALM_REQTMP_ELECHANL$SEQ.nextval from dual
+    </selectKey>
+    insert into ALM_REQTMP_ELECHANL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ARE_ID,
+      <if test="purpost != null" >
+        PURPOST,
+      </if>
+      <if test="artType != null" >
+        ART_TYPE,
+      </if>
+      <if test="artId != null" >
+        ART_ID,
+      </if>
+      <if test="eleChannel != null" >
+        ELE_CHANNEL,
+      </if>
+      <if test="eleChannelCont != null" >
+        ELE_CHANNEL_CONT,
+      </if>
+      <if test="monitorReq != null" >
+        MONITOR_REQ,
+      </if>
+      <if test="purpostCont != null" >
+        PURPOST_CONT,
+      </if>
+      <if test="funcWf != null" >
+        FUNC_WF,
+      </if>
+      <if test="implementReq != null" >
+        IMPLEMENT_REQ,
+      </if>
+      <if test="interfaces != null" >
+        INTERFACE,
+      </if>
+      <if test="reportForm != null" >
+        REPORT_FORM,
+      </if>
+      <if test="monitorDemond != null" >
+        MONITOR_DEMOND,
+      </if>
+      <if test="otherContent != null" >
+        OTHER_CONTENT,
+      </if>
+      <if test="funcwfCont != null" >
+        FUNCWF_CONT,
+      </if>
+      <if test="implreqCont != null" >
+        IMPLREQ_CONT,
+      </if>
+      <if test="insertCode != null" >
+        INSERT_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{areId,jdbcType=INTEGER},
+      <if test="purpost != null" >
+        #{purpost,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="artId != null" >
+        #{artId,jdbcType=INTEGER},
+      </if>
+      <if test="eleChannel != null" >
+        #{eleChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="eleChannelCont != null" >
+        #{eleChannelCont,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorReq != null" >
+        #{monitorReq,jdbcType=VARCHAR},
+      </if>
+      <if test="purpostCont != null" >
+        #{purpostCont,jdbcType=VARCHAR},
+      </if>
+      <if test="funcWf != null" >
+        #{funcWf,jdbcType=CLOB},
+      </if>
+      <if test="implementReq != null" >
+        #{implementReq,jdbcType=CLOB},
+      </if>
+      <if test="interfaces != null" >
+        #{interfaces,jdbcType=CLOB},
+      </if>
+      <if test="reportForm != null" >
+        #{reportForm,jdbcType=CLOB},
+      </if>
+      <if test="monitorDemond != null" >
+        #{monitorDemond,jdbcType=CLOB},
+      </if>
+      <if test="otherContent != null" >
+        #{otherContent,jdbcType=CLOB},
+      </if>
+      <if test="funcwfCont != null" >
+        #{funcwfCont,jdbcType=CLOB},
+      </if>
+      <if test="implreqCont != null" >
+        #{implreqCont,jdbcType=CLOB},
+      </if>
+      <if test="insertCode != null" >
+        #{insertCode,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateAlmReqtmpEleChanl" parameterType="com.asiainfo.rms.alm.demand.domain.AlmReqtmpEleChanlRepository" >
+    update ALM_REQTMP_ELECHANL
+    <set >
+      <if test="purpost != null" >
+        PURPOST = #{purpost,jdbcType=VARCHAR},
+      </if>
+      <if test="artType != null" >
+        ART_TYPE = #{artType,jdbcType=INTEGER},
+      </if>
+      <if test="artId != null" >
+        ART_ID = #{artId,jdbcType=INTEGER},
+      </if>
+      <if test="eleChannel != null" >
+        ELE_CHANNEL = #{eleChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="eleChannelCont != null" >
+        ELE_CHANNEL_CONT = #{eleChannelCont,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorReq != null" >
+        MONITOR_REQ = #{monitorReq,jdbcType=VARCHAR},
+      </if>
+      <if test="purpostCont != null" >
+        PURPOST_CONT = #{purpostCont,jdbcType=VARCHAR},
+      </if>
+      <if test="funcWf != null" >
+        FUNC_WF = #{funcWf,jdbcType=CLOB},
+      </if>
+      <if test="implementReq != null" >
+        IMPLEMENT_REQ = #{implementReq,jdbcType=CLOB},
+      </if>
+      <if test="interfaces != null" >
+        INTERFACE = #{interfaces,jdbcType=CLOB},
+      </if>
+      <if test="reportForm != null" >
+        REPORT_FORM = #{reportForm,jdbcType=CLOB},
+      </if>
+      <if test="monitorDemond != null" >
+        MONITOR_DEMOND = #{monitorDemond,jdbcType=CLOB},
+      </if>
+      <if test="otherContent != null" >
+        OTHER_CONTENT = #{otherContent,jdbcType=CLOB},
+      </if>
+      <if test="funcwfCont != null" >
+        FUNCWF_CONT = #{funcwfCont,jdbcType=CLOB},
+      </if>
+      <if test="implreqCont != null" >
+        IMPLREQ_CONT = #{implreqCont,jdbcType=CLOB},
+      </if>
+      <if test="insertCode != null" >
+        INSERT_CODE = #{insertCode,jdbcType=CLOB},
+      </if>
+    </set>
+    where ARE_ID = #{areId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllAlmReqtmpEleChanl" resultMap="BaseResultMap">
+        select * from (
+    select ROWNUM AS ROWNO,
+    T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_ELECHANL T,ALM_REQTMP_TOPIC A
+    where 1=1
+    and T.ART_ID = A.ART_ID
+    <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.PURPOST_CONT like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.FUNC_WF like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.ELE_CHANNEL like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.ELE_CHANNEL_CONT like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+      and A.ART_REGION  = #{artRegion,jdbcType=INTEGER}
+    </if>
+    <if test="urgentLevel != null">
+      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if>
+    <if test="submitStaffName != null">
+      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if>
+    and ROWNUM &lt;= (#{offset} * #{size}) )a
+    where a.ROWNO >=(#{offset}-1) * #{size}+1
+    
+  </select>
+  
+  <select id="getAllAlmReqtmpEleChanlCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ROWNUM AS ROWNO,
+    T.*,A.ART_TAG,A.ART_NAME from ALM_REQTMP_ELECHANL T,ALM_REQTMP_TOPIC A
+    where 1=1
+    and T.ART_ID = A.ART_ID
+    <if test="keyword !=null">and (A.ART_TAG like CONCAT(CONCAT('%',#{keyword}),'%')
+      or A.ART_NAME like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.PURPOST_CONT like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.FUNC_WF like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.ELE_CHANNEL like CONCAT(CONCAT('%',#{keyword}),'%')
+      or T.ELE_CHANNEL_CONT like CONCAT(CONCAT('%',#{keyword}),'%'))
+    </if>
+    <if test="artType != null">
+      and  A.ART_TYPE = #{artType,jdbcType=INTEGER}
+    </if>
+    <if test="artName != null">
+    	and A.ART_NAME like CONCAT(CONCAT('%',#{artName}),'%')
+    </if>
+    <if test="artTag != null">
+    	and A.ART_TAG like CONCAT(CONCAT('%',#{artTag}),'%')
+    </if>
+    <if test="artRegion != null">
+      and A.ART_REGION  = #{artRegion,jdbcType=INTEGER}
+    </if>
+    <if test="urgentLevel != null">
+      and  A.URGENT_LEVEL = #{urgentLevel,jdbcType=INTEGER}
+    </if>
+    <if test="submitStaffName != null">
+      and A.SUBMIT_STAFF_NAME like CONCAT(CONCAT('%',#{submitStaffName}),'%')
+    </if> )
+
+  </select>
+
+
+</mapper>

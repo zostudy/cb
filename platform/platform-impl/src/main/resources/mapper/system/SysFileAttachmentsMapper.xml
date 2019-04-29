@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asiainfo.rms.system.dao.SysFileAttachmentsDao">
+    <resultMap id="BaseResultMap" type="com.asiainfo.rms.system.domain.SysFileAttachmentsRepostitory">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+        <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+        <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+        <result column="FILE_RESOURCE" property="fileResource" jdbcType="VARCHAR" />
+        <result column="SUBMIT_STAFF_ID" property="submitStaffId" jdbcType="INTEGER" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    </resultMap>
+
+    <sql id='TABLE_SEQUENCE'>SYS_FILE_ATTACHMENTS$SEQ.nextval</sql>
+
+    <insert id="saveFileAttachments" parameterType="com.asiainfo.rms.system.domain.SysFileAttachmentsRepostitory">
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
+            select SYS_FILE_ATTACHMENTS$SEQ.nextval from dual
+        </selectKey>
+        insert into SYS_FILE_ATTACHMENTS
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                ID,
+            <if test="filePath != null" >
+                FILE_PATH,
+            </if>
+            <if test="fileName != null" >
+                FILE_NAME,
+            </if>
+            <if test="fileType != null" >
+                FILE_TYPE,
+            </if>
+            <if test="fileResource != null" >
+                FILE_RESOURCE,
+            </if>
+            <if test="submitStaffId != null" >
+                SUBMIT_STAFF_ID,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{id,jdbcType=INTEGER},
+            <if test="filePath != null" >
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileName != null" >
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null" >
+                #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileResource != null" >
+                #{fileResource,jdbcType=VARCHAR},
+            </if>
+            <if test="submitStaffId != null" >
+                #{submitStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+</mapper>

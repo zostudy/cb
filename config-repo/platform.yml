@@ -1,0 +1,47 @@
+server:
+  port: 18081
+  context-path: /rms/platform
+
+logging:
+  level:
+    ROOT: debug
+  file: logs/platform.log
+
+basePath : /home/ftp/
+baseImagePath : /home/ftp/image/
+baseOfficePath : /home/ftp/office/
+ftpPath : /attach/
+
+#ignored : 10.12.1.11:19090/#/ssologin
+ignored : /ssologin/*
+
+spring:
+  data:
+    elasticsearch:
+      cluster-name: rms
+      cluster-nodes: 10.12.1.20:9300
+
+#basePath : D:\readFileTest
+#baseImagePath : D:\readFileTest\image\
+#baseOfficePath : D:\readFileTest\office\
+
+#feign:
+#  hystrix:
+#    enabled: false
+#Hystrix超时配置
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled:  false
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds:  300000
+##      timeout:
+##        enabled: false
+
+reverseAuthenticate:
+  menuUrl: /groupserv/groupserv?service=page/PageA&listener=init
+  ssoTicketDesKey: cs&cr)(&$m&loia&crM#$RVCXR
+  
